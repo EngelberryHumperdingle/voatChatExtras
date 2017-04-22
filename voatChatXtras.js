@@ -1,3 +1,8 @@
+// voatChatXtras.js
+// https://voat.co/user/EngelbertHumperdinck
+//
+// version 2
+
 var blockedUserList = [];
 var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
 var shillList = { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] };
@@ -233,7 +238,7 @@ $('document').ready(function(){
     blockedUserList = localStorage.getItem('blockedUserList').split(',');
     updateBlockList();
   }
-
+  else console.log('no blocked users');
   if (localStorage.getItem('fake') != null) {
     console.log('fake: '+localStorage.getItem('fake'));
     fakeList = localStorage.getItem('fake').split(',');
