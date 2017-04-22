@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.8
+// version 2.9
 
 var blockedUserList = [];
 var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
@@ -83,8 +83,8 @@ function initiateUserLabels(){
     console.log('building: '+this.labelName);
 
     var theListHTML = [];
-    if ( $(this).list.length > 0 ) {
-      $(this).list.each(function(){
+    if ( this.list.length > 0 ) {
+      this.list.each(function(){
         console.log('making css rule for: '+this);
         theListHTML.push('div.chat-message-head a[href="/user/'+this+'"]' );
 
