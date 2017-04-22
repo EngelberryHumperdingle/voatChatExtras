@@ -244,17 +244,18 @@ $('document').ready(function(){
   if (localStorage.getItem('fake') != null) {
     console.log('fake: '+localStorage.getItem('fake'));
     fakeList = localStorage.getItem('fake').join(',');
+    initiateUserLabels();
   }
   if (localStorage.getItem('shill') != null) {
     console.log('shill: '+localStorage.getItem('shill'));
     shillList = localStorage.getItem('shill').join(',');
+    initiateUserLabels();
   }
   if (localStorage.getItem('bro') != null) {
     console.log('bro: '+localStorage.getItem('bro'));
     broList = localStorage.getItem('bro').join(',');
+    initiateUserLabels();
   }
-
-  initiateUserLabels();
    
   // update display each time a new comment is added
   $('.chatContent').bind("DOMSubtreeModified",function(){
