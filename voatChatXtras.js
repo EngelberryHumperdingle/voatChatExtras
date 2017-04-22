@@ -72,7 +72,7 @@ function updateUserLabels(user, list, otherLists, label){
 }
 
 function initiateUserLabels(){
-  console.log('------------------------------\nupdateAllUserLabels()');
+  console.log('------------------------------\ninitiateUserLabels()');
 
   $(labelLists).each(function(){
     console.log('building: '+this.labelName);
@@ -90,7 +90,7 @@ function initiateUserLabels(){
       localStorage.clear(this.labelName)
       $('style#'+this.labelName).html("");
     }
-      
+
   });
 }
 
@@ -226,19 +226,13 @@ $('document').ready(function(){
   
   // add area to display blocked users
   $('.sidecontentbox').append(blockListDisplay);
-
-  //check localStorage for user lists
+  
+  // get lists from localStorage
   if (localStorage.getItem('blockedUserList') != null) {
+    console.log('blocked: '+localStorage.getItem('blockedUserList'));
     blockedUserList = localStorage.getItem('blockedUserList').split(',');
     updateBlockList();
   }
-  
-  // get lists from localStorage
-  $(labelLists).each(function(){
-    if (localStorage.getItem(this.labelName) != null) {
-      this.list = localStorage.getItem(this.labelName).split(',');
-    }
-  });
 
   if (localStorage.getItem('fake') != null) {
     console.log('fake: '+localStorage.getItem('fake'));
