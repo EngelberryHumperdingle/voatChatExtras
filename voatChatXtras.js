@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.1
+// version 2.2
 
 var blockedUserList = [];
 var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
@@ -216,17 +216,16 @@ $('body').on('click', '.labelOptions a', function(){
 
 $('document').ready(function(){
 
- // localStorage.clear();
-
+  // add style tags
   $('head').append('<style type="text/css"> .labelFake { color: #FF0000; } .labelCool { color: green; } button.blockUser, button.labelFake, button.labelUser { height: 16px; padding: 0 2px; color: white; background-color: #303030; } button.blockUser:hover { background-color: #FF0000; } button.labelFake:hover, button.labelUser:hover { background-color: #6E63C0; } a.fake { color: rgb(255, 0, 0); } a.shill { color: rgb(7,82,165); } a.bro { color: rgb(6,115,57); } .labelOptions { display: none; } .blockListDisplay { display: none; float: right; width: 90%; padding-top: 6px; }</style> <style type="text/css" id="fake"></style> <style type="text/css" id="shill"></style> <style type="text/css" id="bro"></style>');
 
+  // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
   var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
-  var numComments = $('.chat-message').length;
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
+  var numComments = $('.chat-message').length;
 
   // add buttons to existing comments
-  //$('.chat-message-head p').append(blockButton).append(fakeButton).append(coolButton);
   $('.chat-message-head p').append(blockButton).append(labelButton);
   
   // add area to display blocked users
@@ -243,23 +242,26 @@ $('document').ready(function(){
     console.log('fake: '+localStorage.getItem('fake'));
     fakeList = localStorage.getItem('fake').split(',');
     console.log('fakeList updated');
-    initiateUserLabels();
   }
   else console.log('no fakes');
   if (localStorage.getItem('shill') != null) {
     console.log('shill: '+localStorage.getItem('shill'));
     shillList = localStorage.getItem('shill').split(',');
     console.log('fakeList updated');
-    initiateUserLabels();
   }
   else console.log('no shills');
   if (localStorage.getItem('bro') != null) {
     console.log('bro: '+localStorage.getItem('bro'));
     broList = localStorage.getItem('bro').split(',');
     console.log('fakeList updated');
-    initiateUserLabels();
   }
   else console.log('no bros');
+
+  if ( (localStorage.getItem('fake') != null) ||
+      (localStorage.getItem('shill') != null) ||
+      (localStorage.getItem('bro') != null) ) {
+    initiateUserLabels();
+  }
    
   // update display each time a new comment is added
   $('.chatContent').bind("DOMSubtreeModified",function(){
