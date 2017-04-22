@@ -239,23 +239,24 @@ $('document').ready(function(){
     }
   });
 
-  console.log('this happended');
-
   if (localStorage.getItem('fake') != null) {
     console.log('fake: '+localStorage.getItem('fake'));
     fakeList = localStorage.getItem('fake').join(',');
     initiateUserLabels();
   }
+  else console.log('no fakes');
   if (localStorage.getItem('shill') != null) {
     console.log('shill: '+localStorage.getItem('shill'));
     shillList = localStorage.getItem('shill').join(',');
     initiateUserLabels();
   }
+  else console.log('no shills');
   if (localStorage.getItem('bro') != null) {
     console.log('bro: '+localStorage.getItem('bro'));
     broList = localStorage.getItem('bro').join(',');
     initiateUserLabels();
   }
+  else console.log('no bros');
    
   // update display each time a new comment is added
   $('.chatContent').bind("DOMSubtreeModified",function(){
