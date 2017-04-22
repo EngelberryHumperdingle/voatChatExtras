@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.14 commented console calls
+// version 2.14.1 console calls
 
 
 // globals
@@ -48,7 +48,7 @@ function updateUserLabels(user, list, otherLists, label){
   // This should probably be refactored.
   // Shares redundant code with initiateUserLabels()
 
-  //console.log('---------------------\nupdatingUserLabels('+user+')');
+  console.log('---------------------\nupdatingUserLabels('+user+')');
 
   // ✡
   // STAR OF DAVID
@@ -60,13 +60,13 @@ function updateUserLabels(user, list, otherLists, label){
 
   // go through each of the label lists
   $(labelLists).each(function(){
-    //console.log('building: '+this.labelName);
+    console.log('building: '+this.labelName);
     
     var theListCSS = []; // holds css to be written
     
     // add a rule for each user on the list
     $(this.list).each(function(){
-        //console.log('making rule for: '+this);
+        console.log('making rule for: '+this);
         theListCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]' ); 
     });
 
@@ -93,11 +93,11 @@ function updateUserLabels(user, list, otherLists, label){
 }
 
 function initiateUserLabels(){
-  //console.log('------------------------------\ninitiateUserLabels()');
+  console.log('------------------------------\ninitiateUserLabels()');
 
   // go through each of the label list objects
   $(labelLists).each(function(){
-    //console.log('building: '+this.labelName);
+    console.log('building: '+this.labelName);
     //try { console.log(this.list); }
     //catch(e) { }
 
@@ -106,7 +106,7 @@ function initiateUserLabels(){
     if ( this.list.length > 0 ) { 
       // make a rule for each of the names in the [object].list array
       $(this.list).each(function(){
-        // console.log('making css rule for: '+this); 
+        console.log('making css rule for: '+this); 
         theListCSS.push('div.chat-message-head a[href="/user/'+this+'"]' );
       })  
 
@@ -114,7 +114,7 @@ function initiateUserLabels(){
       $('style#'+this.labelName).html(theListCSS + '{color: '+this.labelColor+'}');
     }
     else { 
-      //console.log('no list for '+this.labelName); 
+      console.log('no list for '+this.labelName); 
 
       // clear the corresponding style tag
       $('style#'+this.labelName).html("");
@@ -188,7 +188,7 @@ $('body').on('click', '.labelOptions a', function(){
     default : // this will never happen
   }
 
-  //console.log('\n\ntheList: '+theList.labelName+'\nuserColor: '+userColor+', labelColor: '+labelColor);
+  console.log('\n\ntheList: '+theList.labelName+'\nuserColor: '+userColor+', labelColor: '+labelColor);
 
   // if the user is already on the selected list
   if (userColor == labelColor) {
@@ -196,34 +196,34 @@ $('body').on('click', '.labelOptions a', function(){
     theList.list.splice(theList.list.indexOf(userName), 1);
 
     // debugging stuff
-    // console.log('\n removed '+userName+' from list: '+ theLabel);
+    console.log('\n removed '+userName+' from list: '+ theLabel);
     // if (theList.list.length) console.log('\t theList.length: '+theList.list.length);
     // else console.log('\t empty list');
-    // console.log('\t'+theList.list);
+    console.log('\t'+theList.list);
 
     // if the selected list is empty, remove it from localStorage
     if (theList.list.length < 1) localStorage.clear(theLabel);
   }
   else {
-    //console.log('user: '+ userName+' not on list: '+theList.labelName);
+    console.log('user: '+ userName+' not on list: '+theList.labelName);
     
     // remove user from the other lists if present
     $(theOtherLists).each(function(i){
-      //console.log('checking: '+this.labelName+' for: '+userName);
-      //console.log(this.list.indexOf(userName) != -1);
+      console.log('checking: '+this.labelName+' for: '+userName);
+      console.log(this.list.indexOf(userName) != -1);
 
       if ( this.list.indexOf(userName) != -1 ) {
-        //console.log(userName+' is on list: '+theOtherLists[i].labelName);
+        console.log(userName+' is on list: '+theOtherLists[i].labelName);
         this.list.splice(this.list.indexOf(userName), 1);
-        //console.log(userName + ' removed from list: '+this.labelName);
+        console.log(userName + ' removed from list: '+this.labelName);
       }
     });
 
     // add it to the new list
     theList.list.push(userName);
-    // console.log('\n added '+userName+' to list: '+ theLabel);
-    // console.log('\t'+ theLabel+ '.length: '+theList.list.length);
-    // console.log('\t'+theList.list);
+    console.log('\n added '+userName+' to list: '+ theLabel);
+    console.log('\t'+ theLabel+ '.length: '+theList.list.length);
+    console.log('\t'+theList.list);
   }
 
   updateUserLabels(userName, theList, theOtherLists, theLabel);
@@ -252,30 +252,30 @@ $('document').ready(function(){
   
   // get lists from localStorage
   if (localStorage.getItem('blocked') != null) {
-    // console.log('blocked: '+localStorage.getItem('blocked'));
+    console.log('blocked: '+localStorage.getItem('blocked'));
     blockedUserList = localStorage.getItem('blocked').split(',');
     updateBlockList();
   }
   // else { console.log('no blocked users'); }
 
   if (localStorage.getItem('fake') != null) {
-    // console.log('fake: '+localStorage.getItem('fake'));
+    console.log('fake: '+localStorage.getItem('fake'));
     fakeList = localStorage.getItem('fake').split(',');
-    // console.log('fakeList: '+fakeList);
+    console.log('fakeList: '+fakeList);
   }
   // else { console.log('no fakes'); }
 
   if (localStorage.getItem('shill') != null) {
-    // console.log('shill: '+localStorage.getItem('shill'));
+    console.log('shill: '+localStorage.getItem('shill'));
     shillList = localStorage.getItem('shill').split(',');
-    // console.log('shillList: '+shillList);
+    console.log('shillList: '+shillList);
   }
   // else { console.log('no shills'); }
 
   if (localStorage.getItem('bro') != null) {
-    // console.log('bro: '+localStorage.getItem('bro'));
+    console.log('bro: '+localStorage.getItem('bro'));
     broList = localStorage.getItem('bro').split(',');
-    // console.log('broList: '+broList);
+    console.log('broList: '+broList);
   }
   // else { console.log('no bros'); }
 
