@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.14.4 troubelshooting
+// version 2.14.5 troubelshooting
 
 var blockedUserList = [];
 var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
@@ -243,7 +243,7 @@ $('document').ready(function(){
 
   if (localStorage.getItem('fake') != null) {
     console.log('fake: '+localStorage.getItem('fake'));
-    fakeList = localStorage.getItem('fake').split(',');
+    fakeList.list = localStorage.getItem('fake').split(',');
     // labelLists[0].list = localStorage.getItem('fake').split(',');
     console.log('fakeList: '+fakeList.list);
   }
@@ -251,7 +251,7 @@ $('document').ready(function(){
 
   if (localStorage.getItem('shill') != null) {
     console.log('shill: '+localStorage.getItem('shill'));
-    shillList = localStorage.getItem('shill').split(',');
+    shillList.list = localStorage.getItem('shill').split(',');
     // labelLists[1].list = localStorage.getItem('shill').split(',');
     console.log('shillList: '+shillList.list);
   }
@@ -259,7 +259,7 @@ $('document').ready(function(){
 
   if (localStorage.getItem('bro') != null) {
     console.log('bro: '+localStorage.getItem('bro'));
-    broList = localStorage.getItem('bro').split(',');
+    broList.list = localStorage.getItem('bro').split(',');
     // labelLists[2].list = localStorage.getItem('bro').split(',');
     console.log('broList: '+broList.list);
   }
