@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2
+// version 2.1
 
 var blockedUserList = [];
 var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
@@ -170,7 +170,7 @@ $('body').on('click', '.labelOptions a', function(){
       labelColor = "rgb(86, 168, 218)";
   }
 
-  console.log('\n\nuserColor: '+userColor+', labelColor: '+labelColor);
+  console.log('\n\ntheList: '+theList.labelName+'\nuserColor: '+userColor+', labelColor: '+labelColor);
 
   // if the user is already on the selected list
   if (userColor == labelColor) {
