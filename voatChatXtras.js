@@ -242,15 +242,15 @@ $('document').ready(function(){
   console.log('this happended');
 
   if (localStorage.getItem('fake') != null) {
-    console.log(labelLists[0].labelName+': '+localStorage.getItem('fake'));
+    console.log('fake: '+localStorage.getItem('fake'));
     fakeList = localStorage.getItem('fake').join(',');
   }
   if (localStorage.getItem('shill') != null) {
-    console.log(labelLists[1].labelName+': '+localStorage.getItem('shill'));
+    console.log('shill: '+localStorage.getItem('shill'));
     shillList = localStorage.getItem('shill').join(',');
   }
   if (localStorage.getItem('bro') != null) {
-    console.log(labelLists[2].labelName+': '+localStorage.getItem('bro'));
+    console.log('bro: '+localStorage.getItem('bro'));
     broList = localStorage.getItem('bro').join(',');
   }
 
