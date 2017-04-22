@@ -71,6 +71,28 @@ function updateUserLabels(user, list, otherLists, label){
   
 }
 
+function initiateUserLabels(){
+  console.log('------------------------------\nupdateAllUserLabels()');
+
+  $(labelLists).each(function){
+    console.log('building: '+this.labelName);
+
+    var theListHTML = [];
+    $(this.list).each(function(){
+      console.log('making css rule for: '+this);
+      theListHTML.push('div.chat-message-head a[href="/user/'+this+'"]' );
+    })
+
+    
+    $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
+
+    if (this.list.length < 1) {
+      localStorage.clear(this.labelName)
+      $('style#'+this.labelName).html("");
+    }  
+  }
+}
+
 
 /////////////////////////////////////////////////
 
@@ -231,6 +253,8 @@ $('document').ready(function(){
     console.log(labelLists[2].labelName+': '+localStorage.getItem('bro'));
     broList = localStorage.getItem('bro').join(',');
   }
+
+  initiateUserLabels();
    
   // update display each time a new comment is added
   $('.chatContent').bind("DOMSubtreeModified",function(){
