@@ -219,21 +219,18 @@ $('document').ready(function(){
 
   console.log('this happended');
 
-  if (localStorage.getItem('fake') != null) console.log(labelLists[0].labelName+': '+localStorage.getItem('fake'));
-  if (localStorage.getItem('shill') != null) console.log(labelLists[1].labelName+': '+localStorage.getItem('shill'));
-  if (localStorage.getItem('bro') != null) console.log(labelLists[2].labelName+': '+localStorage.getItem('bro'));
-  // update colors
-  // $(labelLists).each(function(){
-  //   var thisList = this;
-  //   var thisOtherLists = labelLists.splice(labelLists.indexOf(thisList));
-  //   var thisLabel = thisList.labelName;
-  //   var thisColor = thisList.labelColor;
-  //   $(thisList.list).each(function(){
-  //     var thisUser = this;
-  //     updateUserLabels(thisUser, thisList, thisOtherLists, thisLabel);
-  //   });
-  // });
-
+  if (localStorage.getItem('fake') != null) {
+    console.log(labelLists[0].labelName+': '+localStorage.getItem('fake'));
+    fakeList = localStorage.getItem('fake').join(',');
+  }
+  if (localStorage.getItem('shill') != null) {
+    console.log(labelLists[1].labelName+': '+localStorage.getItem('shill'));
+    shillList = localStorage.getItem('shill').join(',');
+  }
+  if (localStorage.getItem('bro') != null) {
+    console.log(labelLists[2].labelName+': '+localStorage.getItem('bro'));
+    broList = localStorage.getItem('bro').join(',');
+  }
    
   // update display each time a new comment is added
   $('.chatContent').bind("DOMSubtreeModified",function(){
