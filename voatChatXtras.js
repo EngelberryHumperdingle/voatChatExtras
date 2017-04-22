@@ -89,8 +89,9 @@ function initiateUserLabels(){
     if (this.list.length < 1) {
       localStorage.clear(this.labelName)
       $('style#'+this.labelName).html("");
-    }  
-  }
+    }
+      
+  });
 }
 
 
