@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.4
+// version 2.5
 
 var blockedUserList = [];
 var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
@@ -83,16 +83,16 @@ function initiateUserLabels(){
     console.log('building: '+this.labelName);
 
     var theListHTML = [];
-    $(this.list).each(function(){
-      console.log('making css rule for: '+this);
-      theListHTML.push('div.chat-message-head a[href="/user/'+this+'"]' );
-    })
+    if ( $(this.list).length ) {
+      $(this.list).each(function(){
+        console.log('making css rule for: '+this);
+        theListHTML.push('div.chat-message-head a[href="/user/'+this+'"]' );
 
-    
-    $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
-
-    if (this.list.length < 1) {
-      localStorage.clear(this.labelName)
+      })  
+      $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
+    }
+    else { 
+      console.log('no list for '+this.labelName); 
       $('style#'+this.labelName).html("");
     }
 
@@ -247,13 +247,13 @@ $('document').ready(function(){
   if (localStorage.getItem('shill') != null) {
     console.log('shill: '+localStorage.getItem('shill'));
     shillList = localStorage.getItem('shill').split(',');
-    console.log('fakeList updated');
+    console.log('shillList updated');
   }
   else { console.log('no shills'); }
   if (localStorage.getItem('bro') != null) {
     console.log('bro: '+localStorage.getItem('bro'));
     broList = localStorage.getItem('bro').split(',');
-    console.log('fakeList updated');
+    console.log('broList updated');
   }
   else { console.log('no bros'); }
 
