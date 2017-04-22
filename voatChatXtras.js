@@ -74,7 +74,7 @@ function updateUserLabels(user, list, otherLists, label){
 function initiateUserLabels(){
   console.log('------------------------------\nupdateAllUserLabels()');
 
-  $(labelLists).each(function){
+  $(labelLists).each(function(){
     console.log('building: '+this.labelName);
 
     var theListHTML = [];
@@ -242,18 +242,21 @@ $('document').ready(function(){
   if (localStorage.getItem('fake') != null) {
     console.log('fake: '+localStorage.getItem('fake'));
     fakeList = localStorage.getItem('fake').join(',');
+    console.log('fakeList updated');
     initiateUserLabels();
   }
   else console.log('no fakes');
   if (localStorage.getItem('shill') != null) {
     console.log('shill: '+localStorage.getItem('shill'));
     shillList = localStorage.getItem('shill').join(',');
+    console.log('fakeList updated');
     initiateUserLabels();
   }
   else console.log('no shills');
   if (localStorage.getItem('bro') != null) {
     console.log('bro: '+localStorage.getItem('bro'));
     broList = localStorage.getItem('bro').join(',');
+    console.log('fakeList updated');
     initiateUserLabels();
   }
   else console.log('no bros');
