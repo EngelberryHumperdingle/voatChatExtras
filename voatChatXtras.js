@@ -1,8 +1,11 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.14.9 
-// comment out console calls
+// version 2.14.10 
+// updated updateLabels function
+
+// next:
+// removed console calls, added comments
 
 var blockedUserList = [];
 var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
@@ -10,6 +13,7 @@ var shillList = { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] };
 var broList = { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] };
 var labelLists = [fakeList, shillList, broList];
 var blockedUserLinks = [];
+var fresh = true;
 
 /////////////////////////////////////////////////
 
@@ -33,91 +37,66 @@ function updateBlockList(){
     $('a[href="'+blockee+'"]').parents('div.chat-message').hide();
   });
 
+  // Show list of blocked users at the bottom of the screen
   $('.blockListDisplay').html('Click to unblock: '+ blockedUserLinks.join(', ') );
 }
 
 
 /////////////////////////////////////////////////
 
-function updateUserLabels(user, list, otherLists, label){
- 
-  // console.log('---------------------\nupdatingUserLabels('+user+')');
 
-  // ✡
-  // STAR OF DAVID
-  // Unicode: U+2721, UTF-8: E2 9C A1
+// ✡ Unicode: U+2721, UTF-8: E2 9C A1
+// 🐐 Unicode: U+1F410 (U+D83D U+DC10), UTF-8: F0 9F 90 90
 
-  // 🐐
-  // GOAT
-  // Unicode: U+1F410 (U+D83D U+DC10), UTF-8: F0 9F 90 90
-
-  $(labelLists).each(function(){
-    //console.log('checking: '+this.labelName+' for: '+user);
-    // console.log('building: '+this.labelName);
-    
-    var theListHTML = [];
-    $(this.list).each(function(){
-        // console.log('making rule for: '+this);
-        theListHTML.push( 'div.chat-message-head a[href="/user/'+this+'"]' ); 
-    });
-
-    localStorage.setItem(label, this.list.join(','));
-    $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
-
-    if (this.list.length < 1) {
-      localStorage.clear(label)
-      $('style#'+this.labelName).html("");
-    }        
-
-  });
-
-  $(labelLists).each(function(){
-    // console.log('\t'+this.labelName+': '+this.list);
-  });
   
-}
 
 function updateLabels(){
-  // console.log('------------------------------\nupdatingLabels');
 
   $(labelLists).each(function(){
-    //console.log('checking: '+this.labelName+' for: '+user);
-    // console.log('building: '+this.labelName);
     
+    // write a new css rule for each user on the list
     var theListHTML = [];
-    $(this.list).each(function(){
-        // console.log('making rule for: '+this);
-        theListHTML.push( 'div.chat-message-head a[href="/user/'+this+'"]' ); 
-    });
+    
 
-    localStorage.setItem(this.labelName, this.list.join(','));
-    $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
-
+    // clear empty lists from localStorage
     if (this.list.length < 1) {
       localStorage.clear(this.labelName)
       $('style#'+this.labelName).html("");
     }        
+    else {
+      // make a css rule for each user on ths list
+      $(this.list).each(function(){
+          theListHTML.push( 'div.chat-message-head a[href="/user/'+this+'"]' ); 
+      });
 
-  });
+      // add the styles to the page
+      $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
+    }
 
-  $(labelLists).each(function(){
-    // console.log('\t'+this.labelName+': '+this.list);
+    if (fresh) {
+      // we just got the lists from localStorage no need to write them back
+      fresh = false;
+    }
+    else 
+      // save the list in the browser for next visit
+      localStorage.setItem(this.labelName, this.list.join(','));
+    }
+      
+
+
   });
 
 }
 
 function initiateUserLabels(){
-  // console.log('------------------------------\ninitiateUserLabels()');
 
   $(labelLists).each(function(){
-    // console.log('building: '+this.labelName);
-    // try { console.log(this.list); }
-    // catch(e) { }
 
+    // write a new css rule for each user on the list
     var theListHTML = [];
+
     if ( this.list.length > 0 ) {
       $(this.list).each(function(){
-        // console.log('making css rule for: '+this);
         theListHTML.push('div.chat-message-head a[href="/user/'+this+'"]' );
 
       })  
@@ -308,7 +287,8 @@ $('document').ready(function(){
   if ( (localStorage.getItem('fake') != null) ||
       (localStorage.getItem('shill') != null) ||
       (localStorage.getItem('bro') != null) ) {
-    initiateUserLabels();
+    // initiateUserLabels();
+    updateLabels();
   }
   //else { console.log('no labels in localStorage'); }
    
