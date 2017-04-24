@@ -334,12 +334,7 @@ $(window).on('load', function() {
 
   // check localStorage for label lists
   if (localStorage.getItem('labelListsX') != null) {
-    console.log('labelListsX: ', labelListsX);
-    //console.log('labelListsX: '+ labelListsX);
-    $(labelListsX).each(function(i){
-      console.log('\tlist: '+i, this.labelName);
-
-    });
+    logLabelLists();
   }
   else {
     console.log('NO user lists in localStorage');
