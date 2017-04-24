@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.8
+// custom lists 0.9
 
 
 /////////////////////////////////////////////////
@@ -226,22 +226,28 @@ $('body').on('click', '.addLabel', function(){
   var newList = $(this).parent('.labelOptions').find('.userLabel').val();
   var newColor = $(this).parent('.labelOptions').find('.color').val();
   var theUserName = $(this).parents('p').find('a').attr('href').split('/').pop();
-  
+  var nameUnique = true;
+
   // check for duplicate list
   $(labelListsX).each(function(){
-    if (newColor == this.labelColor) {
+    console.log('newColor: '+newColor+', this.labelColor: '+this.labelColor);
+
+    if (newList == this.labelName) {
       alert('you already have a label called \''+newList+'\'');
+      nameUnique = false;
     }
-    else {
-      // create new label list containing user
-      console.log('new list: '+ newList +', color: '+ newColor);
-      var o = {};
-      o.labelName = newList;
-      o.labelColor = newColor;
-      o.list = [theUserName];
-      labelListsX.push(o);
-    }
+
   });
+
+  if (nameUnique) {
+    // create new label list containing user
+    console.log('new list: '+ newList +', color: '+ newColor);
+    var o = {};
+    o.labelName = newList;
+    o.labelColor = newColor;
+    o.list = [theUserName];
+    labelListsX.push(o);
+  }
 
   logLabelLists();
 });
