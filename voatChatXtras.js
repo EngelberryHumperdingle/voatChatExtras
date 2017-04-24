@@ -269,7 +269,7 @@ $('body').on('click', '.addLabel', function(){
     labelListsX.push(o);
 
     // update labels in localStorage
-    updatelabelsInLocalStorage();
+    updateLabelsInLocalStorage();
   }
 
   // console
