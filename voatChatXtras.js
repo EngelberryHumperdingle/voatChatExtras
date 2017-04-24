@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.1
+// custom lists 0.2
 
 
 /////////////////////////////////////////////////
@@ -207,6 +207,7 @@ $('body').on('click', '.labelOptions a', function(){
 
 // click the add label button
 $('body').on('click', '.addLabel', function(){
+  $(this).css('border', '1px solid blue');
   var newList = $(this).parent('.labelOptions').find('.userlabel').val();
   console.log('adding new list: '+ newList);
 });
