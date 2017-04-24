@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.5
+// custom lists 0.6
 
 
 /////////////////////////////////////////////////
@@ -35,12 +35,12 @@ var labelLists = [fakeList, shillList, broList];
 var blockedUserLinks = [];
 var fresh = true;
 
-var labelListsX = {
-  fakeList: { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] },
-  shillList: { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] },
-  trollList: { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
-  broList: { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
-};
+var labelListsX = [
+  { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] },
+  { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] },
+  { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
+  { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
+];
 
 /////////////////////////////////////////////////
 
@@ -126,6 +126,8 @@ $('body').on('click', 'button.blockUser', function(){
     
 });
 
+////////////////////////////////
+
 // click unblock buttons
 $('body').on('click', '.unblockUser', function(e){
   e.preventDefault();
@@ -140,10 +142,14 @@ $('body').on('click', '.unblockUser', function(e){
   if (blockedUserList.length <= 0) $('.blockListDisplay').css('display', 'none');
 });
 
+////////////////////////////////
+
 // click label button
 $('body').on('click', 'button.labelUser', function(){
   $(this).siblings('.labelOptions').toggle(200);
 });
+
+////////////////////////////////
 
 // click actual labels
 $('body').on('click', '.labelOptions a', function(){
@@ -205,11 +211,22 @@ $('body').on('click', '.labelOptions a', function(){
 
 });
 
+////////////////////////////////
+
 // click the add label button
 $('body').on('click', '.addLabel', function(){
   var newList = $(this).parent('.labelOptions').find('.userLabel').val();
   var newColor = $(this).parent('.labelOptions').find('.color').val();
-  console.log('adding new list: '+ newList +', color: '+ newColor);
+
+  // check for duplicate list
+  $(labelListsX).each(function(){
+    if (newColor == this.labelColor) {
+      alert('you already have a label called \''+newList+'\'');
+    }
+    else {
+      console.log('new list: '+ newList +', color: '+ newColor);
+    }
+  });
 });
 
 /////////////////////////////////////////////////
@@ -268,8 +285,9 @@ $(window).on('load', function() {
   // check localStorage for label lists
   if (localStorage.getItem('labelListsX') != null) {
     console.log('labelListsX: ', labelListsX);
+    console.log('labelListsX: '+ labelListsX);
     $(labelListsX).each(function(i){
-      console.log('list: '+i, this.labelName)
+      console.log('list: '+i, this.labelName);
     });
   }
   else {
