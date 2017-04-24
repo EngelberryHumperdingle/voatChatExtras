@@ -207,7 +207,7 @@ $(window).on('load', function() {
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
   // var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <input class="color no-alpha" value="rgb(162, 63, 3)" style="background-color: rgb(169, 84, 33); color: rgb(221, 221, 221);"> &nbsp; <input class="userLabel" type="text" name="userLabel" value="Shill"> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
-  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="ex: Shill" /> &nbsp; <input class="color" /> &nbsp; <button type="button" class="addLabel">add</button> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
+  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="ex: Shill" /> &nbsp; <input class="color no-alpha" /> &nbsp; <button type="button" class="addLabel">add</button> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
   var numComments = $('.chat-message').length;
 
@@ -243,7 +243,7 @@ $(window).on('load', function() {
   // activate color picker
   $('.color').colorPicker({
     color: 'rgb(180, 0, 0)',
-    doRender: false,
+    doRender: '.color',
     opacity: false
   });
 
