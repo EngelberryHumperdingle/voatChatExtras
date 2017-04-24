@@ -4,14 +4,18 @@
 // added color picker
 // changed doc ready to win on load
 // working on color picker
+// 
 
 
 /////////////////////////////////////////////////
 
+// load color picker script
 var colorPickerScript = document.createElement("script");
 colorPickerScript.type = "text/javascript";
 colorPickerScript.src = "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js";
 $("head").append(colorPickerScript);
+// consider using the jquery loadScript method for this
+// it has a callback for after the script is loaded
 
 /////////////////////////////////////////////////
 
@@ -207,7 +211,7 @@ $(window).on('load', function() {
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
   // var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <input class="color no-alpha" value="rgb(162, 63, 3)" style="background-color: rgb(169, 84, 33); color: rgb(221, 221, 221);"> &nbsp; <input class="userLabel" type="text" name="userLabel" value="Shill"> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
-  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="ex: Shill" /> &nbsp; <input class="color" value="rgb(180, 0, 0)" /> &nbsp; <button type="button" class="addLabel">add</button> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a> </span>';
+  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="ex: Shill" /> &nbsp; <input class="color" value="rgb(180, 0, 0)" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
   var numComments = $('.chat-message').length;
 
@@ -239,6 +243,11 @@ $(window).on('load', function() {
       (localStorage.getItem('bro') != null) ) {
     updateLabels();
   }
+
+
+  // check localStorage for label lists
+  if (localStorage.getItem('labelListsX'))
+
 
   // activate color picker
   $('.color').colorPicker({
