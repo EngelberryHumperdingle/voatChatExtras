@@ -202,12 +202,12 @@ $(window).on('load', function() {
   //$('head').append('<link rel="stylesheet" type="text/css" href="">');
 
   // add style tags
-  $('head').append('<style type="text/css"> button.blockUser, button.labelUser, button.addLabel { height: 16px; padding: 0 2px; color: white; background-color: #303030; } button.blockUser:hover { background-color: #FF0000; } button.labelUser:hover, button.addLabel:hover { background-color: #6E63C0; } a.fake { color: rgb(255, 0, 0); } a.shill { color: rgb(7,82,165); } a.bro { color: rgb(6,115,57); } .labelOptions { display: none; } .blockListDisplay { display: none; float: right; width: 90%; padding-top: 6px; }</style> <style type="text/css" id="fake"></style> <style type="text/css" id="shill"></style> <style type="text/css" id="bro"></style>');
+  $('head').append('<style type="text/css"> button.blockUser, button.labelUser, button.addLabel { height: 16px; padding: 0 2px; color: white; background-color: #303030; } button.blockUser:hover { background-color: #FF0000; } button.labelUser:hover, button.addLabel:hover { background-color: #6E63C0; } a.fake { color: rgb(255, 0, 0); } a.shill { color: rgb(7,82,165); } a.bro { color: rgb(6,115,57); } .labelOptions { display: none; } .userLabel { width: 80px; } .color { max-width: 100px; text-align: center; }.blockListDisplay { display: none; float: right; width: 90%; padding-top: 6px; }</style> <style type="text/css" id="fake"></style> <style type="text/css" id="shill"></style> <style type="text/css" id="bro"></style>');
 
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
   // var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <input class="color no-alpha" value="rgb(162, 63, 3)" style="background-color: rgb(169, 84, 33); color: rgb(221, 221, 221);"> &nbsp; <input class="userLabel" type="text" name="userLabel" value="Shill"> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
-  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="ex: Shill" /> &nbsp; <input class="color" value="rgb(162, 63, 3)" /> &nbsp; <button type="button" class="addLabel">add</button> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
+  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="ex: Shill" /> &nbsp; <input class="color" /> &nbsp; <button type="button" class="addLabel">add</button> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
   var numComments = $('.chat-message').length;
 
@@ -242,6 +242,8 @@ $(window).on('load', function() {
 
   // activate color picker
   $('.color').colorPicker({
+    color: 'rgb(180, 0, 0)',
+    doRender: true | 'selector',
     opacity: false
   });
 

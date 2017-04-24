@@ -22,6 +22,8 @@ a.shill { color: rgb(7,82,165); }
 a.bro { color: rgb(6,115,57); } 
 
 .labelOptions { display: none; } 
+.userLabel { width: 80px; }
+.color { max-width: 100px; text-align: center; }
 
 .blockListDisplay { 
 	display: none; 
