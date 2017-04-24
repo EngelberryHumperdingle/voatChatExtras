@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.11
+// custom lists 0.12
 
 // to do:
 // add label lists to localStorage each time something is changed
@@ -42,10 +42,10 @@ var blockedUserLinks = [];
 var fresh = true;
 
 var labelListsX = [
-  { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] },
-  { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] },
-  { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
-  { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
+  // { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] },
+  // { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] },
+  // { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
+  // { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
 ];
 
 /////////////////////////////////////////////////
@@ -125,6 +125,11 @@ function logLabelLists() {
   console.log('------------------------------\nlogLabelLists()')
   $(labelListsX).each(function(){
     console.log('list: ' + this.labelName + ', color: ' + this.labelColor );
+    try { $(this.list).each(function(){
+            console.log('\t'+this);
+          });
+    }
+    catch(e){}
   });
 }
 
