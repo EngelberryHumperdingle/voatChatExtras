@@ -1,10 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// added color picker
-// changed doc ready to win on load
-// working on color picker
-// 
+// custom lists 0.1
 
 
 /////////////////////////////////////////////////
@@ -17,6 +14,7 @@ $("head").append(colorPickerScript);
 
 // consider using the jquery getScript method for this
 // it has a callback for after the script is loaded
+// can't do this here because the element with .color isn't created yet
 // $.getScript( "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js" )
 //   .done(function( script, textStatus ) {
 //     $('.color').colorPicker({
@@ -205,6 +203,12 @@ $('body').on('click', '.labelOptions a', function(){
 
   updateLabels();
 
+});
+
+// click the add label button
+$('body').on('click', '.addLabel', function(){
+  var newList = $(this).parent('.labelOptions').find('.userlabel').val();
+  console.log('adding new list: '+ newList);
 });
 
 /////////////////////////////////////////////////
