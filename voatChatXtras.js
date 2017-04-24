@@ -243,7 +243,6 @@ $(window).on('load', function() {
   // activate color picker
   $('.color').colorPicker({
     color: 'rgb(180, 0, 0)',
-    doRender: '.color',
     opacity: false
   });
 
