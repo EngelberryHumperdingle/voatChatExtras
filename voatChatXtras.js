@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.6
+// custom lists 0.7
 
 
 /////////////////////////////////////////////////
@@ -112,6 +112,14 @@ function updateLabels(){
 
   });
 
+}
+
+
+function logLabelLists() {
+  console.log('------------------------------\nlogLabelLists()')
+  $(labelListsX).each(function(){
+    console.log('list: ' + this.labelName + ', color: ' + this.labelColor );
+  });
 }
 
 /////////////////////////////////////////////////
@@ -227,6 +235,8 @@ $('body').on('click', '.addLabel', function(){
       console.log('new list: '+ newList +', color: '+ newColor);
     }
   });
+
+  logLabelLists();
 });
 
 /////////////////////////////////////////////////
