@@ -10,22 +10,22 @@
 /////////////////////////////////////////////////
 
 // load color picker script
-// var colorPickerScript = document.createElement("script");
-// colorPickerScript.type = "text/javascript";
-// colorPickerScript.src = "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js";
-// $("head").append(colorPickerScript);
+var colorPickerScript = document.createElement("script");
+colorPickerScript.type = "text/javascript";
+colorPickerScript.src = "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js";
+$("head").append(colorPickerScript);
 
 // consider using the jquery getScript method for this
 // it has a callback for after the script is loaded
-$.getScript( "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js" )
-  .done(function( script, textStatus ) {
-    $('.color').colorPicker({
-      opacity: false
-    });
-  })
-  .fail(function( jqxhr, settings, exception ) {
-    alert('failed loading colorpicker script');
-});
+// $.getScript( "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js" )
+//   .done(function( script, textStatus ) {
+//     $('.color').colorPicker({
+//       opacity: false
+//     });
+//   })
+//   .fail(function( jqxhr, settings, exception ) {
+//     alert('failed loading colorpicker script');
+// });
 
 /////////////////////////////////////////////////
 
@@ -224,12 +224,17 @@ $(window).on('load', function() {
   var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"> <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a> </span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" value="rgb(180, 0, 0)" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
   var numComments = $('.chat-message').length;
-
-  // add buttons to existing comments
-  $('.chat-message-head p').append(blockButton).append(labelButton);
   
   // add area to display blocked users
   $('.sidecontentbox').append(blockListDisplay);
+
+  // add buttons to existing comments
+  $('.chat-message-head p').append(blockButton).append(labelButton);
+
+  // activate color picker
+  $('.color').colorPicker({
+    opacity: false
+  });
   
   if (localStorage.getItem('blocked') != null) {
     blockedUserList = localStorage.getItem('blocked').split(',');
@@ -258,11 +263,6 @@ $(window).on('load', function() {
   // check localStorage for label lists
   if (localStorage.getItem('labelListsX'))
 
-
-  // activate color picker
-  // $('.color').colorPicker({
-  //   opacity: false
-  // });
 
   //////////////////////////////////////////////////////// 
   // update display each time a new comment is added
