@@ -10,12 +10,22 @@
 /////////////////////////////////////////////////
 
 // load color picker script
-var colorPickerScript = document.createElement("script");
-colorPickerScript.type = "text/javascript";
-colorPickerScript.src = "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js";
-$("head").append(colorPickerScript);
-// consider using the jquery loadScript method for this
+// var colorPickerScript = document.createElement("script");
+// colorPickerScript.type = "text/javascript";
+// colorPickerScript.src = "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js";
+// $("head").append(colorPickerScript);
+
+// consider using the jquery getScript method for this
 // it has a callback for after the script is loaded
+$.getScript( "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js" )
+  .done(function( script, textStatus ) {
+    $('.color').colorPicker({
+      opacity: false
+    });
+  })
+  .fail(function( jqxhr, settings, exception ) {
+    alert('failed loading colorpicker script');
+});
 
 /////////////////////////////////////////////////
 
@@ -250,9 +260,9 @@ $(window).on('load', function() {
 
 
   // activate color picker
-  $('.color').colorPicker({
-    opacity: false
-  });
+  // $('.color').colorPicker({
+  //   opacity: false
+  // });
 
   //////////////////////////////////////////////////////// 
   // update display each time a new comment is added
