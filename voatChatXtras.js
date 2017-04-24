@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.14.7 
+// version 2.14.8 
 // rewriting updateUserLabels
 
 var blockedUserList = [];
@@ -94,7 +94,7 @@ function updateLabels(){
     $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
 
     if (this.list.length < 1) {
-      localStorage.clear(label)
+      localStorage.clear(this.labelName)
       $('style#'+this.labelName).html("");
     }        
 
@@ -330,7 +330,7 @@ $('document').ready(function(){
       if ($(this).text().match(/fist/g)) $(this).html($(this).html().replace(/fist/g, 'chef'));
       if ($(this).text().match(/Fist/g)) $(this).html($(this).html().replace(/Fist/g, 'Chef'));
     });
-    
+
   });
   
 });
