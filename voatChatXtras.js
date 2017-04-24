@@ -1,8 +1,14 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.10
+// custom lists 0.11
 
+// to do:
+// add label lists to localStorage each time something is changed
+// pull label lists from localStorage each time the page is loaded
+// display list of current labels next to label button
+// delete lists with no users
+// remove hard coded labels
 
 /////////////////////////////////////////////////
 
@@ -122,7 +128,19 @@ function logLabelLists() {
   });
 }
 
+
+function updateLabelsInLocalStorage(){
+  console.log('-------------------\nupdateLabelsInLocalStorage()');
+
+  localStorage.setItem('labelListsX') = labelListsX.join(',');
+}
+
+
+
 /////////////////////////////////////////////////
+// button clicks
+/////////////////////////////////////////////////
+
 
 // click block buttons
 $('body').on('click', 'button.blockUser', function(){
@@ -244,6 +262,9 @@ $('body').on('click', '.addLabel', function(){
     o.labelColor = newColor;
     o.list = [theUserName];
     labelListsX.push(o);
+
+    // update labels in localStorage
+    updatelabelsInLocalStorage();
   }
 
   // console
@@ -308,7 +329,8 @@ $(window).on('load', function() {
     console.log('labelListsX: ', labelListsX);
     console.log('labelListsX: '+ labelListsX);
     $(labelListsX).each(function(i){
-      console.log('list: '+i, this.labelName);
+      console.log('\tlist: '+i, this.labelName);
+
     });
   }
   else {
