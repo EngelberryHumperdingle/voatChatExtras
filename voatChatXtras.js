@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.14.5 troubelshooting
+// version 2.14.6 troubelshooting
 
 var blockedUserList = [];
 var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
@@ -234,33 +234,38 @@ $('document').ready(function(){
   $('.sidecontentbox').append(blockListDisplay);
   
   // get lists from localStorage
+  try { console.log('blocked: '+localStorage.getItem('blocked')); }
+  catch(e) {}
+
   if (localStorage.getItem('blocked') != null) {
-    console.log('blocked: '+localStorage.getItem('blocked'));
     blockedUserList = localStorage.getItem('blocked').split(',');
     updateBlockList();
   }
   else { console.log('no blocked users'); }
 
+  try { console.log('fake: '+localStorage.getItem('fake')); }
+  catch(e) {}
+
   if (localStorage.getItem('fake') != null) {
-    console.log('fake: '+localStorage.getItem('fake'));
     fakeList.list = localStorage.getItem('fake').split(',');
-    // labelLists[0].list = localStorage.getItem('fake').split(',');
     console.log('fakeList: '+fakeList.list);
   }
   else { console.log('no fakes'); }
 
+  try { console.log('shill: '+localStorage.getItem('shill')); }
+  catch(e) {}
+
   if (localStorage.getItem('shill') != null) {
-    console.log('shill: '+localStorage.getItem('shill'));
     shillList.list = localStorage.getItem('shill').split(',');
-    // labelLists[1].list = localStorage.getItem('shill').split(',');
     console.log('shillList: '+shillList.list);
   }
   else { console.log('no shills'); }
 
+  try { console.log('bro: '+localStorage.getItem('bro')); }
+  catch(e) {}
+
   if (localStorage.getItem('bro') != null) {
-    console.log('bro: '+localStorage.getItem('bro'));
     broList.list = localStorage.getItem('bro').split(',');
-    // labelLists[2].list = localStorage.getItem('bro').split(',');
     console.log('broList: '+broList.list);
   }
   else { console.log('no bros'); }
@@ -284,10 +289,13 @@ $('document').ready(function(){
        updateBlockList();
      } 
   
-  $('.chat-message-body p').each(function(){
-    if ($(this).text().match(/FIST/g)) $(this).html($(this).html().replace(/FIST/g, 'CHEF'));
-    if ($(this).text().match(/fist/g)) $(this).html($(this).html().replace(/fist/g, 'chef'));
-  });
+    // change the word 'fist' to 'chef'
+    $('.chat-message-body p').each(function(){
+      if ($(this).text().match(/FIST/g)) $(this).html($(this).html().replace(/FIST/g, 'CHEF'));
+      if ($(this).text().match(/fist/g)) $(this).html($(this).html().replace(/fist/g, 'chef'));
+      if ($(this).text().match(/Fist/g)) $(this).html($(this).html().replace(/Fist/g, 'Chef'));
+    });
+    
   });
   
 });
