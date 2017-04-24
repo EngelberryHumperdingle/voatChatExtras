@@ -1,7 +1,8 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// adding color picker
+// added color picker
+
 
 /////////////////////////////////////////////////
 
@@ -19,11 +20,11 @@ var broList = { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] };
 var labelLists = [fakeList, shillList, broList];
 var blockedUserLinks = [];
 var fresh = true;
-var labelLists = {
-  fakeList: {  },
-  shillList: {  },
-  trollList: {  },
-  broList: {  }
+var labelListsX = {
+  //fakeList: { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] },
+  //shillList: { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] },
+  //trollList: { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
+  //broList: { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
 };
 
 /////////////////////////////////////////////////
@@ -68,7 +69,6 @@ function updateLabels(){
     // write a new css rule for each user on the list
     var theListHTML = [];
     
-
     // clear empty lists from localStorage
     if (this.list.length < 1) {
       localStorage.clear(this.labelName)
