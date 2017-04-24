@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.3
+// custom lists 0.4
 
 
 /////////////////////////////////////////////////
