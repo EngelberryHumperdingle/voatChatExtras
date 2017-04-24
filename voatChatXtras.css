@@ -1,0 +1,28 @@
+/* 
+voatChatXtras.css
+https://voat.co/user/EngelbertHumperdinck 
+*/
+
+
+
+button.blockUser, 
+button.labelUser { 
+	height: 16px; 
+	padding: 0 2px; 
+	color: white; 
+	background-color: #303030; 
+} 
+button.blockUser:hover { background-color: #FF0000; } 
+button.labelUser:hover { background-color: #6E63C0; } 
+
+a.fake { color: rgb(255, 0, 0); } 
+a.shill { color: rgb(7,82,165); } 
+a.bro { color: rgb(6,115,57); } 
+
+.labelOptions { display: none; } 
+
+.blockListDisplay { 
+	display: none; 
+	float: right; 
+	width: 90%; 
+	padding-top: 6px; }

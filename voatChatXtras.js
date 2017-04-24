@@ -1,6 +1,15 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
+// adding color picker
+
+/////////////////////////////////////////////////
+
+var colorPickerScript = document.createElement("script");
+colorPickerScript.type = "text/javascript";
+colorPickerScript.src = "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js";
+$("head").append(colorPickerScript);
+
 /////////////////////////////////////////////////
 
 var blockedUserList = [];
@@ -10,6 +19,12 @@ var broList = { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] };
 var labelLists = [fakeList, shillList, broList];
 var blockedUserLinks = [];
 var fresh = true;
+var labelLists = {
+  fakeList: {  },
+  shillList: {  },
+  trollList: {  },
+  broList: {  }
+};
 
 /////////////////////////////////////////////////
 
@@ -179,12 +194,15 @@ $('body').on('click', '.labelOptions a', function(){
 
 $('document').ready(function(){
 
+  // link style from github
+  //$('head').append('<link rel="stylesheet" type="text/css" href="">');
+
   // add style tags
-  $('head').append('<style type="text/css"> .labelFake { color: #FF0000; } .labelCool { color: green; } button.blockUser, button.labelFake, button.labelUser { height: 16px; padding: 0 2px; color: white; background-color: #303030; } button.blockUser:hover { background-color: #FF0000; } button.labelFake:hover, button.labelUser:hover { background-color: #6E63C0; } a.fake { color: rgb(255, 0, 0); } a.shill { color: rgb(7,82,165); } a.bro { color: rgb(6,115,57); } .labelOptions { display: none; } .blockListDisplay { display: none; float: right; width: 90%; padding-top: 6px; }</style> <style type="text/css" id="fake"></style> <style type="text/css" id="shill"></style> <style type="text/css" id="bro"></style>');
+  $('head').append('<style type="text/css"> button.blockUser, button.labelUser { height: 16px; padding: 0 2px; color: white; background-color: #303030; } button.blockUser:hover { background-color: #FF0000; } button.labelUser:hover { background-color: #6E63C0; } a.fake { color: rgb(255, 0, 0); } a.shill { color: rgb(7,82,165); } a.bro { color: rgb(6,115,57); } .labelOptions { display: none; } .blockListDisplay { display: none; float: right; width: 90%; padding-top: 6px; }</style> <style type="text/css" id="fake"></style> <style type="text/css" id="shill"></style> <style type="text/css" id="bro"></style>');
 
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
-  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
+  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <input class="color no-alpha" value="rgb(162, 63, 3)" style="background-color: rgb(169, 84, 33); color: rgb(221, 221, 221);"> &nbsp; <input class="userLabel" type="text" name="userLabel" value="Shill"> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
   var numComments = $('.chat-message').length;
 
@@ -217,6 +235,8 @@ $('document').ready(function(){
     updateLabels();
   }
 
+  // activate color picker
+  $('.color').colorPicker();
 
   //////////////////////////////////////////////////////// 
   // update display each time a new comment is added
