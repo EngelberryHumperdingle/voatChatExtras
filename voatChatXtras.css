@@ -6,14 +6,16 @@ https://voat.co/user/EngelbertHumperdinck
 
 
 button.blockUser, 
-button.labelUser { 
+button.labelUser,
+button.addLabel { 
 	height: 16px; 
 	padding: 0 2px; 
 	color: white; 
 	background-color: #303030; 
 } 
 button.blockUser:hover { background-color: #FF0000; } 
-button.labelUser:hover { background-color: #6E63C0; } 
+button.labelUser:hover,
+button.addLabel:hover { background-color: #6E63C0; } 
 
 a.fake { color: rgb(255, 0, 0); } 
 a.shill { color: rgb(7,82,165); } 
