@@ -1,8 +1,8 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.14.8 
-// rewriting updateUserLabels
+// version 2.14.9 
+// comment out console calls
 
 var blockedUserList = [];
 var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
@@ -41,7 +41,7 @@ function updateBlockList(){
 
 function updateUserLabels(user, list, otherLists, label){
  
-  console.log('---------------------\nupdatingUserLabels('+user+')');
+  // console.log('---------------------\nupdatingUserLabels('+user+')');
 
   // ✡
   // STAR OF DAVID
@@ -53,11 +53,11 @@ function updateUserLabels(user, list, otherLists, label){
 
   $(labelLists).each(function(){
     //console.log('checking: '+this.labelName+' for: '+user);
-    console.log('building: '+this.labelName);
+    // console.log('building: '+this.labelName);
     
     var theListHTML = [];
     $(this.list).each(function(){
-        console.log('making rule for: '+this);
+        // console.log('making rule for: '+this);
         theListHTML.push( 'div.chat-message-head a[href="/user/'+this+'"]' ); 
     });
 
@@ -72,21 +72,21 @@ function updateUserLabels(user, list, otherLists, label){
   });
 
   $(labelLists).each(function(){
-    console.log('\t'+this.labelName+': '+this.list);
+    // console.log('\t'+this.labelName+': '+this.list);
   });
   
 }
 
 function updateLabels(){
-  console.log('------------------------------\nupdatingLabels');
+  // console.log('------------------------------\nupdatingLabels');
 
   $(labelLists).each(function(){
     //console.log('checking: '+this.labelName+' for: '+user);
-    console.log('building: '+this.labelName);
+    // console.log('building: '+this.labelName);
     
     var theListHTML = [];
     $(this.list).each(function(){
-        console.log('making rule for: '+this);
+        // console.log('making rule for: '+this);
         theListHTML.push( 'div.chat-message-head a[href="/user/'+this+'"]' ); 
     });
 
@@ -101,37 +101,37 @@ function updateLabels(){
   });
 
   $(labelLists).each(function(){
-    console.log('\t'+this.labelName+': '+this.list);
+    // console.log('\t'+this.labelName+': '+this.list);
   });
 
 }
 
 function initiateUserLabels(){
-  console.log('------------------------------\ninitiateUserLabels()');
+  // console.log('------------------------------\ninitiateUserLabels()');
 
   $(labelLists).each(function(){
-    console.log('building: '+this.labelName);
-    try { console.log(this.list); }
-    catch(e) { }
+    // console.log('building: '+this.labelName);
+    // try { console.log(this.list); }
+    // catch(e) { }
 
     var theListHTML = [];
     if ( this.list.length > 0 ) {
       $(this.list).each(function(){
-        console.log('making css rule for: '+this);
+        // console.log('making css rule for: '+this);
         theListHTML.push('div.chat-message-head a[href="/user/'+this+'"]' );
 
       })  
       $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
     }
     else { 
-      console.log('no list for '+this.labelName); 
+      // console.log('no list for '+this.labelName); 
       $('style#'+this.labelName).html("");
     }
 
   });
 
   $(labelLists).each(function(){
-    console.log('\t'+this.labelName+': '+this.list);
+    // console.log('\t'+this.labelName+': '+this.list);
   });
 }
 
@@ -206,7 +206,7 @@ $('body').on('click', '.labelOptions a', function(){
       labelColor = "rgb(86, 168, 218)";
   }
 
-  console.log('\n\ntheList: '+theList.labelName+'\nuserColor: '+userColor+', labelColor: '+labelColor);
+  // console.log('\n\ntheList: '+theList.labelName+'\nuserColor: '+userColor+', labelColor: '+labelColor);
 
   // if the user is already on the selected list
   if (userColor == labelColor) {
@@ -214,35 +214,35 @@ $('body').on('click', '.labelOptions a', function(){
     theList.list.splice(theList.list.indexOf(userName), 1);
 
     // console
-    console.log('\n removed '+userName+' from list: '+ theLabel);
-    if (theList.list.length) console.log('\t theList.length: '+theList.list.length);
-    else console.log('\t empty list');
-    console.log('\t'+theList.list);
+    // console.log('\n removed '+userName+' from list: '+ theLabel);
+    //if (theList.list.length) console.log('\t theList.length: '+theList.list.length);
+    //else console.log('\t empty list');
+    // console.log('\t'+theList.list);
 
     // if the selected list is empty, remove it from localStorage
     if (theList.list.length < 1) localStorage.clear(theLabel);
   }
   else {
-    console.log('user: '+ userName+' not on list: '+theList.labelName);
+    // console.log('user: '+ userName+' not on list: '+theList.labelName);
     // remove user from the other lists if present
     $(theOtherLists).each(function(i){
-      console.log('checking: '+this.labelName+' for: '+userName);
-      console.log(this.list.indexOf(userName) != -1);
+      // console.log('checking: '+this.labelName+' for: '+userName);
+      // console.log(this.list.indexOf(userName) != -1);
 
       // if the user is on the list
       if ( this.list.indexOf(userName) != -1 ) {
-        console.log(userName+' is on list: '+theOtherLists[i].labelName);
+        // console.log(userName+' is on list: '+theOtherLists[i].labelName);
         this.list.splice(this.list.indexOf(userName), 1);
-        console.log(userName + ' removed from list: '+this.labelName);
+        // console.log(userName + ' removed from list: '+this.labelName);
       }
 
     });
 
     // add it to the new list
     theList.list.push(userName);
-    console.log('\n added '+userName+' to list: '+ theLabel);
-    console.log('\t'+ theLabel+ '.length: '+theList.list.length);
-    console.log('\t'+theList.list);
+    // console.log('\n added '+userName+' to list: '+ theLabel);
+    // console.log('\t'+ theLabel+ '.length: '+theList.list.length);
+    // console.log('\t'+theList.list);
   }
 
   //updateUserLabels(userName, theList, theOtherLists, theLabel);
@@ -269,48 +269,48 @@ $('document').ready(function(){
   $('.sidecontentbox').append(blockListDisplay);
   
   // get lists from localStorage
-  try { console.log('blocked: '+localStorage.getItem('blocked')); }
-  catch(e) {}
+  // try { console.log('blocked: '+localStorage.getItem('blocked')); }
+  // catch(e) {}
 
   if (localStorage.getItem('blocked') != null) {
     blockedUserList = localStorage.getItem('blocked').split(',');
     updateBlockList();
   }
-  else { console.log('no blocked users'); }
+  //else { console.log('no blocked users'); }
 
-  try { console.log('fake: '+localStorage.getItem('fake')); }
-  catch(e) {}
+  // try { console.log('fake: '+localStorage.getItem('fake')); }
+  // catch(e) {}
 
   if (localStorage.getItem('fake') != null) {
     fakeList.list = localStorage.getItem('fake').split(',');
-    console.log('fakeList: '+fakeList.list);
+    // console.log('fakeList: '+fakeList.list);
   }
-  else { console.log('no fakes'); }
+  //else { console.log('no fakes'); }
 
-  try { console.log('shill: '+localStorage.getItem('shill')); }
-  catch(e) {}
+  // try { console.log('shill: '+localStorage.getItem('shill')); }
+  // catch(e) {}
 
   if (localStorage.getItem('shill') != null) {
     shillList.list = localStorage.getItem('shill').split(',');
-    console.log('shillList: '+shillList.list);
+    // console.log('shillList: '+shillList.list);
   }
-  else { console.log('no shills'); }
+  //else { console.log('no shills'); }
 
-  try { console.log('bro: '+localStorage.getItem('bro')); }
-  catch(e) {}
+  // try { console.log('bro: '+localStorage.getItem('bro')); }
+  // catch(e) {}
 
   if (localStorage.getItem('bro') != null) {
     broList.list = localStorage.getItem('bro').split(',');
-    console.log('broList: '+broList.list);
+    // console.log('broList: '+broList.list);
   }
-  else { console.log('no bros'); }
+  //else { console.log('no bros'); }
 
   if ( (localStorage.getItem('fake') != null) ||
       (localStorage.getItem('shill') != null) ||
       (localStorage.getItem('bro') != null) ) {
     initiateUserLabels();
   }
-  else { console.log('no labels in localStorage'); }
+  //else { console.log('no labels in localStorage'); }
    
   // update display each time a new comment is added
   $('.chatContent').bind("DOMSubtreeModified",function(){
