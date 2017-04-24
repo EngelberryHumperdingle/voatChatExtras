@@ -1,7 +1,8 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.14.6 troubelshooting
+// version 2.14.7 
+// rewriting updateUserLabels
 
 var blockedUserList = [];
 var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
@@ -76,6 +77,35 @@ function updateUserLabels(user, list, otherLists, label){
   
 }
 
+function updateLabels(){
+  console.log('------------------------------\nupdatingLabels');
+
+  $(labelLists).each(function(){
+    //console.log('checking: '+this.labelName+' for: '+user);
+    console.log('building: '+this.labelName);
+    
+    var theListHTML = [];
+    $(this.list).each(function(){
+        console.log('making rule for: '+this);
+        theListHTML.push( 'div.chat-message-head a[href="/user/'+this+'"]' ); 
+    });
+
+    localStorage.setItem(this.labelName, this.list.join(','));
+    $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
+
+    if (this.list.length < 1) {
+      localStorage.clear(label)
+      $('style#'+this.labelName).html("");
+    }        
+
+  });
+
+  $(labelLists).each(function(){
+    console.log('\t'+this.labelName+': '+this.list);
+  });
+
+}
+
 function initiateUserLabels(){
   console.log('------------------------------\ninitiateUserLabels()');
 
@@ -98,6 +128,10 @@ function initiateUserLabels(){
       $('style#'+this.labelName).html("");
     }
 
+  });
+
+  $(labelLists).each(function(){
+    console.log('\t'+this.labelName+': '+this.list);
   });
 }
 
@@ -211,7 +245,8 @@ $('body').on('click', '.labelOptions a', function(){
     console.log('\t'+theList.list);
   }
 
-  updateUserLabels(userName, theList, theOtherLists, theLabel);
+  //updateUserLabels(userName, theList, theOtherLists, theLabel);
+  updateLabels();
 });
 
 /////////////////////////////////////////////////
