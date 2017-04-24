@@ -137,7 +137,7 @@ function logLabelLists() {
 function updateLabelsInLocalStorage(){
   console.log('-------------------\nupdateLabelsInLocalStorage()');
 
-  localStorage.setItem('labelListsX') = labelListsX.join(',');
+  localStorage.setItem('labelListsX', labelListsX.join(',') );
 }
 
 
