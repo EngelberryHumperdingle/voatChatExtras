@@ -28,10 +28,10 @@ var blockedUserLinks = [];
 var fresh = true;
 
 var labelListsX = {
-  //fakeList: { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] },
-  //shillList: { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] },
-  //trollList: { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
-  //broList: { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
+  fakeList: { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] },
+  shillList: { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] },
+  trollList: { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
+  broList: { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
 };
 
 /////////////////////////////////////////////////
