@@ -2,6 +2,7 @@
 // https://voat.co/user/EngelbertHumperdinck
 
 // added color picker
+// changed doc ready to win on load
 
 
 /////////////////////////////////////////////////
@@ -20,6 +21,7 @@ var broList = { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] };
 var labelLists = [fakeList, shillList, broList];
 var blockedUserLinks = [];
 var fresh = true;
+
 var labelListsX = {
   //fakeList: { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] },
   //shillList: { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] },
@@ -192,7 +194,8 @@ $('body').on('click', '.labelOptions a', function(){
 
 /////////////////////////////////////////////////
 
-$('document').ready(function(){
+// $('document').ready(function(){
+$(window).on('load', function() {
 
   // link style from github
   //$('head').append('<link rel="stylesheet" type="text/css" href="">');
