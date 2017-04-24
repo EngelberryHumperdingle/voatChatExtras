@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 //
-// version 2.14.10 
+// version 2.14.11
 // updated updateLabels function
 
 // next:
@@ -77,7 +77,7 @@ function updateLabels(){
       // we just got the lists from localStorage no need to write them back
       fresh = false;
     }
-    else 
+    else {
       // save the list in the browser for next visit
       localStorage.setItem(this.labelName, this.list.join(','));
     }
