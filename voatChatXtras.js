@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.9
+// custom lists 0.10
 
 
 /////////////////////////////////////////////////
@@ -230,13 +230,10 @@ $('body').on('click', '.addLabel', function(){
 
   // check for duplicate list
   $(labelListsX).each(function(){
-    console.log('newColor: '+newColor+', this.labelColor: '+this.labelColor);
-
     if (newList == this.labelName) {
       alert('you already have a label called \''+newList+'\'');
       nameUnique = false;
     }
-
   });
 
   if (nameUnique) {
@@ -249,6 +246,7 @@ $('body').on('click', '.addLabel', function(){
     labelListsX.push(o);
   }
 
+  // console
   logLabelLists();
 });
 
