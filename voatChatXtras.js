@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.42 ');
+console.log(' custom lists 0.14.43 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -444,7 +444,7 @@ $('body').on('click', '.addLabel', function(){
   console.log('temp - newList: '+newList);
 
   // don't allow new labels without a name
-  if ( newList ) {
+  if ( newList == "" ) {
     alert('please enter a label for: '+theUserName);
   }
   else {
