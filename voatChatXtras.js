@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.29 ');
+console.log(' custom lists 0.14.30 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -195,7 +195,17 @@ function updateLabelsX(){
           case "bro" :
           case "goat" :
             // specialIcon = "🐐 &nbsp;";
-            specialIcon = "&#x1F410; &nbsp;";
+            specialIcon = "♞ &nbsp;";
+            break;
+          case "muslim" :
+            specialIcon = "☪ &nbsp;";
+            break;
+          case "commie" :
+          case "communist" :
+            specialIcon = "☭ &nbsp;";
+            break;
+          case "shill" :
+            specialIcon = "$ &nbsp;";
             break;
           default :
             // no special icon
@@ -473,7 +483,7 @@ $('body').on('click', '.addLabel', function(){
   $(this).parents('.labelOptions').hide(200);
 
   // get list name and color from inputs
-  var newList = $(this).parent('.labelOptions').find('.userLabel').val();
+  var newList = $(this).parent('.labelOptions').find('.userLabel').val().toLowerCase();
   var newColor = $(this).parent('.labelOptions').find('.color').val();
   // get user
   var theUserName = $(this).parents('p').find('a').attr('href').split('/').pop();
