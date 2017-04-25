@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.14
+// custom lists 0.14.01
 
 // to do:
 // add label lists to localStorage each time something is changed
@@ -355,7 +355,7 @@ $(window).on('load', function() {
   if (localStorage.getItem('labelListsX') != null) {
     // labelListsX = JSON.parse(localStorage.getItem('labelListsX'));
     var tempThing = JSON.parse(localStorage.getItem('labelListsX'));
-    console.log('tempThing: '+tempThing);
+    console.log('tempThing: '+JSON.stringify(tempThing));
     logLabelLists();
   }
   else {
