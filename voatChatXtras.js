@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.27 ');
+console.log(' custom lists 0.14.28 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -190,11 +190,11 @@ function updateLabelsX(){
         switch (key) {
           case "jew" :
           case "kike" : 
-            specialIcon = "✡";
+            specialIcon = "✡ &nbsp;";
             break;
           case "bro" :
           case "goat" :
-            specialIcon = "🐐";
+            specialIcon = "🐐 &nbsp;";
             break;
           default :
             // no special icon
@@ -235,7 +235,7 @@ function updateLabelsX(){
           $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'}');
 
           if (specialIcon != "") {
-            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '";}');
+            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: white;}');
           }
 
         }
