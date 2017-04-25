@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.15 ');
+console.log(' custom lists 0.14.16 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -180,20 +180,34 @@ function updateLabelsX(){
     for (var key in labelListsX) {
       if (labelListsX.hasOwnProperty(key)) {
 
+        console.log('looking for a label called: '+key);
+
         // hold all the css rules in here
         var theListCSS = [];
 
-        // remove empty lists
-        if (labelListsX[key].list.length < 1) delete labelListsX[key];
+        // if a label object has no users in it's list
+        if (labelListsX[key].list.length < 1) {
+          // remove the label
+          delete labelListsX[key];
+        }
         else {
           // make a css rule for each user on the list
           $(labelListsX[key].list).each(function(){
             theListCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]' );
           });
+
+          // add the styles to the page
+          $('style#'+key).html(theListCSS + '{color: '+labelListsX[key].labelColor+'}');
         }
+      }
+      else {
+        console.log('key: '+key+' not found in labelListsX');
       }
 
     }  
+  }
+  else {
+    console.log('no label lists')
   }
   
   // clear labelListsX from localStorage
