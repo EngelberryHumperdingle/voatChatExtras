@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.14.07
+// custom lists 0.14.08
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -387,7 +387,7 @@ $(window).on('load', function() {
       $('.chat-message:last').find('.chat-message-head p').append(blockButton).append(labelButton);
       
       // update list links in .labels
-      $'.labels').html( labelListLinks );
+      $('.labels').html( labelListLinks );
 
       updateBlockList();
     } 
