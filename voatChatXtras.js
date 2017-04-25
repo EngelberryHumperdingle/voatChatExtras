@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.32 ');
+console.log(' custom lists 0.14.33 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -129,41 +129,6 @@ function updateBlockList(){
 
 /////////////////////////////////////////////////
 
-
-// function updateLabels(){
-
-//   $(labelLists).each(function(){
-    
-//     // write a new css rule for each user on the list
-//     var theListHTML = [];
-    
-//     // clear empty lists from localStorage
-//     if (this.list.length < 1) {
-//       localStorage.clear(this.labelName)
-//       $('style#'+this.labelName).html("");
-//     }        
-//     else {
-//       // make a css rule for each user on ths list
-//       $(this.list).each(function(){
-//           theListHTML.push( 'div.chat-message-head a[href="/user/'+this+'"]' ); 
-//       });
-
-//       // add the styles to the page
-//       $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
-//     }
-
-//     if (fresh) {
-//       // we just got the lists from localStorage no need to write them back
-//       fresh = false;
-//     }
-//     else {
-//       // save the list in the browser for next visit
-//       localStorage.setItem(this.labelName, this.list.join(','));
-//     }
-      
-//   });
-
-// }
 
 
 function updateLabelsX(){
@@ -293,6 +258,8 @@ function logLabelLists() {
 
 
 var labelListLinks = function(){
+  console.log('updating labelListLinks');
+
   var labelLinksHTML = [];
 
   if (Object.keys(labelListsX).length > 0){
@@ -394,32 +361,6 @@ $('body').on('click', '.labelOptions a', function(){
   var theLabel = $(this).text();
 
   console.log('----------------------\n----------------------\nyou clicked: '+theLabel);
-
-  //var theList = labelListsX[theLabel];
-  //var theOtherLists = [];
-  
-  // switch ( theLabel ) {
-  //   case 'fake' : 
-  //     theList = fakeList;
-  //     theOtherLists = [shillList, broList];
-  //     labelColor = "rgb(255, 0, 0)";
-  //     break;
-  //   case 'shill' : 
-  //     theList = shillList;
-  //     theOtherLists = [fakeList, broList];
-  //     labelColor = "rgb(7, 82, 165)";
-  //     break;
-  //   case 'bro' : 
-  //     theList = broList;
-  //     theOtherLists = [fakeList, shillList];
-  //     labelColor = "rgb(6, 115, 57)";
-  //     break;
-  //   default :
-  //     // this will never happen
-      
-  //     // default voat color
-  //     labelColor = "rgb(86, 168, 218)";
-  // }
 
   // if the user is already on the selected list
   if (userColor == labelColor) {
