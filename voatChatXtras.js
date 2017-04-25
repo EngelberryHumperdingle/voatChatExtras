@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.13c
+// custom lists 0.13d
 
 // to do:
 // add label lists to localStorage each time something is changed
