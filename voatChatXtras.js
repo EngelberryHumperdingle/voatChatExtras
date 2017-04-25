@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.37 ');
+console.log(' custom lists 0.14.38 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -291,7 +291,7 @@ var labelListLinks = function(){
 
 
 var randomRGBColor = function(){
-  var col = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+  var col = 'rgb(' + (Math.floor(Math.random() * 256)) + ', ' + (Math.floor(Math.random() * 256)) + ', ' + (Math.floor(Math.random() * 256)) + ')';
   return col;
 }
 
