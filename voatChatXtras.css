@@ -17,11 +17,11 @@ button.blockUser:hover { background-color: #FF0000; }
 button.labelUser:hover,
 button.addLabel:hover { background-color: #6E63C0; } 
 
-a.fake { color: rgb(255, 0, 0); } 
-a.shill { color: rgb(7,82,165); } 
-a.bro { color: rgb(6,115,57); } 
-
 .labelOptions { display: none; } 
+.labelOptions .labels a {
+  font-weight: bold;
+}
+
 .userLabel { width: 80px; }
 .color { max-width: 100px; text-align: center; }
 

@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.31 ');
+console.log(' custom lists 0.14.32 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -573,10 +573,10 @@ $(function(){
   console.log('window loaded');
 
   // link style from github
-  //$('head').append('<link rel="stylesheet" type="text/css" href="">');
+  $('head').append('<link rel="stylesheet" type="text/css" href="https://rawgit.com/EngelberryHumperdingle/voatChatExtras/master/voatChatXtras.css">');
 
   // add style tags
-  $('head').append('<style type="text/css"> button.blockUser, button.labelUser, button.addLabel { height: 16px; padding: 0 2px; color: white; background-color: #303030; } button.blockUser:hover { background-color: #FF0000; } button.labelUser:hover, button.addLabel:hover { background-color: #6E63C0; } a.fake { color: rgb(255, 0, 0); } a.shill { color: rgb(7,82,165); } a.bro { color: rgb(6,115,57); } .labelOptions { display: none; } .userLabel { width: 80px; } .color { max-width: 100px; text-align: center; }.blockListDisplay { display: none; float: right; width: 90%; padding-top: 6px; }</style> <style type="text/css" id="fake"></style> <style type="text/css" id="shill"></style> <style type="text/css" id="bro"></style>');
+  // $('head').append('<style type="text/css"> button.blockUser, button.labelUser, button.addLabel { height: 16px; padding: 0 2px; color: white; background-color: #303030; } button.blockUser:hover { background-color: #FF0000; } button.labelUser:hover, button.addLabel:hover { background-color: #6E63C0; } .labelOptions .labels a { font-weight: bold; .labelOptions { display: none; } .userLabel { width: 80px; } .color { max-width: 100px; text-align: center; } .blockListDisplay { display: none; float: right; width: 90%; padding-top: 6px; }</style>');
 
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
