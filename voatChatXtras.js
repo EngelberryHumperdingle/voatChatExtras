@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.16 ');
+console.log(' custom lists 0.14.17 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -405,7 +405,7 @@ $('body').on('click', '.labelOptions a', function(){
   }
 
   updateLabelsInLocalStorage();
-  updateLabels();
+  // updateLabels();
   updateLabelsX();
 
 });
