@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.18 ');
+console.log(' custom lists 0.14.19 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -187,7 +187,7 @@ function updateLabelsX(){
         // if a label object has no users in it's list
         if (labelListsX[key].list.length < 1) {
 
-          console.log('deleting empty list: '+key+);
+          console.log('deleting empty list: '+key);
 
           // remove the label
           delete labelListsX[key];
