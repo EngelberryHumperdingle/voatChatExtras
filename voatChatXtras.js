@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.23 ');
+console.log(' custom lists 0.14.24 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -18,14 +18,15 @@ console.log(' custom lists 0.14.23 ');
 
 // load color picker script
 // http://www.dematte.at/tinyColorPicker/
-var colorPickerScript = document.createElement("script");
-colorPickerScript.type = "text/javascript";
-colorPickerScript.src = "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js";
-$("head").append(colorPickerScript);
+// var colorPickerScript = document.createElement("script");
+// colorPickerScript.type = "text/javascript";
+// colorPickerScript.src = "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js";
+// $("head").append(colorPickerScript);
 
 // consider using the jquery getScript method for this
 // it has a callback for after the script is loaded
 // can't do this here because the element with .color isn't created yet
+
 // $.getScript( "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js" )
 //   .done(function( script, textStatus ) {
 //     $('.color').colorPicker({
@@ -550,15 +551,28 @@ $(function(){
   $('.chat-message-head p').append(blockButton).append(labelButton);
 
   // activate color picker
-  $('.color').colorPicker({
-    opacity: false
-  });
+  // $('.color').colorPicker({
+  //   opacity: false
+  // });
   
+  // activate color picker
+  $.getScript( "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js" )
+    .done(function( script, textStatus ) {
+      $('.color').colorPicker({
+        opacity: false
+      });
+    })
+    .fail(function( jqxhr, settings, exception ) {
+      alert('failed loading colorpicker script');
+  });
+
+  // get blocked list from localStorage
   if (localStorage.getItem('blocked') != null) {
     blockedUserList = localStorage.getItem('blocked').split(',');
     updateBlockList();
   }
-  
+
+
   // if (localStorage.getItem('fake') != null) {
   //   fakeList.list = localStorage.getItem('fake').split(',');
   // }
@@ -579,6 +593,7 @@ $(function(){
 
   console.log('check local storage for labels');
 
+  // get labels from localStorage
   if (localStorage.getItem('labelListsX') != null) {
     // get label lists from localStorage
     labelListsX = JSON.parse(localStorage.getItem('labelListsX'));
