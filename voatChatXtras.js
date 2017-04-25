@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.14.01
+// custom lists 0.14.02
 
 // to do:
 // add label lists to localStorage each time something is changed
@@ -132,6 +132,7 @@ function logLabelLists() {
   var key;
   if (Object.keys(labelListsX).length > 0){
     for (key in labelListsX) {
+      console.log('the key is: '+key);
       console.log('list: ' + labelListsX[this].labelName + ', color: ' + labelListsX[this].labelColor );
       try { $(labelListsX[this].list).each(function(){
               console.log('\t'+this);
@@ -279,11 +280,11 @@ $('body').on('click', '.addLabel', function(){
   if (nameUnique) {
     // create new label list containing user
     console.log('new list: '+ newList +', color: '+ newColor);
-    var o = {};
-    o.labelName = newList;
-    o.labelColor = newColor;
-    o.list = [theUserName];
-    labelListsX[Object.keys(labelListsX).length] = o;
+    var labelListObject = {};
+    labelListObject.labelName = newList;
+    labelListObject.labelColor = newColor;
+    labelListObject.list = [theUserName];
+    labelListsX[Object.keys(labelListsX).length] = labelListObject;
 
     // update labels in localStorage
     updateLabelsInLocalStorage();
@@ -353,9 +354,9 @@ $(window).on('load', function() {
 
   // check localStorage for label lists
   if (localStorage.getItem('labelListsX') != null) {
-    // labelListsX = JSON.parse(localStorage.getItem('labelListsX'));
-    var tempThing = JSON.parse(localStorage.getItem('labelListsX'));
-    console.log('tempThing: '+JSON.stringify(tempThing));
+    labelListsX = JSON.parse(localStorage.getItem('labelListsX'));
+
+    console.log('labelListsX JSON: '+JSON.stringify(labelListsX));
     logLabelLists();
   }
   else {
