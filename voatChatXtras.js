@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.13d
+// custom lists 0.13e
 
 // to do:
 // add label lists to localStorage each time something is changed
@@ -9,6 +9,8 @@
 // display list of current labels next to label button
 // delete lists with no users
 // remove hard coded labels
+
+console.log('loaded');
 
 /////////////////////////////////////////////////
 
