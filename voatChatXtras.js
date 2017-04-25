@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.17 ');
+console.log(' custom lists 0.14.18 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -130,49 +130,48 @@ function updateBlockList(){
 /////////////////////////////////////////////////
 
 
-// ✡ Unicode: U+2721, UTF-8: E2 9C A1
-// 🐐 Unicode: U+1F410 (U+D83D U+DC10), UTF-8: F0 9F 90 90
+// function updateLabels(){
 
-  
-
-function updateLabels(){
-
-  $(labelLists).each(function(){
+//   $(labelLists).each(function(){
     
-    // write a new css rule for each user on the list
-    var theListHTML = [];
+//     // write a new css rule for each user on the list
+//     var theListHTML = [];
     
-    // clear empty lists from localStorage
-    if (this.list.length < 1) {
-      localStorage.clear(this.labelName)
-      $('style#'+this.labelName).html("");
-    }        
-    else {
-      // make a css rule for each user on ths list
-      $(this.list).each(function(){
-          theListHTML.push( 'div.chat-message-head a[href="/user/'+this+'"]' ); 
-      });
+//     // clear empty lists from localStorage
+//     if (this.list.length < 1) {
+//       localStorage.clear(this.labelName)
+//       $('style#'+this.labelName).html("");
+//     }        
+//     else {
+//       // make a css rule for each user on ths list
+//       $(this.list).each(function(){
+//           theListHTML.push( 'div.chat-message-head a[href="/user/'+this+'"]' ); 
+//       });
 
-      // add the styles to the page
-      $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
-    }
+//       // add the styles to the page
+//       $('style#'+this.labelName).html(theListHTML + '{color: '+this.labelColor+'}');
+//     }
 
-    if (fresh) {
-      // we just got the lists from localStorage no need to write them back
-      fresh = false;
-    }
-    else {
-      // save the list in the browser for next visit
-      localStorage.setItem(this.labelName, this.list.join(','));
-    }
+//     if (fresh) {
+//       // we just got the lists from localStorage no need to write them back
+//       fresh = false;
+//     }
+//     else {
+//       // save the list in the browser for next visit
+//       localStorage.setItem(this.labelName, this.list.join(','));
+//     }
       
-  });
+//   });
 
-}
+// }
 
 
 function updateLabelsX(){
-  console.log('------------------------------\nupdateLabelsX()')
+  console.log('------------------------------\nupdateLabelsX()');
+
+  // ✡ Unicode: U+2721, UTF-8: E2 9C A1
+  // 🐐 Unicode: U+1F410 (U+D83D U+DC10), UTF-8: F0 9F 90 90
+
   
   // if there are lists
   if (Object.keys(labelListsX).length > 0){
@@ -180,24 +179,30 @@ function updateLabelsX(){
     for (var key in labelListsX) {
       if (labelListsX.hasOwnProperty(key)) {
 
-        console.log('looking for a label called: '+key);
+        console.log('looking at label: '+key);
 
         // hold all the css rules in here
         var theListCSS = [];
 
         // if a label object has no users in it's list
         if (labelListsX[key].list.length < 1) {
+
+          console.log('deleting empty list: '+key+);
+
           // remove the label
           delete labelListsX[key];
         }
         else {
           // make a css rule for each user on the list
           $(labelListsX[key].list).each(function(){
+
+            console.log('adding css rule for: '+this);
+            
             theListCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]' );
           });
 
           // add the styles to the page
-          $('style#'+key).html(theListCSS + '{color: '+labelListsX[key].labelColor+'}');
+          $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'}');
         }
       }
       else {
@@ -446,7 +451,7 @@ $('body').on('click', '.addLabel', function(){
     labelListsX[newList] = labelListObject;
 
     // update labels in localStorage
-    updateLabelsInLocalStorage();
+    //updateLabelsInLocalStorage();
 
     updateLabelsX();
 
