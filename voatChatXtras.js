@@ -1,11 +1,12 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.14.08
+console.log(' custom lists 0.14.09 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
 // display list of current labels next to label button
+// display labels in corresponding list color
 // delete lists with no users
 // add label lists to localStorage each time something is changed
 // remove hard coded labels
@@ -149,9 +150,8 @@ var labelListLinks = function(){
 
   if (Object.keys(labelListsX).length > 0){
     for (var key in labelListsX) {
-
-      labelLinksHTML.push('<a href="javascript:void(0)" class="'+labelListsX[key].labelName+'">'+labelListsX[key].labelName+'</a>');
-
+      // make a link for each created list
+      labelLinksHTML.push('<a href="javascript:void(0)" class="'+labelListsX[key].labelName+'" style="color: '+labelListsX[key].labelColor+';">'+labelListsX[key].labelName+'</a>');
     }  
 
     return labelLinksHTML.join(' | ');
@@ -299,6 +299,9 @@ $('body').on('click', '.addLabel', function(){
 
     // update labels in localStorage
     updateLabelsInLocalStorage();
+
+    // add list links to .labels
+    $('.labels').html( labelListLinks );
   }
 
   // console
@@ -402,7 +405,3 @@ $(window).on('load', function() {
   });
   
 });
-
-
-
-console.log('loaded');
