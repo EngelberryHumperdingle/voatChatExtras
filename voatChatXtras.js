@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.10 ');
+console.log(' custom lists 0.14.11 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -131,7 +131,7 @@ function updateLabelsX(){
   if (Object.keys(labelListsX).length > 0){
     // look at each list
     for (var key in labelListsX) {
-      if (labelListsX.hadOwnProperty(key)) {
+      if (labelListsX.hasOwnProperty(key)) {
 
         // hold all the css rules in here
         var theListCSS = [];
@@ -167,14 +167,15 @@ function logLabelLists() {
   
   if (Object.keys(labelListsX).length > 0){
     for (var key in labelListsX) {
+      if (labelListsX.hasOwnProperty(key)) {
 
-      console.log('\t'+key+': '+JSON.stringify(labelListsX[key]));
-      try { $(labelListsX[key].list).each(function(){
-              console.log('\t\t'+this);
-            });
+        console.log('\t'+key+': '+JSON.stringify(labelListsX[key]));
+        try { $(labelListsX[key].list).each(function(){
+                console.log('\t\t'+this);
+              });
+        }
+        catch(e){}
       }
-      catch(e){}
-
     }  
   }
 }
@@ -185,8 +186,10 @@ var labelListLinks = function(){
 
   if (Object.keys(labelListsX).length > 0){
     for (var key in labelListsX) {
-      // make a link for each created list
-      labelLinksHTML.push('<a href="javascript:void(0)" class="'+labelListsX[key].labelName+'" style="color: '+labelListsX[key].labelColor+';">'+labelListsX[key].labelName+'</a>');
+      if (labelListsX.hasOwnProperty(key)) {
+        // make a link for each created list
+        labelLinksHTML.push('<a href="javascript:void(0)" class="'+labelListsX[key].labelName+'" style="color: '+labelListsX[key].labelColor+';">'+labelListsX[key].labelName+'</a>');
+      }
     }  
 
     return labelLinksHTML.join(' | ');
