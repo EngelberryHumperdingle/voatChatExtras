@@ -43,12 +43,12 @@ var labelLists = [fakeList, shillList, broList];
 var blockedUserLinks = [];
 var fresh = true;
 
-var labelListsX = [
+var labelListsX = {
   // { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] },
   // { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] },
   // { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
   // { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
-];
+};
 
 /////////////////////////////////////////////////
 
@@ -277,7 +277,7 @@ $('body').on('click', '.addLabel', function(){
     o.labelName = newList;
     o.labelColor = newColor;
     o.list = [theUserName];
-    labelListsX.push(o);
+    labelListsX[Object.keys(labelListsX).length] = o;
 
     // update labels in localStorage
     updateLabelsInLocalStorage();
