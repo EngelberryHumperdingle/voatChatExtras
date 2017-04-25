@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.11 ');
+console.log(' custom lists 0.14.12 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -149,7 +149,7 @@ function updateLabelsX(){
     }  
   }
   
-  // clear labelListX from localStorage
+  // clear labelListsX from localStorage
   if (fresh) {
     // we just got the lists from localStorage no need to write them back
     fresh = false;
@@ -252,56 +252,72 @@ $('body').on('click', '.labelOptions a', function(){
 
   var theUser = $(this).parents('p').find('a').attr('href');
   var userName = theUser.split('/').pop();
-  var theList = {};
-  var theOtherLists = [];
-  var theLabel = $(this).text();
   var userColor = $(this).parents('p').find('a').css('color');
-  var labelColor = "";
-
-  switch ( theLabel ) {
-    case 'fake' : 
-      theList = fakeList;
-      theOtherLists = [shillList, broList];
-      labelColor = "rgb(255, 0, 0)";
-      break;
-    case 'shill' : 
-      theList = shillList;
-      theOtherLists = [fakeList, broList];
-      labelColor = "rgb(7, 82, 165)";
-      break;
-    case 'bro' : 
-      theList = broList;
-      theOtherLists = [fakeList, shillList];
-      labelColor = "rgb(6, 115, 57)";
-      break;
-    default :
-      // this will never happen
+  var labelColor = $(this).css('color');
+  var theLabel = $(this).text();
+  //var theList = labelListsX[theLabel];
+  //var theOtherLists = [];
+  
+  // switch ( theLabel ) {
+  //   case 'fake' : 
+  //     theList = fakeList;
+  //     theOtherLists = [shillList, broList];
+  //     labelColor = "rgb(255, 0, 0)";
+  //     break;
+  //   case 'shill' : 
+  //     theList = shillList;
+  //     theOtherLists = [fakeList, broList];
+  //     labelColor = "rgb(7, 82, 165)";
+  //     break;
+  //   case 'bro' : 
+  //     theList = broList;
+  //     theOtherLists = [fakeList, shillList];
+  //     labelColor = "rgb(6, 115, 57)";
+  //     break;
+  //   default :
+  //     // this will never happen
       
-      // default voat color
-      labelColor = "rgb(86, 168, 218)";
-  }
+  //     // default voat color
+  //     labelColor = "rgb(86, 168, 218)";
+  // }
 
   // if the user is already on the selected list
   if (userColor == labelColor) {
     // remove user from selected list
-    theList.list.splice(theList.list.indexOf(userName), 1);
+    //theList.list.splice(theList.list.indexOf(userName), 1);
+    delete labelListsX[theLabel];
 
     // if the selected list is empty, remove it from localStorage
-    if (theList.list.length < 1) localStorage.clear(theLabel);
+    //if (theList.list.length < 1) localStorage.clear(theLabel);
   }
   else {
     // remove user from the other lists if present
-    $(theOtherLists).each(function(i){
-      // if the user is on the list
-      if ( this.list.indexOf(userName) != -1 ) {
-        this.list.splice(this.list.indexOf(userName), 1);
+    // $(theOtherLists).each(function(i){
+    for (var key in labelListsX) {
+      
+      // make sure it's not the list you just clicked
+      if (key != theLabel) {
+
+        // if the user is on the list
+        if ( labelListsX[key].list.indexOf(userName) != -1) {
+          labelListsX[key].list.splice(labelListsX[key].list.indexOf(userName), 1);
+        }
+        
       }
-    });
+      
+    }
+      // if the user is on the list
+    //   if ( this.list.indexOf(userName) != -1 ) {
+    //     this.list.splice(this.list.indexOf(userName), 1);
+    //   }
+    // });
 
     // add it to the new list
-    theList.list.push(userName);
+    // theList.list.push(userName);
+    labelListsX[key].list.push(userName);
   }
 
+  updateLabelsInLocalStorage();
   updateLabels();
   updateLabelsX();
 
@@ -314,18 +330,24 @@ $('body').on('click', '.labelOptions a', function(){
 $('body').on('click', '.addLabel', function(){
   $(this).parents('.labelOptions').hide(200);
 
+  // get list name and color from inputs
   var newList = $(this).parent('.labelOptions').find('.userLabel').val();
   var newColor = $(this).parent('.labelOptions').find('.color').val();
+  // get user
   var theUserName = $(this).parents('p').find('a').attr('href').split('/').pop();
-  var nameUnique = true;
-
+  
   // check for duplicate list
-  $(labelListsX).each(function(){
-    if (newList == this.labelName) {
-      alert('you already have a label called \''+newList+'\'');
-      nameUnique = false;
-    }
-  });
+  var nameUnique = true;
+  if (Object.keys(labelListsX).length > 0){
+    for (var key in labelListsX) {
+      if (labelListsX.hasOwnProperty(key)) {
+        if (newList == key) {
+          alert('you already have a label called \''+newList+'\'');
+          nameUnique = false;
+        }    
+      }
+    }  
+  }
 
   if (nameUnique) {
     // create new label list containing user
@@ -334,7 +356,8 @@ $('body').on('click', '.addLabel', function(){
     labelListObject.labelName = newList;
     labelListObject.labelColor = newColor;
     labelListObject.list = [theUserName];
-    labelListsX[Object.keys(labelListsX).length] = labelListObject;
+    // labelListsX[Object.keys(labelListsX).length] = labelListObject;
+    labelListsX[newList] = labelListObject;
 
     // update labels in localStorage
     updateLabelsInLocalStorage();
