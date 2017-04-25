@@ -136,7 +136,8 @@ function logLabelLists() {
           });
     }
     catch(e){}
-  });
+  //});
+  }
 }
 
 
