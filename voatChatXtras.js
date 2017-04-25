@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.13k
+// custom lists 0.14
 
 // to do:
 // add label lists to localStorage each time something is changed
@@ -15,6 +15,7 @@ console.log('loaded');
 /////////////////////////////////////////////////
 
 // load color picker script
+// http://www.dematte.at/tinyColorPicker/
 var colorPickerScript = document.createElement("script");
 colorPickerScript.type = "text/javascript";
 colorPickerScript.src = "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js";
@@ -129,14 +130,16 @@ function logLabelLists() {
   console.log('------------------------------\nlogLabelLists()')
   //$(labelListsX).each(function(){
   var key;
-  for (key in labelListsX) {
-    console.log('list: ' + labelListsX[this].labelName + ', color: ' + labelListsX[this].labelColor );
-    try { $(labelListsX[this].list).each(function(){
-            console.log('\t'+this);
-          });
-    }
-    catch(e){}
-  //});
+  if (Object.keys(labelListsX).length > 0){
+    for (key in labelListsX) {
+      console.log('list: ' + labelListsX[this].labelName + ', color: ' + labelListsX[this].labelColor );
+      try { $(labelListsX[this].list).each(function(){
+              console.log('\t'+this);
+            });
+      }
+      catch(e){}
+    //});
+    }  
   }
 }
 
