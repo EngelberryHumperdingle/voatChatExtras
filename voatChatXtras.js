@@ -1,17 +1,16 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.24 ');
+console.log(' custom lists 0.14.26 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
 // √ display list of current labels next to label button
 // √ display labels in corresponding list color
-// display user names in label color
+// √ display user names in label color
 // delete lists with no users
-// add label lists to localStorage each time something is changed
+// √ add label lists to localStorage each time something is changed
 // √ remove hard coded labels
-// find out why $(window).on('load', function(){...}) doesn't always run
 
 
 /////////////////////////////////////////////////
@@ -184,6 +183,22 @@ function updateLabelsX(){
 
         // hold all the css rules in here
         var theListCSS = [];
+        var specialCSS = [];
+        var specialIcon = "";
+
+        // get special characters for certain labels
+        switch (key) {
+          case "jew" :
+          case "kike" : 
+            specialIcon = "✡";
+            break;
+          case "bro" :
+          case "goat" :
+            specialIcon = "🐐";
+            break;
+          default :
+            // no special icon
+        }
 
         // if a label object has no users in it's list
         if (labelListsX[key].list.length < 1) {
@@ -203,6 +218,9 @@ function updateLabelsX(){
             console.log('adding css rule for: '+this);
             
             theListCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]' );
+            if (specialIcon != "") {
+              specialCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]::before' );
+            }
           });
 
           // if there's no style element for this label
@@ -213,6 +231,10 @@ function updateLabelsX(){
 
           // add the styles to the page
           $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'}');
+
+          if (specialIcon != "") {
+            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '";}');
+          }
 
         }
       }
@@ -390,14 +412,18 @@ $('body').on('click', '.labelOptions a', function(){
   // if the user is already on the selected list
   if (userColor == labelColor) {
 
-    console.log('removing: '+userName+' from list: '+theLabel);
-
     // remove user from selected list
     //theList.list.splice(theList.list.indexOf(userName), 1);
-    delete labelListsX[theLabel];
+    console.log('removing: '+userName+' from list: '+theLabel);    
+    labelListsX[theLabel].list.splice(labelListsX[theLabel].list.indexOf(userName), 1);
 
     // if the selected list is empty, remove it from localStorage
     //if (theList.list.length < 1) localStorage.clear(theLabel);
+    if (labelListsX[theLabel].list.length < 1) {
+
+      console.log('deleting empty list: '+theLabel);
+      delete labelListsX[theLabel];
+    }
   }
   else {
     // remove user from the other lists if present
@@ -446,8 +472,9 @@ $('body').on('click', '.addLabel', function(){
   // get user
   var theUserName = $(this).parents('p').find('a').attr('href').split('/').pop();
   
-  // check for duplicate list
   var nameUnique = true;
+
+  // check for duplicate list
   if (Object.keys(labelListsX).length > 0){
     for (var key in labelListsX) {
       if (labelListsX.hasOwnProperty(key)) {
