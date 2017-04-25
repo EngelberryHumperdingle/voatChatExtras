@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.39 ');
+console.log(' custom lists 0.14.40 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -441,39 +441,46 @@ $('body').on('click', '.addLabel', function(){
   
   var nameUnique = true;
 
-  // check for duplicate list
-  if (Object.keys(labelListsX).length > 0){
-    for (var key in labelListsX) {
-      if (labelListsX.hasOwnProperty(key)) {
-        if (newList == key) {
-          alert('you already have a label called \''+newList+'\'');
-          nameUnique = false;
-        }    
-      }
-    }  
+  // don't allow new labels without a name
+  if ( !$('.labelOptions .userLabel').val() ) {
+    alert('please enter a label for: '+theUsername);
   }
+  else {
+    // check for duplicate list
+    if (Object.keys(labelListsX).length > 0){
+      for (var key in labelListsX) {
+        if (labelListsX.hasOwnProperty(key)) {
+          if (newList == key) {
+            alert('you already have a label called \''+newList+'\'');
+            nameUnique = false;
+          }    
+        }
+      }  
+    }
 
-  if (nameUnique) {
-    // create new label list containing user
-    console.log('new list: '+ newList +', color: '+ newColor);
-    var labelListObject = {};
-    labelListObject.labelName = newList;
-    labelListObject.labelColor = newColor;
-    labelListObject.list = [theUserName];
-    // labelListsX[Object.keys(labelListsX).length] = labelListObject;
-    labelListsX[newList] = labelListObject;
+    if (nameUnique) {
+      // create new label list containing user
+      console.log('new list: '+ newList +', color: '+ newColor);
+      var labelListObject = {};
+      labelListObject.labelName = newList;
+      labelListObject.labelColor = newColor;
+      labelListObject.list = [theUserName];
+      // labelListsX[Object.keys(labelListsX).length] = labelListObject;
+      labelListsX[newList] = labelListObject;
 
-    // update labels in localStorage
-    //updateLabelsInLocalStorage();
+      // update labels in localStorage
+      //updateLabelsInLocalStorage();
 
-    updateLabelsX();
+      updateLabelsX();
 
-    // add list links to .labels
-    $('.labels').html( labelListLinks );
+      // add list links to .labels
+      $('.labels').html( labelListLinks );
+    }
+
+    // console
+    logLabelLists();
   }
-
-  // console
-  logLabelLists();
+  
 });
 
 
