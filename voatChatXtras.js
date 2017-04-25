@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.43 ');
+console.log(' custom lists 0.14.44 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -441,8 +441,6 @@ $('body').on('click', '.addLabel', function(){
   
   var nameUnique = true;
 
-  console.log('temp - newList: '+newList);
-
   // don't allow new labels without a name
   if ( newList == "" ) {
     alert('please enter a label for: '+theUserName);
@@ -538,7 +536,8 @@ $(function(){
 
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
-  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" background-color="'+ randomRGBColor +'" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
+  var initialColor = randomRGBColor;
+  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" background-color="'+ initialColor +'" value="'+ initialColor +'" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
   var numComments = $('.chat-message').length;
   
