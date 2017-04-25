@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.14 ');
+console.log(' custom lists 0.14.15 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -375,7 +375,7 @@ $('body').on('click', '.labelOptions a', function(){
         if ( labelListsX[key].list.indexOf(userName) != -1) {
           labelListsX[key].list.splice(labelListsX[key].list.indexOf(userName), 1);
         }
-        
+
       }
       
     }
@@ -522,25 +522,25 @@ $(window).on('load', function() {
     updateBlockList();
   }
   
-  if (localStorage.getItem('fake') != null) {
-    fakeList.list = localStorage.getItem('fake').split(',');
-  }
+  // if (localStorage.getItem('fake') != null) {
+  //   fakeList.list = localStorage.getItem('fake').split(',');
+  // }
   
-  if (localStorage.getItem('shill') != null) {
-    shillList.list = localStorage.getItem('shill').split(',');
-  }
+  // if (localStorage.getItem('shill') != null) {
+  //   shillList.list = localStorage.getItem('shill').split(',');
+  // }
   
-  if (localStorage.getItem('bro') != null) {
-    broList.list = localStorage.getItem('bro').split(',');
-  }
+  // if (localStorage.getItem('bro') != null) {
+  //   broList.list = localStorage.getItem('bro').split(',');
+  // }
   
-  if ( (localStorage.getItem('fake') != null) ||
-      (localStorage.getItem('shill') != null) ||
-      (localStorage.getItem('bro') != null) ) {
-    updateLabels();
-  }
+  // if ( (localStorage.getItem('fake') != null) ||
+  //     (localStorage.getItem('shill') != null) ||
+  //     (localStorage.getItem('bro') != null) ) {
+  //   updateLabels();
+  // }
 
-  console.log('check local storage');
+  console.log('check local storage for labels');
 
   if (localStorage.getItem('labelListsX') != null) {
     // get label lists from localStorage
