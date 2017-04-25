@@ -1,12 +1,13 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.09 ');
+console.log(' custom lists 0.14.10 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
-// display list of current labels next to label button
-// display labels in corresponding list color
+// √ display list of current labels next to label button
+// √ display labels in corresponding list color
+// display user names in label color
 // delete lists with no users
 // add label lists to localStorage each time something is changed
 // remove hard coded labels
@@ -118,28 +119,62 @@ function updateLabels(){
       localStorage.setItem(this.labelName, this.list.join(','));
     }
       
-
-
   });
+
+}
+
+
+function updateLabelsX(){
+  console.log('------------------------------\nupdateLabelsX()')
+  
+  // if there are lists
+  if (Object.keys(labelListsX).length > 0){
+    // look at each list
+    for (var key in labelListsX) {
+      if (labelListsX.hadOwnProperty(key)) {
+
+        // hold all the css rules in here
+        var theListCSS = [];
+
+        // remove empty lists
+        if (labelListsX[key].list.length < 1) delete labelListsX[key];
+        else {
+          // make a css rule for each user on the list
+          $(labelListsX[key].list).each(function(){
+            theListCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]' );
+          });
+        }
+      }
+
+    }  
+  }
+  
+  // clear labelListX from localStorage
+  if (fresh) {
+    // we just got the lists from localStorage no need to write them back
+    fresh = false;
+  }
+  else {
+    // save the list in the browser for next visit
+    updateLabelsInLocalStorage();
+  }
 
 }
 
 
 function logLabelLists() {
   console.log('------------------------------\nlogLabelLists()')
-  //$(labelListsX).each(function(){
-  var key;
+  
   if (Object.keys(labelListsX).length > 0){
-    for (key in labelListsX) {
+    for (var key in labelListsX) {
 
       console.log('\t'+key+': '+JSON.stringify(labelListsX[key]));
-      //console.log('list: ' + labelListsX[key].labelName + ', color: ' + labelListsX[key].labelColor );
       try { $(labelListsX[key].list).each(function(){
               console.log('\t\t'+this);
             });
       }
       catch(e){}
-    //});
+
     }  
   }
 }
@@ -265,6 +300,7 @@ $('body').on('click', '.labelOptions a', function(){
   }
 
   updateLabels();
+  updateLabelsX();
 
 });
 
@@ -372,6 +408,8 @@ $(window).on('load', function() {
 
     // add list links to .labels
     $('.labels').html( labelListLinks );
+
+    updateLabelsX();
 
     logLabelLists();
   }
