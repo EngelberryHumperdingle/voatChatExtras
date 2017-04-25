@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.13g
+// custom lists 0.13f
 
 // to do:
 // add label lists to localStorage each time something is changed
@@ -49,6 +49,8 @@ var labelListsX = [
   // { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
   // { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
 ];
+
+console.log('it gets this far');
 
 /////////////////////////////////////////////////
 
