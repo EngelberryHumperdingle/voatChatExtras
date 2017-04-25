@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.36 ');
+console.log(' custom lists 0.14.37 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -235,6 +235,8 @@ function updateLabelsX(){
   // update list links in .labels
   $('.labels').html( labelListLinks );
 
+  // choose new random default color for color pickers
+  $('.labelOptions .color').css('background-color', randomRGBColor);
 }
 
 
@@ -254,6 +256,14 @@ function logLabelLists() {
       }
     }  
   }
+}
+
+
+function updateLabelsInLocalStorage(){
+  console.log('-------------------\nupdateLabelsInLocalStorage()');
+
+  console.log('labelListsX: ', JSON.stringify(labelListsX) );
+  localStorage.setItem('labelListsX', JSON.stringify(labelListsX) );
 }
 
 
@@ -280,14 +290,10 @@ var labelListLinks = function(){
 }
 
 
-function updateLabelsInLocalStorage(){
-  console.log('-------------------\nupdateLabelsInLocalStorage()');
-
-  console.log('labelListsX: ', JSON.stringify(labelListsX) );
-  localStorage.setItem('labelListsX', JSON.stringify(labelListsX) );
+var randomRGBColor = function(){
+  var col = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+  return col;
 }
-
-
 
 
 
@@ -521,14 +527,9 @@ $(function(){
   // link style from github
   $('head').append('<link rel="stylesheet" type="text/css" href="https://rawgit.com/EngelberryHumperdingle/voatChatExtras/master/voatChatXtras.css">');
 
-  // add style tags
-  // $('head').append('<style type="text/css"> button.blockUser, button.labelUser, button.addLabel { height: 16px; padding: 0 2px; color: white; background-color: #303030; } button.blockUser:hover { background-color: #FF0000; } button.labelUser:hover, button.addLabel:hover { background-color: #6E63C0; } .labelOptions .labels a { font-weight: bold; .labelOptions { display: none; } .userLabel { width: 80px; } .color { max-width: 100px; text-align: center; } .blockListDisplay { display: none; float: right; width: 90%; padding-top: 6px; }</style>');
-
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
-  // var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <input class="color no-alpha" value="rgb(162, 63, 3)" style="background-color: rgb(169, 84, 33); color: rgb(221, 221, 221);"> &nbsp; <input class="userLabel" type="text" name="userLabel" value="Shill"> &nbsp; <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a></span>';
-  // var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"> <a href="javascript:void(0)" class="fake">fake</a> | <a href="javascript:void(0)" class="shill">shill</a> | <a href="javascript:void(0)" class="bro">bro</a> </span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" value="rgb(180, 0, 0)" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
-  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" value="rgb(180, 0, 0)" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
+  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" value="'+ randomRGBColor +'" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
   var numComments = $('.chat-message').length;
   
@@ -537,11 +538,6 @@ $(function(){
 
   // add buttons to existing comments
   $('.chat-message-head p').append(blockButton).append(labelButton);
-
-  // activate color picker
-  // $('.color').colorPicker({
-  //   opacity: false
-  // });
   
   // activate color picker
   $.getScript( "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js" )
