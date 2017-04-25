@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.13f
+// custom lists 0.13h
 
 // to do:
 // add label lists to localStorage each time something is changed
@@ -50,8 +50,6 @@ var labelListsX = [
   // { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
 ];
 
-console.log('it gets this far');
-
 /////////////////////////////////////////////////
 
 function updateBlockList(){
@@ -78,6 +76,7 @@ function updateBlockList(){
   $('.blockListDisplay').html('Click to unblock: '+ blockedUserLinks.join(', ') );
 }
 
+console.log('here 1');
 
 /////////////////////////////////////////////////
 
@@ -124,6 +123,7 @@ function updateLabels(){
 
 }
 
+console.log('here 2');
 
 function logLabelLists() {
   console.log('------------------------------\nlogLabelLists()')
@@ -145,7 +145,7 @@ function updateLabelsInLocalStorage(){
   localStorage.setItem('labelListsX', labelListsX.join(',') );
 }
 
-
+console.log('here 3');
 
 /////////////////////////////////////////////////
 // button clicks
@@ -177,6 +177,8 @@ $('body').on('click', '.unblockUser', function(e){
 
   if (blockedUserList.length <= 0) $('.blockListDisplay').css('display', 'none');
 });
+
+console.log('here 4');
 
 ////////////////////////////////
 
@@ -247,6 +249,8 @@ $('body').on('click', '.labelOptions a', function(){
 
 });
 
+console.log('here 5');
+
 ////////////////////////////////
 
 // click the add label button
@@ -282,6 +286,8 @@ $('body').on('click', '.addLabel', function(){
   // console
   logLabelLists();
 });
+
+console.log('here 6');
 
 /////////////////////////////////////////////////
 
