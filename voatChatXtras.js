@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.19 ');
+console.log(' custom lists 0.14.20 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -191,6 +191,9 @@ function updateLabelsX(){
 
           // remove the label
           delete labelListsX[key];
+
+          // remove the corresponding style tag
+          $('style#'+key).remove();
         }
         else {
           // make a css rule for each user on the list
@@ -201,8 +204,15 @@ function updateLabelsX(){
             theListCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]' );
           });
 
+          // if there's no style element for this label
+          if ( $('style#'+key).length < 1 ) {
+            // make a new style element with an id of this label
+            $('head').append( '<style id="'+key+'" type="text/css"></style>' );
+          }
+
           // add the styles to the page
           $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'}');
+
         }
       }
       else {
