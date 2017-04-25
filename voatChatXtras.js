@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.28 ');
+console.log(' custom lists 0.14.29 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -194,7 +194,8 @@ function updateLabelsX(){
             break;
           case "bro" :
           case "goat" :
-            specialIcon = "🐐 &nbsp;";
+            // specialIcon = "🐐 &nbsp;";
+            specialIcon = "&#x1F410; &nbsp;";
             break;
           default :
             // no special icon
