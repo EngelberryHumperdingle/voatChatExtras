@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.26 ');
+console.log(' custom lists 0.14.27 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -202,7 +202,9 @@ function updateLabelsX(){
 
         // if a label object has no users in it's list
         if (labelListsX[key].list.length < 1) {
-
+          // this should never happen
+          // it has already been checked in the click function
+          
           console.log('deleting empty list: '+key);
 
           // remove the label
@@ -423,6 +425,9 @@ $('body').on('click', '.labelOptions a', function(){
 
       console.log('deleting empty list: '+theLabel);
       delete labelListsX[theLabel];
+
+      // remove the corresponding style tag
+      $('style#'+theLabel).remove();
     }
   }
   else {
@@ -454,7 +459,7 @@ $('body').on('click', '.labelOptions a', function(){
     labelListsX[theLabel].list.push(userName);
   }
 
-  updateLabelsInLocalStorage();
+  // updateLabelsInLocalStorage();
   // updateLabels();
   updateLabelsX();
 
