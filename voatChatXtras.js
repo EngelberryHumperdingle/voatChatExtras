@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.30 ');
+console.log(' custom lists 0.14.31 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -169,10 +169,6 @@ function updateBlockList(){
 function updateLabelsX(){
   console.log('------------------------------\nupdateLabelsX()');
 
-  // ✡ Unicode: U+2721, UTF-8: E2 9C A1
-  // 🐐 Unicode: U+1F410 (U+D83D U+DC10), UTF-8: F0 9F 90 90
-
-  
   // if there are lists
   if (Object.keys(labelListsX).length > 0){
     // look at each list
@@ -270,6 +266,9 @@ function updateLabelsX(){
     // save the list in the browser for next visit
     updateLabelsInLocalStorage();
   }
+
+  // update list links in .labels
+  $('.labels').html( labelListLinks );
 
 }
 
@@ -641,9 +640,6 @@ $(function(){
     // get label lists from localStorage
     labelListsX = JSON.parse(localStorage.getItem('labelListsX'));
     console.log('labelListsX JSON: '+JSON.stringify(labelListsX));
-
-    // add list links to .labels
-    $('.labels').html( labelListLinks );
 
     updateLabelsX();
 
