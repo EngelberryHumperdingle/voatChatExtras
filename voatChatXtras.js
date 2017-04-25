@@ -1,16 +1,16 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// custom lists 0.14.04
+// custom lists 0.14.05
 
 // to do:
-// add label lists to localStorage each time something is changed
-// pull label lists from localStorage each time the page is loaded
+// √ pull label lists from localStorage each time the page is loaded
 // display list of current labels next to label button
 // delete lists with no users
+// add label lists to localStorage each time something is changed
 // remove hard coded labels
+// find out why $(window).on('load', function(){...}) doesn't always run
 
-console.log('loaded');
 
 /////////////////////////////////////////////////
 
@@ -77,7 +77,6 @@ function updateBlockList(){
   $('.blockListDisplay').html('Click to unblock: '+ blockedUserLinks.join(', ') );
 }
 
-console.log('here 1');
 
 /////////////////////////////////////////////////
 
@@ -124,7 +123,6 @@ function updateLabels(){
 
 }
 
-console.log('here 2');
 
 function logLabelLists() {
   console.log('------------------------------\nlogLabelLists()')
@@ -132,16 +130,31 @@ function logLabelLists() {
   var key;
   if (Object.keys(labelListsX).length > 0){
     for (key in labelListsX) {
-      console.log('the key is: '+key);
-      console.log('the value is: '+JSON.stringify(labelListsX[key]));
-      console.log('list: ' + labelListsX[key].labelName + ', color: ' + labelListsX[key].labelColor );
+
+      console.log('\t'+key+': '+JSON.stringify(labelListsX[key]));
+      //console.log('list: ' + labelListsX[key].labelName + ', color: ' + labelListsX[key].labelColor );
       try { $(labelListsX[key].list).each(function(){
-              console.log('\t'+this);
+              console.log('\t\t'+this);
             });
       }
       catch(e){}
     //});
     }  
+  }
+}
+
+
+var lableListLinks = function(){
+  var labelLinksHTML = [];
+
+  if (Object.keys(labelListsX).length > 0){
+    for (var key in labelListsX) {
+
+      labelLinksHTML.push('<a href="javascript:void(0)" class="'+labelListsX[key].labelName+'">'+labelListsX[key].labelName+'</a>');
+
+    }  
+
+    return labelLinksHTML.join(' | ');
   }
 }
 
@@ -153,7 +166,6 @@ function updateLabelsInLocalStorage(){
   localStorage.setItem('labelListsX', JSON.stringify(labelListsX) );
 }
 
-console.log('here 3');
 
 /////////////////////////////////////////////////
 // button clicks
@@ -186,7 +198,6 @@ $('body').on('click', '.unblockUser', function(e){
   if (blockedUserList.length <= 0) $('.blockListDisplay').css('display', 'none');
 });
 
-console.log('here 4');
 
 ////////////////////////////////
 
@@ -257,7 +268,6 @@ $('body').on('click', '.labelOptions a', function(){
 
 });
 
-console.log('here 5');
 
 ////////////////////////////////
 
@@ -295,7 +305,6 @@ $('body').on('click', '.addLabel', function(){
   logLabelLists();
 });
 
-console.log('here 6');
 
 /////////////////////////////////////////////////
 
@@ -353,11 +362,14 @@ $(window).on('load', function() {
 
   console.log('check local storage');
 
-  // check localStorage for label lists
   if (localStorage.getItem('labelListsX') != null) {
+    // get label lists from localStorage
     labelListsX = JSON.parse(localStorage.getItem('labelListsX'));
-
     console.log('labelListsX JSON: '+JSON.stringify(labelListsX));
+
+    // add list links to .labels
+    $('.labels').html( labelListLinks() );
+
     logLabelLists();
   }
   else {
@@ -369,13 +381,16 @@ $(window).on('load', function() {
   // update display each time a new comment is added
   $('.chatContent').bind("DOMSubtreeModified",function(){
 
-     // add buttons to newly added comment
-     if ($('.chat-message').length > numComments) {
-       numComments = $('.chat-message').length;
-       $('.chat-message:last').find('.chat-message-head p').append(blockButton).append(labelButton);
-    
-       updateBlockList();
-     } 
+    // add buttons to newly added comment
+    if ($('.chat-message').length > numComments) {
+      numComments = $('.chat-message').length;
+      $('.chat-message:last').find('.chat-message-head p').append(blockButton).append(labelButton);
+      
+      // add list links to .labels
+      $('.chat-message:last').find('.labels').html( labelListLinks );
+
+      updateBlockList();
+    } 
   
     // change the word 'fist' to 'chef'
     $('.chat-message-body p').each(function(){
@@ -387,3 +402,7 @@ $(window).on('load', function() {
   });
   
 });
+
+
+
+console.log('loaded');
