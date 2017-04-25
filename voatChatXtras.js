@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.20 ');
+console.log(' custom lists 0.14.21 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -350,13 +350,16 @@ $('body').on('click', 'button.labelUser', function(){
 ////////////////////////////////
 // click actual labels
 $('body').on('click', '.labelOptions a', function(){
-  $(this).parent('.labelOptions').hide(200);
+  $(this).parents('.labelOptions').hide(200);
 
   var theUser = $(this).parents('p').find('a').attr('href');
   var userName = theUser.split('/').pop();
   var userColor = $(this).parents('p').find('a').css('color');
   var labelColor = $(this).css('color');
   var theLabel = $(this).text();
+
+  console.log('----------------------\n----------------------\nyou clicked: '+theLabel);
+
   //var theList = labelListsX[theLabel];
   //var theOtherLists = [];
   
@@ -385,6 +388,9 @@ $('body').on('click', '.labelOptions a', function(){
 
   // if the user is already on the selected list
   if (userColor == labelColor) {
+
+    console.log('removing: '+userName+' from list: '+theLabel);
+
     // remove user from selected list
     //theList.list.splice(theList.list.indexOf(userName), 1);
     delete labelListsX[theLabel];
@@ -402,6 +408,7 @@ $('body').on('click', '.labelOptions a', function(){
 
         // if the user is on the list
         if ( labelListsX[key].list.indexOf(userName) != -1) {
+          console.log('removing: '+userName+' from list: '+theLabel);
           labelListsX[key].list.splice(labelListsX[key].list.indexOf(userName), 1);
         }
 
@@ -416,7 +423,8 @@ $('body').on('click', '.labelOptions a', function(){
 
     // add it to the new list
     // theList.list.push(userName);
-    labelListsX[key].list.push(userName);
+    console.log('adding: '+userName+' to list: '+theLabel)
+    labelListsX[theLabel].list.push(userName);
   }
 
   updateLabelsInLocalStorage();
