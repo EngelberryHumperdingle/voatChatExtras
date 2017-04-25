@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.13 ');
+console.log(' custom lists 0.14.14 ');
 
 // to do:
 // √ pull label lists from localStorage each time the page is loaded
@@ -36,24 +36,71 @@ $("head").append(colorPickerScript);
 //     alert('failed loading colorpicker script');
 // });
 
-/////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+//      *****     *           *****     ******       *****     *           *****
+//    **     **   *         **     **   *     **   **     **   *         **     **
+//    *       *   *         *       *   *      *   *       *   *         *       *
+//    *           *         *       *   *     **   *       *   *         **
+//    *           *         *       *   ******     *       *   *           *****
+//    *    ****   *         *       *   *     **   *********   *                **
+//    *       *   *         *       *   *      *   *       *   *                 *
+//    *       *   *         *       *   *      *   *       *   *         *       *
+//    **     **   *         **     **   *     **   *       *   *         **     **
+//      *****     ********    *****     ******     *       *   ********    *****
+
+
+// var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
+// var shillList = { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] };
+// var broList = { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] };
+// var labelLists = [fakeList, shillList, broList];
 
 var blockedUserList = [];
-var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
-var shillList = { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] };
-var broList = { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] };
-var labelLists = [fakeList, shillList, broList];
 var blockedUserLinks = [];
 var fresh = true;
-
 var labelListsX = {
-  // { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] },
-  // { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] },
-  // { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
-  // { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
+  //'troll' : { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
+  //'bro' : { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
 };
 
-/////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    *********   *       *   *      *   *********   ***     *****     *      *      *****
+//    *           *       *   **     *       *        *    **     **   **     *    **     **
+//    *           *       *   * *    *       *        *    *       *   * *    *    *
+//    *           *       *   *  *   *       *        *    *       *   *  *   *    **
+//    *******     *       *   *  *   *       *        *    *       *   *  *   *      *****
+//    *           *       *   *   *  *       *        *    *       *   *   *  *           **
+//    *           *       *   *   *  *       *        *    *       *   *   *  *            *
+//    *           *       *   *    * *       *        *    *       *   *    * *    *       *
+//    *           **     **   *     **       *        *    **     **   *     **    **     **
+//    *             *****     *      *       *       ***     *****     *      *      *****
+
 
 function updateBlockList(){
   if (blockedUserList.length > 0) {
@@ -205,11 +252,38 @@ function updateLabelsInLocalStorage(){
 }
 
 
-/////////////////////////////////////////////////
-// button clicks
-/////////////////////////////////////////////////
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//      *****     *         ***     *****     *     *    *****
+//    **     **   *          *    **     **   *    *   **     **
+//    *       *   *          *    *           *   *    *       *
+//    *           *          *    *           *  *     **
+//    *           *          *    *           * *        *****
+//    *           *          *    *           ***             **
+//    *           *          *    *           *  *             *
+//    *       *   *          *    *       *   *   *    *       *
+//    **     **   *          *    **     **   *    *   **     **
+//      *****     ********  ***     *****     *     *    *****
+
+
+////////////////////////////////
 // click block buttons
 $('body').on('click', 'button.blockUser', function(){
   var theUser = $(this).parent('p').find('a').attr('href');
@@ -220,8 +294,8 @@ $('body').on('click', 'button.blockUser', function(){
     
 });
 
-////////////////////////////////
 
+////////////////////////////////
 // click unblock buttons
 $('body').on('click', '.unblockUser', function(e){
   e.preventDefault();
@@ -238,14 +312,13 @@ $('body').on('click', '.unblockUser', function(e){
 
 
 ////////////////////////////////
-
 // click label button
 $('body').on('click', 'button.labelUser', function(){
   $(this).siblings('.labelOptions').toggle(200);
 });
 
-////////////////////////////////
 
+////////////////////////////////
 // click actual labels
 $('body').on('click', '.labelOptions a', function(){
   $(this).parent('.labelOptions').hide(200);
@@ -325,7 +398,6 @@ $('body').on('click', '.labelOptions a', function(){
 
 
 ////////////////////////////////
-
 // click the add label button
 $('body').on('click', '.addLabel', function(){
   $(this).parents('.labelOptions').hide(200);
@@ -362,6 +434,8 @@ $('body').on('click', '.addLabel', function(){
     // update labels in localStorage
     updateLabelsInLocalStorage();
 
+    updateLabelsX();
+
     // add list links to .labels
     $('.labels').html( labelListLinks );
   }
@@ -371,7 +445,47 @@ $('body').on('click', '.addLabel', function(){
 });
 
 
-/////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    *******       *****       *****     ********  
+//    *      **   **     **   **     **   *         
+//    *       *   *       *   *       *   *         
+//    *       *   *       *   *           *         
+//    *      **   *       *   *           *         
+//    *******     *********   *   *****   ******    
+//    *           *       *   *       *   *         
+//    *           *       *   *       *   *         
+//    *           *       *   **     **   *         
+//    *           *       *     *****     ********  
+
+//    *             *****       *****     *******    
+//    *           **     **   **     **   *      **  
+//    *           *       *   *       *   *       *  
+//    *           *       *   *       *   *       *  
+//    *           *       *   *       *   *       *  
+//    *           *       *   *********   *       *  
+//    *           *       *   *       *   *       *  
+//    *           *       *   *       *   *       *  
+//    *           **     **   *       *   *      **  
+//    ********      *****     *       *   *******    
+
+
+
 
 // $('document').ready(function(){
 $(window).on('load', function() {
