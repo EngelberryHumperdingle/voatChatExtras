@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.03 ');
+console.log('custom lists 0.15.04 ');
 
 // to do:
 // don't allow users on more than one list
@@ -415,13 +415,13 @@ $('body').on('click', '.addLabel', function(){
   var newList = $(this).parent('.labelOptions').find('.userLabel').val().toLowerCase();
   var newColor = $(this).parent('.labelOptions').find('.color').val();
   // get user
-  var theUserName = $(this).parents('p').find('a').attr('href').split('/').pop();
+  var theUser = $(this).parents('p').find('a').attr('href').split('/').pop();
   
   var nameUnique = true;
 
   // don't allow new labels without a name
   if ( newList == "" ) {
-    alert('please enter a label for: '+theUserName);
+    alert('please enter a label for: '+theUser);
   }
   else {
     // check for duplicate list
@@ -437,12 +437,39 @@ $('body').on('click', '.addLabel', function(){
     }
 
     if (nameUnique) {
+      // remove user from any existing label lists
+      for (var key in labelListsX) {
+        if (labelListsX.hasOwnProperty(key)) {
+          if (theUser == key) {
+            labelListsX[key].list.splice(labelListsX[key].list.indexOf(theUser), 1);
+
+            // somewhat redundant code from 'click actual labels'
+            // maybe pull this into a function...
+
+            // if the selected list is empty
+            if (labelListsX[key].list.length < 1) {
+
+              // remove it from the labelListsX
+              console.log('deleting empty list: '+key);
+              delete labelListsX[key];
+
+              // remove the corresponding style tag
+              $('style#'+key).remove();
+
+              // remove the list from localStorage
+              updateLabelsInLocalStorage();
+            }
+            
+          }    
+        }
+      }
+
       // create new label list containing user
       console.log('new list: '+ newList +', color: '+ newColor);
       var labelListObject = {};
       labelListObject.labelName = newList;
       labelListObject.labelColor = newColor;
-      labelListObject.list = [theUserName];
+      labelListObject.list = [theUser];
       labelListsX[newList] = labelListObject;
 
       updateLabelsX();
