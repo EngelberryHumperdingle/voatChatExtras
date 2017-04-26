@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.02 ');
+console.log('custom lists 0.15.03 ');
 
 // to do:
 // don't allow users on more than one list
@@ -207,7 +207,7 @@ function updateLabelsX(){
   }
 
   // store it in here so it doesn't call the function for every comment on the page
-  var theListOfLabelLinks = labelListLinks;
+  var theListOfLabelLinks = labelListLinks();
   // update list links in .labels
   $('.labels').html( theListOfLabelLinks );
 
@@ -237,7 +237,7 @@ function logLabelLists() {
 
 /////////////////////////////////////////////////
 
-function updateLabelsInLocalStorage(){
+function updateLabelsInLocalStorage() {
   console.log('\n updateLabelsInLocalStorage()');
 
   console.log('labelListsX: ', JSON.stringify(labelListsX) );
@@ -246,7 +246,7 @@ function updateLabelsInLocalStorage(){
 
 /////////////////////////////////////////////////
 
-var labelListLinks = function(){
+function labelListLinks() {
   // returns a string containing a link for each label
   console.log('\n labelListLinks');
 
@@ -448,7 +448,7 @@ $('body').on('click', '.addLabel', function(){
       updateLabelsX();
 
       // store it in here so it doesn't call the function for every comment on the page
-      var theListOfLabelLinks = labelListLinks;
+      var theListOfLabelLinks = labelListLinks();
       // update list links in .labels
       $('.labels').html( theListOfLabelLinks );
     }
@@ -548,9 +548,9 @@ $(function(){
       numComments = $('.chat-message').length;
       $('.chat-message:last').find('.chat-message-head p').append(blockButton).append(labelButton);
       
-      
+
       // store it in here so it doesn't call the function for every comment on the page
-      var theListOfLabelLinks = labelListLinks;
+      var theListOfLabelLinks = labelListLinks();
       // update list links in .labels
       $('.labels').html( theListOfLabelLinks );
 
