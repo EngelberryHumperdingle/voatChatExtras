@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.33 ');
+console.log('custom lists 0.15.34 ');
 
 // to do:
 // √ don't allow users on more than one list
@@ -541,8 +541,8 @@ $('body').on('click', '.addLabel', function(){
 
 });
 
-// pressing enter clicks the addLabel button
-$('body').on('keydown','.labelOptions .userLabel', function(event) {
+// pressing enter while focussed on .userLabel or .color inputs clicks the addLabel button
+$('body').on('keydown','.labelOptions .userLabel, .labelOptions .color', function(event) {
   if (event.keyCode == 13) {
     $(this).siblings('.addLabel').click();
   }
