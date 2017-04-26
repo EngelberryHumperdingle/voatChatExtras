@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15 ');
+console.log('custom lists 0.15.01 ');
 
 // to do:
 // don't allow users on more than one list
@@ -11,8 +11,8 @@ console.log('custom lists 0.15 ');
 
 /////////////////////////////////////////////////
 
-
-
+// link style from github
+$('head').append('<link rel="stylesheet" type="text/css" href="https://rawgit.com/EngelberryHumperdingle/voatChatExtras/master/voatChatXtras.css">');
 
 
 
@@ -488,9 +488,6 @@ $('body').on('click', '.addLabel', function(){
 
 
 $(function(){
-
-  // link style from github
-  $('head').append('<link rel="stylesheet" type="text/css" href="https://rawgit.com/EngelberryHumperdingle/voatChatExtras/master/voatChatXtras.css">');
 
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
