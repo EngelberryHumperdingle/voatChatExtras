@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.04 ');
+// console.log('voat chat extras 0.16.05 ');
 
 // to do:
 // add show all labels button
@@ -638,7 +638,6 @@ $(function(){
 
       // activate color picker
       var quickColor = randomRGBColor();
-      console.log('length: '+ $('.chat-message:last').find('.color').length);
       $('.chat-message:last').find('.color').colorPicker({
         opacity: false,
         color: quickColor
