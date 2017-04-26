@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.08 ');
+console.log('custom lists 0.15.09 ');
 
 // to do:
 // don't allow users on more than one list
@@ -80,6 +80,10 @@ function updateBlockList(){
     // keep block list in localStorage for later
     localStorage.setItem('blocked', blockedUserList.join(','));
   }
+  else {
+    // clear block list from localStorage
+    localStorage.removeItem('blocked');
+  }
 
   // clear the array
   blockedUserLinks = [];
@@ -115,12 +119,13 @@ function updateLabelsX(){
     for (var key in labelListsX) {
       if (labelListsX.hasOwnProperty(key)) {
 
-        console.log('looking at label: '+key);
+        //console.log('looking at label: '+key);
 
         // hold all the css rules in here
         var theListCSS = [];
         var specialCSS = [];
         var specialIcon = "";
+        var specialIconColor = 'white';
 
         // get special characters for certain labels
         switch (key) {
@@ -133,12 +138,11 @@ function updateLabelsX(){
           case "kike" : 
             specialIcon = "✡ &nbsp;";
             break;
-          case "muslim" :
-            specialIcon = "☪ &nbsp;";
-            break;
           case "commie" :
           case "communist" :
+          case "socialist" :
             specialIcon = "☭ &nbsp;";
+            specialIconColor = "rgb(169, 0, 0)";
             break;
           case "shill" :
             specialIcon = "$ &nbsp;";
@@ -182,7 +186,7 @@ function updateLabelsX(){
           $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'}');
 
           if (specialIcon != "") {
-            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: white; font-size: 1.5em; line-height: 0.8em; }');
+            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; }');
           }
 
         }
@@ -381,7 +385,6 @@ $('body').on('click', '.labelOptions a', function(){
   }
   else {
     // remove user from the other lists if present
-    // $(theOtherLists).each(function(i){
     for (var key in labelListsX) {
       
       // make sure it's not the list you just clicked
@@ -532,9 +535,11 @@ $('body').on('click', '.addLabel', function(){
 
 $(function(){
 
+  // get random color for color picker
+  var initialColor = randomRGBColor();
+  
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
-  var initialColor = randomRGBColor();
   var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" background-color="'+ initialColor +'" value="'+ initialColor +'" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
   var numComments = $('.chat-message').length;
@@ -549,11 +554,12 @@ $(function(){
   $.getScript( "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js" )
     .done(function( script, textStatus ) {
       $('.color').colorPicker({
-        opacity: false
+        opacity: false,
+        color: initialColor
       });
     })
     .fail(function( jqxhr, settings, exception ) {
-      alert('failed loading colorpicker script');
+      alert('couldn\'t load colorpicker script. \n You could probably still type in the rgb values if you want.');
   });
 
   // get blocked list from localStorage
@@ -561,8 +567,6 @@ $(function(){
     blockedUserList = localStorage.getItem('blocked').split(',');
     updateBlockList();
   }
-
-  console.log('check local storage for labels');
 
   // get labels from localStorage
   if (localStorage.getItem('labelListsX') != null) {
