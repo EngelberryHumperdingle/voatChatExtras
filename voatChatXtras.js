@@ -1,15 +1,15 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.26 ');
+console.log('custom lists 0.15.28 ');
 
 // to do:
 // √ don't allow users on more than one list
 // √ when adding user to new list, make sure to remove from all other lists
-// add contrasting background color to dark usernames
-// position icons outside user name background color
+// √ add contrasting background color to dark usernames
+// √ position icons outside user name background color
 // not clicking on color option before adding label chooses incorrect color
-// investigate redundant code in updateLabelsX()
+// optimize code, clean up redundant bits
 
 
 /////////////////////////////////////////////////
@@ -454,7 +454,8 @@ $('body').on('click', '.addLabel', function(){
   $(this).parents('.labelOptions').hide(200);
 
   // get list name and color from inputs
-  var newList = $(this).parent('.labelOptions').find('.userLabel').val().toLowerCase().replace(' ','-');
+  // regex: -removes anything but numbers, letters, and spaces.  -makes all letters lowercase.  -replaces all spaces with dashes.
+  var newList = $(this).parent('.labelOptions').find('.userLabel').replace(/[^\w\s]/gi, '').val().toLowerCase().replace(' ','-');
   var newColor = $(this).parent('.labelOptions').find('.color').val();
   // get user
   var theUser = $(this).parents('p').find('a').attr('href').split('/').pop();
