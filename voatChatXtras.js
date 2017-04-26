@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.28 ');
+console.log('custom lists 0.15.29 ');
 
 // to do:
 // √ don't allow users on more than one list
@@ -453,9 +453,10 @@ $('body').on('click', '.labelOptions a', function(){
 $('body').on('click', '.addLabel', function(){
   $(this).parents('.labelOptions').hide(200);
 
-  // get list name and color from inputs
-  // regex: -removes anything but numbers, letters, and spaces.  -makes all letters lowercase.  -replaces all spaces with dashes.
-  var newList = $(this).parent('.labelOptions').find('.userLabel').replace(/[^\w\s]/gi, '').val().toLowerCase().replace(' ','-');
+  // get label from input
+  // remove anything but numbers, letters, and spaces.  make all letters lowercase.  replace all spaces with dashes.
+  var newList = $(this).parent('.labelOptions').find('.userLabel').val().replace(/[^\w\s]/gi, '').toLowerCase().replace(' ','-');
+  // get color from input
   var newColor = $(this).parent('.labelOptions').find('.color').val();
   // get user
   var theUser = $(this).parents('p').find('a').attr('href').split('/').pop();
