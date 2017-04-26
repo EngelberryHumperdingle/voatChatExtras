@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.25 ');
+console.log('custom lists 0.15.26 ');
 
 // to do:
 // √ don't allow users on more than one list
@@ -192,7 +192,7 @@ function updateLabelsX(){
           // if(yiq >= 128) { console.log('\t\t\t this looks good on the dark background'); }
           console.log('yiq# : '+yiq);
           var contrastingBackgroundCSS = "";
-          if(yiq >= 80) { 
+          if(yiq >= 85) { 
             console.log('\t\t\t this looks good on the dark background'); 
           }
           else { 
@@ -292,7 +292,7 @@ function labelListLinks() {
         var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
         console.log('yiq# : '+yiq);
         var contrastingBackgroundCSS = "";
-        if(yiq >= 80) { 
+        if(yiq >= 85) { 
           console.log('\t\t\t this looks good on the dark background'); 
         }
         else { 
@@ -454,7 +454,7 @@ $('body').on('click', '.addLabel', function(){
   $(this).parents('.labelOptions').hide(200);
 
   // get list name and color from inputs
-  var newList = $(this).parent('.labelOptions').find('.userLabel').val().toLowerCase();
+  var newList = $(this).parent('.labelOptions').find('.userLabel').val().toLowerCase().replace(' ','-');
   var newColor = $(this).parent('.labelOptions').find('.color').val();
   // get user
   var theUser = $(this).parents('p').find('a').attr('href').split('/').pop();
