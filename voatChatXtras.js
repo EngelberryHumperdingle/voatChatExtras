@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.22 ');
+console.log('custom lists 0.15.23 ');
 
 // to do:
 // √ don't allow users on more than one list
@@ -273,7 +273,7 @@ function updateLabelsInLocalStorage() {
 
 function labelListLinks() {
   // returns a string containing a link for each label
-  console.log('\n labelListLinks');
+  console.log('\n labelListLinks()');
 
   //$('.labelOptions .userLabel').val('');
 
@@ -308,6 +308,7 @@ function labelListLinks() {
     return labelLinksHTML.join(' | ');
   }
   else {
+    console.log('no label lists');
     return "";
   }
 }
