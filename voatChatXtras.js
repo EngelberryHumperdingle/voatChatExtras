@@ -1,9 +1,10 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.01 ');
+// console.log('voat chat extras 0.16.02 ');
 
 // to do:
+// add show all labels button
 // optimize code, clean up redundant bits
 
 
@@ -11,6 +12,8 @@
 
 // link style from github
 $('head').append('<link rel="stylesheet" type="text/css" href="https://rawgit.com/EngelberryHumperdingle/voatChatExtras/master/voatChatXtras.css">');
+
+
 
 
 
@@ -579,6 +582,7 @@ $(function(){
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
   var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" background-color="'+ initialColor +'" value="'+ initialColor +'" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
+  var labelListDisplay = '<div class="labelListDisplay" >Click label to delete: </div>';
   var numComments = $('.chat-message').length;
   
   // add area to display blocked users
