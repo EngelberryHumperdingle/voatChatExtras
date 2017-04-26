@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.04 ');
+console.log('custom lists 0.15.05 ');
 
 // to do:
 // don't allow users on more than one list
@@ -211,8 +211,9 @@ function updateLabelsX(){
   // update list links in .labels
   $('.labels').html( theListOfLabelLinks );
 
+  var quickColor = randomRGBColor();
   // choose new random default color for color pickers
-  $('.labelOptions .color').css('background-color', randomRGBColor);
+  $('.labelOptions .color').css('background-color', quickColor).val( quickColor );
 }
 
 /////////////////////////////////////////////////
@@ -271,7 +272,7 @@ function labelListLinks() {
 }
 
 
-var randomRGBColor = function(){
+function randomRGBColor(){
   var col = 'rgb(' + (Math.floor(Math.random() * 256)) + ', ' + (Math.floor(Math.random() * 256)) + ', ' + (Math.floor(Math.random() * 256)) + ')';
   return col;
 }
@@ -431,7 +432,7 @@ $('body').on('click', '.addLabel', function(){
           if (newList == key) {
             alert('you already have a label called \''+newList+'\'');
             nameUnique = false;
-          }    
+          } 
         }
       }  
     }
@@ -459,7 +460,7 @@ $('body').on('click', '.addLabel', function(){
               // remove the list from localStorage
               updateLabelsInLocalStorage();
             }
-            
+
           }    
         }
       }
@@ -522,7 +523,7 @@ $(function(){
 
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
-  var initialColor = randomRGBColor;
+  var initialColor = randomRGBColor();
   var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" background-color="'+ initialColor +'" value="'+ initialColor() +'" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
   var numComments = $('.chat-message').length;
