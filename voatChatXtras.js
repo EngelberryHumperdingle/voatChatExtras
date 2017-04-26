@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.21 ');
+console.log('custom lists 0.15.22 ');
 
 // to do:
 // √ don't allow users on more than one list
@@ -191,18 +191,18 @@ function updateLabelsX(){
           var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
           // if(yiq >= 128) { console.log('\t\t\t this looks good on the dark background'); }
           console.log('yiq# : '+yiq);
-          var customBackgroundCSS = "";
+          var contrastingBackgroundCSS = "";
           if(yiq >= 80) { 
             console.log('\t\t\t this looks good on the dark background'); 
           }
           else { 
             //bgColor = "rgba(255, 255, 255, 1)"; 
             console.log('\t\t\t this color needs a light background'); 
-            customBackgroundCSS = 'background-color: white; display: inline-block; padding: 0 2px;';
+            contrastingBackgroundCSS = 'background-color: white; display: inline-block; padding: 0 2px;';
           }
 
           // add the styles to the page
-          $('style#'+key).html(theListCSS.join(',') + '{color: ' + labelListsX[key].labelColor + '; ' + customBackgroundCSS + (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
+          $('style#'+key).html(theListCSS.join(',') + '{color: ' + labelListsX[key].labelColor + '; ' + contrastingBackgroundCSS + (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
 
           if (specialIcon != "") {
             $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; position: absolute; margin-left: 5px; top: 0px; }');
@@ -284,8 +284,25 @@ function labelListLinks() {
     // check each label list
     for (var key in labelListsX) {
       if (labelListsX.hasOwnProperty(key)) {
+
+        // set bgColor if necessary
+        // from -> http://codeitdown.com/jquery-color-contrast/
+        // reduntant code from updateLabelsX()...
+        var rgb = labelListsX[key].labelColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
+        var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
+        console.log('yiq# : '+yiq);
+        var contrastingBackgroundCSS = "";
+        if(yiq >= 80) { 
+          console.log('\t\t\t this looks good on the dark background'); 
+        }
+        else { 
+          //bgColor = "rgba(255, 255, 255, 1)"; 
+          console.log('\t\t\t this color needs a light background'); 
+          contrastingBackgroundCSS = 'background-color: white; display: inline-block; padding: 0 2px;';
+        }
+
         // make a link for each created list
-        labelLinksHTML.push('<a href="javascript:void(0)" class="'+key+'" style="color: '+labelListsX[key].labelColor+';">'+key+'</a>');
+        labelLinksHTML.push('<a href="javascript:void(0)" class="'+key+'" style="color: '+labelListsX[key].labelColor+'; ' + contrastingBackgroundCSS + '">'+key+'</a>');
       }
     }  
     return labelLinksHTML.join(' | ');
