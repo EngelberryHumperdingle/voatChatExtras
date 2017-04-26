@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16 ');
+// console.log('voat chat extras 0.16.01 ');
 
 // to do:
 // optimize code, clean up redundant bits
@@ -529,7 +529,7 @@ $('body').on('click', '.addLabel', function(){
     }
 
     // console
-    logLabelLists();
+    // logLabelLists();
   }
 
 });
