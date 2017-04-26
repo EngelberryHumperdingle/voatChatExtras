@@ -1,12 +1,13 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.07 ');
+console.log('custom lists 0.15.08 ');
 
 // to do:
 // don't allow users on more than one list
 // when adding user to new list, make sure to remove from all other lists
 // investigate redundant code in updateLabelsX()
+// not clicking on color option before adding label chooses incorrect color
 
 
 /////////////////////////////////////////////////
@@ -445,7 +446,7 @@ $('body').on('click', '.addLabel', function(){
           
           // look at each user on the list
           for (var user in labelListsX[label].list) {
-            
+            console.log('user: '+user+', theUser: '+theUser);
             // if the user exists on the list
             if (user == theUser) {
 
