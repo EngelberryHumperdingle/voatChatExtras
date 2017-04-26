@@ -190,11 +190,21 @@ function updateLabelsX(){
           var rgb = labelListsX[key].labelColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
           var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
           // if(yiq >= 128) { console.log('\t\t\t this looks good on the dark background'); }
-          if(yiq >= 80) { console.log('\t\t\t this looks good on the dark background'); }
-          else { bgColor = "rgba(255, 255, 255, 1)"; console.log('\t\t\t this color needs a light background'); }
+          console.log('yiq# : '+yiq);
+          var customBackgroundCSS = "";
+          if(yiq >= 80) { 
+            console.log('\t\t\t this looks good on the dark background'); 
+          }
+          else { 
+            //bgColor = "rgba(255, 255, 255, 1)"; 
+            console.log('\t\t\t this color needs a light background'); 
+            customBackgroundCSS = 'background-color: white; display: inline-block; padding: 0 2px;')
+          }
+
+          
 
           // add the styles to the page
-          $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor + '; ' + (bgColor != "rgba(0, 0, 0, 0)" ? 'background-color: '+bgColor+'; display: inline-block; padding: 0 2px;') + (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
+          $('style#'+key).html(theListCSS.join(',') + '{color: ' + labelListsX[key].labelColor + '; ' + customBackgroundCSS + (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
 
           if (specialIcon != "") {
             $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; position: absolute; margin-left: 5px; top: 0px; }');
