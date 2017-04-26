@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.09 ');
+console.log('custom lists 0.15.10 ');
 
 // to do:
 // don't allow users on more than one list
@@ -449,9 +449,9 @@ $('body').on('click', '.addLabel', function(){
           
           // look at each user on the list
           for (var user in labelListsX[label].list) {
-            console.log('user: '+user+', theUser: '+theUser);
+            console.log('user: '+labelListsX[label].list[user]+', theUser: '+theUser);
             // if the user exists on the list
-            if (user == theUser) {
+            if (labelListsX[label].list[user] == theUser) {
 
               // remove the user from the list
               console.log('removing: '+theUser+' from list: '+label);
