@@ -1,12 +1,11 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.35 ');
+console.log('custom lists 0.15.36 ');
 
 // to do:
-// √ don't allow users on more than one list
-// √ when adding user to new list, make sure to remove from all other lists
-// √ add contrasting background color to dark usernames
+
+
 // √ position icons outside user name background color
 // not clicking on color option before adding label chooses incorrect color
 // optimize code, clean up redundant bits
@@ -145,7 +144,7 @@ function updateLabelsX(){
           case "communist" :
           case "socialist" :
             specialIcon = "☭";
-            specialIconColor = "rgb(169, 0, 0)";
+            specialIconColor = "rgb(200, 0, 0)";
             break;
           case "shill" :
             specialIcon = "$";
@@ -568,7 +567,7 @@ $('body').on('keydown','.labelOptions .userLabel, .labelOptions .color, .cp-colo
 //    *       *   *          *       *   *       *    *     *
 //    *       *   *          *       *   *       *     *   *
 //    *      **   *          *       *   *       *       *
-//    *******     ******     *****   *   *       *       *
+//    *******     ******     *********   *       *       *
 //    *      *    *          *       *   *       *       *
 //    *       *   *          *       *   *       *       *
 //    *       *   *          *       *   *      **       *
