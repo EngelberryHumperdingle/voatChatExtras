@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.15 ');
+console.log('custom lists 0.15.16 ');
 
 // to do:
 // √ don't allow users on more than one list
@@ -127,7 +127,8 @@ function updateLabelsX(){
         var theListCSS = [];
         var specialCSS = [];
         var specialIcon = "";
-        var specialIconColor = 'white';
+        var specialIconColor = "white";
+        var bgColor = "rgba(0, 0, 0, 0)";
 
         // get special characters for certain labels
         switch (key) {
@@ -184,8 +185,14 @@ function updateLabelsX(){
             $('head').append( '<style id="'+key+'" type="text/css"></style>' );
           }
 
+          // set bgColor if necessary
+          var rgb = labelListsX[key].labelColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
+          var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
+          if(yiq >= 128) { console.log('\t\t\t this looks good on the dark background'); }
+          else { bgColor = "rgba(255, 255, 255, 0.3"; console.log('\t\t\t this color needs a light background'); }
+
           // add the styles to the page
-          $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'; background-color: rgba(255,255,255,0.3);'+ (specialIcon == "" ? ' }' : ' margin-right: 18px; position: relative; }') );
+          $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'; background-color: '+bgColor+'; '+ (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
 
           if (specialIcon != "") {
             $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; position: absolute; margin-left: 5px; top: 0px; }');
