@@ -1,13 +1,15 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.10 ');
+console.log('custom lists 0.15.11 ');
 
 // to do:
-// don't allow users on more than one list
-// when adding user to new list, make sure to remove from all other lists
-// investigate redundant code in updateLabelsX()
+// √ don't allow users on more than one list
+// √ when adding user to new list, make sure to remove from all other lists
+// add contrasting background color to dark usernames
+// position icons outside user name background color
 // not clicking on color option before adding label chooses incorrect color
+// investigate redundant code in updateLabelsX()
 
 
 /////////////////////////////////////////////////
@@ -132,20 +134,20 @@ function updateLabelsX(){
           case "bro" :
           case "goat" :
             // specialIcon = "🐐 &nbsp;";
-            specialIcon = "♞ &nbsp;";
+            specialIcon = "♞";
             break;
           case "jew" :
           case "kike" : 
-            specialIcon = "✡ &nbsp;";
+            specialIcon = "✡";
             break;
           case "commie" :
           case "communist" :
           case "socialist" :
-            specialIcon = "☭ &nbsp;";
+            specialIcon = "☭";
             specialIconColor = "rgb(169, 0, 0)";
             break;
           case "shill" :
-            specialIcon = "$ &nbsp;";
+            specialIcon = "$";
             break;
           default :
             // no special icon
@@ -172,7 +174,7 @@ function updateLabelsX(){
             
             theListCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]' );
             if (specialIcon != "") {
-              specialCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]::before' );
+              specialCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]::after' );
             }
           });
 
@@ -183,10 +185,10 @@ function updateLabelsX(){
           }
 
           // add the styles to the page
-          $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'}');
+          $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'; background-color: rgba(255,255,255,0.3); margin-right: 20px; }');
 
           if (specialIcon != "") {
-            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; }');
+            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; left: 24px; position: relative; }');
           }
 
         }
