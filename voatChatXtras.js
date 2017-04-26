@@ -198,7 +198,7 @@ function updateLabelsX(){
           else { 
             //bgColor = "rgba(255, 255, 255, 1)"; 
             console.log('\t\t\t this color needs a light background'); 
-            contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px;';
+            contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px; border-radius: 4px;';
           }
 
           // add the styles to the page
@@ -238,6 +238,9 @@ function updateLabelsX(){
   var quickColor = randomRGBColor();
   // choose new random default color for color pickers
   $('.labelOptions .color').css('background-color', quickColor).val( quickColor );
+
+  // clear the .userLabel input
+  $('.labelOptions .userLabel').val('');
 }
 
 /////////////////////////////////////////////////
@@ -275,8 +278,6 @@ function labelListLinks() {
   // returns a string containing a link for each label
   console.log('\n labelListLinks()');
 
-  //$('.labelOptions .userLabel').val('');
-
   var labelLinksHTML = [];
 
   // if there's any label lists
@@ -298,7 +299,7 @@ function labelListLinks() {
         else { 
           //bgColor = "rgba(255, 255, 255, 1)"; 
           console.log('\t\t\t this color needs a light background'); 
-          contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px;';
+          contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px; border-radius: 4px;';
         }
 
         // make a link for each created list
