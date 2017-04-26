@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.05 ');
+console.log('custom lists 0.15.06 ');
 
 // to do:
 // don't allow users on more than one list
@@ -524,7 +524,7 @@ $(function(){
   // code for buttons
   var blockButton = '&nbsp; <button type="button" class="blockUser">block</button>';
   var initialColor = randomRGBColor();
-  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" background-color="'+ initialColor +'" value="'+ initialColor() +'" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
+  var labelButton = '&nbsp; <button type="button" class="labelUser">label</button> <span class="labelOptions"> &nbsp; <span class="labels"></span> &nbsp; <input class="userLabel" type="text" name="userLabel" placeholder="new label" /> &nbsp; <input class="color" background-color="'+ initialColor +'" value="'+ initialColor +'" /> &nbsp; <button type="button" class="addLabel">add</button> </span>';
   var blockListDisplay = '<div class="blockListDisplay" >Click to unblock: </div>';
   var numComments = $('.chat-message').length;
   
