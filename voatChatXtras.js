@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.29 ');
+console.log('custom lists 0.15.31 ');
 
 // to do:
 // √ don't allow users on more than one list
@@ -541,9 +541,16 @@ $('body').on('click', '.addLabel', function(){
 
 });
 
-
-
-
+//attach keypress event listener to the quantity field
+$('.labelOptions .userLabel').on('keypress', function(event){
+// $('').keypress(function(event){
+  //Check if the key pressed is ENTER key using the keyCode=13
+  if(event.keyCode === 13){
+   alert('you pressed enter'); 
+  }
+  event.cancelBubble = true;
+     if (event.stopPropagation) event.stopPropagation();
+});
 
 
 
