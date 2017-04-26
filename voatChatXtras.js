@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.11 ');
+console.log('custom lists 0.15.12 ');
 
 // to do:
 // √ don't allow users on more than one list
@@ -185,10 +185,10 @@ function updateLabelsX(){
           }
 
           // add the styles to the page
-          $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'; background-color: rgba(255,255,255,0.3); margin-right: 20px; }');
+          $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'; background-color: rgba(255,255,255,0.3); margin-right: 20px; '+ specialIcon != "" ? '}' : 'margin-right: 18px; position: relative; }');
 
           if (specialIcon != "") {
-            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; left: 24px; position: relative; }');
+            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; position: absolute; margin-left: 5px; top: 0px; }');
           }
 
         }
