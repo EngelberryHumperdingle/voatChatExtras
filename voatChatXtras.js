@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.01 ');
+console.log('custom lists 0.15.02 ');
 
 // to do:
 // don't allow users on more than one list
@@ -206,8 +206,10 @@ function updateLabelsX(){
     updateLabelsInLocalStorage();
   }
 
+  // store it in here so it doesn't call the function for every comment on the page
+  var theListOfLabelLinks = labelListLinks;
   // update list links in .labels
-  $('.labels').html( labelListLinks );
+  $('.labels').html( theListOfLabelLinks );
 
   // choose new random default color for color pickers
   $('.labelOptions .color').css('background-color', randomRGBColor);
@@ -445,8 +447,10 @@ $('body').on('click', '.addLabel', function(){
 
       updateLabelsX();
 
-      // add list links to .labels
-      $('.labels').html( labelListLinks );
+      // store it in here so it doesn't call the function for every comment on the page
+      var theListOfLabelLinks = labelListLinks;
+      // update list links in .labels
+      $('.labels').html( theListOfLabelLinks );
     }
 
     // console
@@ -544,8 +548,11 @@ $(function(){
       numComments = $('.chat-message').length;
       $('.chat-message:last').find('.chat-message-head p').append(blockButton).append(labelButton);
       
+      
+      // store it in here so it doesn't call the function for every comment on the page
+      var theListOfLabelLinks = labelListLinks;
       // update list links in .labels
-      $('.labels').html( labelListLinks );
+      $('.labels').html( theListOfLabelLinks );
 
       updateBlockList();
     } 
