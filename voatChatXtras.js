@@ -1,40 +1,16 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log(' custom lists 0.14.46 ');
+console.log('custom lists 0.15 ');
 
 // to do:
-// √ pull label lists from localStorage each time the page is loaded
-// √ display list of current labels next to label button
-// √ display labels in corresponding list color
-// √ display user names in label color
-// √ delete lists with no users
-// √ add label lists to localStorage each time something is changed
-// √ remove hard coded labels
+// don't allow users on more than one list
+// when adding user to new list, make sure to remove from all other lists
+// investigate redundant code in updateLabelsX()
 
 
 /////////////////////////////////////////////////
 
-// load color picker script
-// http://www.dematte.at/tinyColorPicker/
-// var colorPickerScript = document.createElement("script");
-// colorPickerScript.type = "text/javascript";
-// colorPickerScript.src = "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js";
-// $("head").append(colorPickerScript);
-
-// consider using the jquery getScript method for this
-// it has a callback for after the script is loaded
-// can't do this here because the element with .color isn't created yet
-
-// $.getScript( "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js" )
-//   .done(function( script, textStatus ) {
-//     $('.color').colorPicker({
-//       opacity: false
-//     });
-//   })
-//   .fail(function( jqxhr, settings, exception ) {
-//     alert('failed loading colorpicker script');
-// });
 
 
 
@@ -46,9 +22,7 @@ console.log(' custom lists 0.14.46 ');
 
 
 
-
-
-//      *****     *           *****     ******       *****     *           *****
+//      *****     **          *****     ******       *****     **          *****
 //    **     **   *         **     **   *     **   **     **   *         **     **
 //    *       *   *         *       *   *      *   *       *   *         *       *
 //    *           *         *       *   *     **   *       *   *         **
@@ -56,14 +30,9 @@ console.log(' custom lists 0.14.46 ');
 //    *    ****   *         *       *   *     **   *********   *                **
 //    *       *   *         *       *   *      *   *       *   *                 *
 //    *       *   *         *       *   *      *   *       *   *         *       *
-//    **     **   *         **     **   *     **   *       *   *         **     **
+//    **     **   *      *  **     **   *     **   *       *   *      *  **     **
 //      *****     ********    *****     ******     *       *   ********    *****
 
-
-// var fakeList = { labelName: 'fake', labelColor: 'rgb(255, 0, 0)', list: [] };
-// var shillList = { labelName: 'shill', labelColor: 'rgb(7, 82, 165)', list: [] };
-// var broList = { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] };
-// var labelLists = [fakeList, shillList, broList];
 
 var blockedUserList = [];
 var blockedUserLinks = [];
@@ -90,25 +59,31 @@ var labelListsX = {
 
 
 
-//    *********   *       *   *      *   *********   ***     *****     *      *      *****
-//    *           *       *   **     *       *        *    **     **   **     *    **     **
-//    *           *       *   * *    *       *        *    *       *   * *    *    *
-//    *           *       *   *  *   *       *        *    *       *   *  *   *    **
-//    *******     *       *   *  *   *       *        *    *       *   *  *   *      *****
-//    *           *       *   *   *  *       *        *    *       *   *   *  *           **
-//    *           *       *   *   *  *       *        *    *       *   *   *  *            *
-//    *           *       *   *    * *       *        *    *       *   *    * *    *       *
-//    *           **     **   *     **       *        *    **     **   *     **    **     **
-//    *             *****     *      *       *       ***     *****     *      *      *****
+//    *********   *       *   *      *     *****    *********   ***     *****     *      *      *****
+//    *           *       *   **     *   **     **      *        *    **     **   **     *    **     **
+//    *           *       *   * *    *   *       *      *        *    *       *   * *    *    *
+//    *           *       *   *  *   *   *              *        *    *       *   *  *   *    **
+//    *******     *       *   *  *   *   *              *        *    *       *   *  *   *      *****
+//    *           *       *   *   *  *   *              *        *    *       *   *   *  *           **
+//    *           *       *   *   *  *   *              *        *    *       *   *   *  *            *
+//    *           *       *   *    * *   *       *      *        *    *       *   *    * *    *       *
+//    *           **     **   *     **   **     **      *        *    **     **   *     **    **     **
+//    *             *****     *      *     *****        *       ***     *****     *      *      *****
 
 
 function updateBlockList(){
+  // show hidden block list if it's not empty
   if (blockedUserList.length > 0) {
     $('.blockListDisplay').css('display', 'inline');
+
+    // keep block list in localStorage for later
     localStorage.setItem('blocked', blockedUserList.join(','));
   }
 
+  // clear the array
   blockedUserLinks = [];
+  
+  // add a link to blockedUserLinks for each name on the blockUserList
   $(blockedUserList).each(function(){
     blockedUserLinks.push('<a href="javascript:void(0)" class="unblockUser" data-user="'+this+'">'+this+'</a>');
   })
@@ -130,9 +105,8 @@ function updateBlockList(){
 /////////////////////////////////////////////////
 
 
-
 function updateLabelsX(){
-  console.log('------------------------------\nupdateLabelsX()');
+  console.log('\n updateLabelsX()');
 
   // if there are lists
   if (Object.keys(labelListsX).length > 0){
@@ -149,14 +123,14 @@ function updateLabelsX(){
 
         // get special characters for certain labels
         switch (key) {
-          case "jew" :
-          case "kike" : 
-            specialIcon = "✡ &nbsp;";
-            break;
           case "bro" :
           case "goat" :
             // specialIcon = "🐐 &nbsp;";
             specialIcon = "♞ &nbsp;";
+            break;
+          case "jew" :
+          case "kike" : 
+            specialIcon = "✡ &nbsp;";
             break;
           case "muslim" :
             specialIcon = "☪ &nbsp;";
@@ -207,7 +181,7 @@ function updateLabelsX(){
           $('style#'+key).html(theListCSS.join(',') + '{color: '+labelListsX[key].labelColor+'}');
 
           if (specialIcon != "") {
-            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: white;}');
+            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: white; font-size: 1.5em; line-height: 0.8em; }');
           }
 
         }
@@ -239,9 +213,10 @@ function updateLabelsX(){
   $('.labelOptions .color').css('background-color', randomRGBColor);
 }
 
+/////////////////////////////////////////////////
 
 function logLabelLists() {
-  console.log('------------------------------\nlogLabelLists()')
+  console.log('\n logLabelLists()')
   
   if (Object.keys(labelListsX).length > 0){
     for (var key in labelListsX) {
@@ -258,30 +233,34 @@ function logLabelLists() {
   }
 }
 
+/////////////////////////////////////////////////
 
 function updateLabelsInLocalStorage(){
-  console.log('-------------------\nupdateLabelsInLocalStorage()');
+  console.log('\n updateLabelsInLocalStorage()');
 
   console.log('labelListsX: ', JSON.stringify(labelListsX) );
   localStorage.setItem('labelListsX', JSON.stringify(labelListsX) );
 }
 
+/////////////////////////////////////////////////
 
 var labelListLinks = function(){
-  console.log('updating labelListLinks');
+  // returns a string containing a link for each label
+  console.log('\n labelListLinks');
 
-  $('.labelOptions .userLabel').val('');
+  //$('.labelOptions .userLabel').val('');
 
   var labelLinksHTML = [];
 
+  // if there's any label lists
   if (Object.keys(labelListsX).length > 0) {
+    // check each label list
     for (var key in labelListsX) {
       if (labelListsX.hasOwnProperty(key)) {
         // make a link for each created list
         labelLinksHTML.push('<a href="javascript:void(0)" class="'+key+'" style="color: '+labelListsX[key].labelColor+';">'+key+'</a>');
       }
     }  
-
     return labelLinksHTML.join(' | ');
   }
   else {
@@ -313,7 +292,7 @@ var randomRGBColor = function(){
 
 
 
-//      *****     *         ***     *****     *     *    *****
+//      *****     **        ***     *****     *     *    *****
 //    **     **   *          *    **     **   *    *   **     **
 //    *       *   *          *    *           *   *    *       *
 //    *           *          *    *           *  *     **
@@ -321,16 +300,15 @@ var randomRGBColor = function(){
 //    *           *          *    *           ***             **
 //    *           *          *    *           *  *             *
 //    *       *   *          *    *       *   *   *    *       *
-//    **     **   *          *    **     **   *    *   **     **
+//    **     **   *      *   *    **     **   *    *   **     **
 //      *****     ********  ***     *****     *     *    *****
 
 
 ////////////////////////////////
 // click block buttons
 $('body').on('click', 'button.blockUser', function(){
-  var theUser = $(this).parent('p').find('a').attr('href');
-  var userName = theUser.split('/').pop();
-  blockedUserList.push( userName );
+  var theUser = $(this).parent('p').find('a').attr('href').split('/').pop();
+  blockedUserList.push( theUser );
   
   updateBlockList();
     
@@ -349,6 +327,7 @@ $('body').on('click', '.unblockUser', function(e){
   
   updateBlockList();
 
+  // if there are no users on the block list, hide it
   if (blockedUserList.length <= 0) $('.blockListDisplay').css('display', 'none');
 });
 
@@ -356,6 +335,8 @@ $('body').on('click', '.unblockUser', function(e){
 ////////////////////////////////
 // click label button
 $('body').on('click', 'button.labelUser', function(){
+
+  // show/hide the label options
   $(this).siblings('.labelOptions').toggle(200);
 });
 
@@ -363,10 +344,10 @@ $('body').on('click', 'button.labelUser', function(){
 ////////////////////////////////
 // click actual labels
 $('body').on('click', '.labelOptions a', function(){
+  // hide the label options
   $(this).parents('.labelOptions').hide(200);
 
-  var theUser = $(this).parents('p').find('a').attr('href');
-  var userName = theUser.split('/').pop();
+  var theUser = $(this).parents('p').find('a').attr('href').split('/').pop();
   var userColor = $(this).parents('p').find('a').css('color');
   var labelColor = $(this).css('color');
   var theLabel = $(this).text();
@@ -376,20 +357,22 @@ $('body').on('click', '.labelOptions a', function(){
   // if the user is already on the selected list
   if (userColor == labelColor) {
 
-    // remove user from selected list
-    //theList.list.splice(theList.list.indexOf(userName), 1);
-    console.log('removing: '+userName+' from list: '+theLabel);    
-    labelListsX[theLabel].list.splice(labelListsX[theLabel].list.indexOf(userName), 1);
+    // remove user from selected list 
+    console.log('removing: '+theUser+' from list: '+theLabel);    
+    labelListsX[theLabel].list.splice(labelListsX[theLabel].list.indexOf(theUser), 1);
 
-    // if the selected list is empty, remove it from localStorage
-    //if (theList.list.length < 1) localStorage.clear(theLabel);
+    // if the selected list is empty
     if (labelListsX[theLabel].list.length < 1) {
 
+      // remove it from the labelListsX
       console.log('deleting empty list: '+theLabel);
       delete labelListsX[theLabel];
 
       // remove the corresponding style tag
       $('style#'+theLabel).remove();
+
+      // remove the list from localStorage
+      updateLabelsInLocalStorage();
     }
   }
   else {
@@ -401,28 +384,21 @@ $('body').on('click', '.labelOptions a', function(){
       if (key != theLabel) {
 
         // if the user is on the list
-        if ( labelListsX[key].list.indexOf(userName) != -1) {
-          console.log('removing: '+userName+' from list: '+theLabel);
-          labelListsX[key].list.splice(labelListsX[key].list.indexOf(userName), 1);
+        if ( labelListsX[key].list.indexOf(theUser) != -1) {
+          console.log('removing: '+theUser+' from list: '+theLabel);
+          labelListsX[key].list.splice(labelListsX[key].list.indexOf(theUser), 1);
         }
 
       }
       
     }
-      // if the user is on the list
-    //   if ( this.list.indexOf(userName) != -1 ) {
-    //     this.list.splice(this.list.indexOf(userName), 1);
-    //   }
-    // });
 
     // add it to the new list
-    // theList.list.push(userName);
-    console.log('adding: '+userName+' to list: '+theLabel)
-    labelListsX[theLabel].list.push(userName);
+    // theList.list.push(theUser);
+    console.log('adding: '+theUser+' to list: '+theLabel)
+    labelListsX[theLabel].list.push(theUser);
   }
-
-  // updateLabelsInLocalStorage();
-  // updateLabels();
+  
   updateLabelsX();
 
 });
@@ -465,11 +441,7 @@ $('body').on('click', '.addLabel', function(){
       labelListObject.labelName = newList;
       labelListObject.labelColor = newColor;
       labelListObject.list = [theUserName];
-      // labelListsX[Object.keys(labelListsX).length] = labelListObject;
       labelListsX[newList] = labelListObject;
-
-      // update labels in localStorage
-      //updateLabelsInLocalStorage();
 
       updateLabelsX();
 
@@ -501,35 +473,21 @@ $('body').on('click', '.addLabel', function(){
 
 
 
-//    *******       *****       *****     ********  
-//    *      **   **     **   **     **   *         
-//    *       *   *       *   *       *   *         
-//    *       *   *       *   *           *         
-//    *      **   *       *   *           *         
-//    *******     *********   *   *****   ******    
-//    *           *       *   *       *   *         
-//    *           *       *   *       *   *         
-//    *           *       *   **     **   *         
-//    *           *       *     *****     ********  
-
-//    *             *****       *****     *******    
-//    *           **     **   **     **   *      **  
-//    *           *       *   *       *   *       *  
-//    *           *       *   *       *   *       *  
-//    *           *       *   *       *   *       *  
-//    *           *       *   *********   *       *  
-//    *           *       *   *       *   *       *  
-//    *           *       *   *       *   *       *  
-//    *           **     **   *       *   *      **  
-//    ********      *****     *       *   *******    
+//    *******     ********     *****     *******    *         *
+//    *      **   *          **     **   *      **   *       *
+//    *       *   *          *       *   *       *    *     *
+//    *       *   *          *       *   *       *     *   *
+//    *      **   *          *       *   *       *       *
+//    *******     ******     *****   *   *       *       *
+//    *      *    *          *       *   *       *       *
+//    *       *   *          *       *   *       *       *
+//    *       *   *          *       *   *      **       *
+//    *       *   ********   *       *   *******         *
 
 
 
 
-// $(window).on('load', function() {
 $(function(){
-
-  console.log('window loaded');
 
   // link style from github
   $('head').append('<link rel="stylesheet" type="text/css" href="https://rawgit.com/EngelberryHumperdingle/voatChatExtras/master/voatChatXtras.css">');
@@ -564,25 +522,6 @@ $(function(){
     updateBlockList();
   }
 
-
-  // if (localStorage.getItem('fake') != null) {
-  //   fakeList.list = localStorage.getItem('fake').split(',');
-  // }
-  
-  // if (localStorage.getItem('shill') != null) {
-  //   shillList.list = localStorage.getItem('shill').split(',');
-  // }
-  
-  // if (localStorage.getItem('bro') != null) {
-  //   broList.list = localStorage.getItem('bro').split(',');
-  // }
-  
-  // if ( (localStorage.getItem('fake') != null) ||
-  //     (localStorage.getItem('shill') != null) ||
-  //     (localStorage.getItem('bro') != null) ) {
-  //   updateLabels();
-  // }
-
   console.log('check local storage for labels');
 
   // get labels from localStorage
@@ -598,7 +537,6 @@ $(function(){
   else {
     console.log('NO user lists in localStorage');
   }
-
 
   //////////////////////////////////////////////////////// 
   // update display each time a new comment is added
