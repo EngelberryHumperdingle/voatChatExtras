@@ -1,13 +1,9 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.36 ');
+// console.log('voat chat extras 0.16 ');
 
 // to do:
-
-
-// √ position icons outside user name background color
-// not clicking on color option before adding label chooses incorrect color
 // optimize code, clean up redundant bits
 
 
@@ -39,7 +35,7 @@ $('head').append('<link rel="stylesheet" type="text/css" href="https://rawgit.co
 var blockedUserList = [];
 var blockedUserLinks = [];
 var fresh = true;
-var labelListsX = {
+var labelLists = {
   //'troll' : { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
   //'bro' : { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
 };
@@ -61,16 +57,16 @@ var labelListsX = {
 
 
 
-//    *********   *       *   *      *     *****    *********   ***     *****     *      *      *****
-//    *           *       *   **     *   **     **      *        *    **     **   **     *    **     **
-//    *           *       *   * *    *   *       *      *        *    *       *   * *    *    *
-//    *           *       *   *  *   *   *              *        *    *       *   *  *   *    **
-//    *******     *       *   *  *   *   *              *        *    *       *   *  *   *      *****
-//    *           *       *   *   *  *   *              *        *    *       *   *   *  *           **
-//    *           *       *   *   *  *   *              *        *    *       *   *   *  *            *
-//    *           *       *   *    * *   *       *      *        *    *       *   *    * *    *       *
-//    *           **     **   *     **   **     **      *        *    **     **   *     **    **     **
-//    *             *****     *      *     *****        *       ***     *****     *      *      *****
+//    *********  *       *   *      *     *****    *********   ***     *****     *      *      *****
+//    *          *       *   **     *   **     **      *        *    **     **   **     *    **     **
+//    *          *       *   * *    *   *       *      *        *    *       *   * *    *    *
+//    *          *       *   *  *   *   *              *        *    *       *   *  *   *    **
+//    *******    *       *   *  *   *   *              *        *    *       *   *  *   *      *****
+//    *          *       *   *   *  *   *              *        *    *       *   *   *  *           **
+//    *          *       *   *   *  *   *              *        *    *       *   *   *  *            *
+//    *          *       *   *    * *   *       *      *        *    *       *   *    * *    *       *
+//    *          **     **   *     **   **     **      *        *    **     **   *     **    **     **
+//    *            *****     *      *     *****        *       ***     *****     *      *      *****
 
 
 function updateBlockList(){
@@ -79,6 +75,7 @@ function updateBlockList(){
     $('.blockListDisplay').css('display', 'inline');
 
     // keep block list in localStorage for later
+    // this should not be done on a fresh page load...
     localStorage.setItem('blocked', blockedUserList.join(','));
   }
   else {
@@ -111,14 +108,14 @@ function updateBlockList(){
 /////////////////////////////////////////////////
 
 
-function updateLabelsX(){
-  console.log('\n updateLabelsX()');
+function updateLabels(){
+  //console.log('\n updateLabels()');
 
   // if there are lists
-  if (Object.keys(labelListsX).length > 0){
+  if (Object.keys(labelLists).length > 0){
     // look at each list
-    for (var key in labelListsX) {
-      if (labelListsX.hasOwnProperty(key)) {
+    for (var key in labelLists) {
+      if (labelLists.hasOwnProperty(key)) {
 
         //console.log('looking at label: '+key);
 
@@ -154,23 +151,21 @@ function updateLabelsX(){
         }
 
         // if a label object has no users in it's list
-        if (labelListsX[key].list.length < 1) {
-          // this should never happen
-          // it has already been checked in the click function
+        if (labelLists[key].list.length < 1) {
           
-          console.log('deleting empty list: '+key);
+          //console.log('deleting empty list: '+key);
 
           // remove the label
-          delete labelListsX[key];
+          delete labelLists[key];
 
           // remove the corresponding style tag
           $('style#'+key).remove();
         }
         else {
           // make a css rule for each user on the list
-          $(labelListsX[key].list).each(function(){
+          $(labelLists[key].list).each(function(){
 
-            console.log('adding css rule for: '+this);
+            //console.log('adding css rule for: '+this);
             
             theListCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]' );
             if (specialIcon != "") {
@@ -186,22 +181,21 @@ function updateLabelsX(){
 
           // set bgColor if necessary
           // from -> http://codeitdown.com/jquery-color-contrast/
-          var rgb = labelListsX[key].labelColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
+          var rgb = labelLists[key].labelColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
           var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
-          // if(yiq >= 128) { console.log('\t\t\t this looks good on the dark background'); }
-          console.log('yiq# : '+yiq);
+          //console.log('yiq# : '+yiq);
           var contrastingBackgroundCSS = "";
           if(yiq >= 85) { 
-            console.log('\t\t\t this looks good on the dark background'); 
+            //console.log('\t\t\t this looks good on the dark background'); 
           }
           else { 
-            //bgColor = "rgba(255, 255, 255, 1)"; 
-            console.log('\t\t\t this color needs a light background'); 
+            //console.log('\t\t\t this color needs a light background'); 
+            // hard coded color value should be a variable
             contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px; border-radius: 4px;';
           }
 
           // add the styles to the page
-          $('style#'+key).html(theListCSS.join(',') + '{color: ' + labelListsX[key].labelColor + '; ' + contrastingBackgroundCSS + (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
+          $('style#'+key).html(theListCSS.join(',') + '{color: ' + labelLists[key].labelColor + '; ' + contrastingBackgroundCSS + (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
 
           if (specialIcon != "") {
             $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; position: absolute; margin-left: 5px; top: 0px; }');
@@ -210,16 +204,16 @@ function updateLabelsX(){
         }
       }
       else {
-        console.log('key: '+key+' not found in labelListsX');
+        //console.log('key: '+key+' not found in labelLists');
       }
 
     }  
   }
   else {
-    console.log('no label lists')
+    // console.log('no label lists')
   }
   
-  // clear labelListsX from localStorage
+  // clear labelLists from localStorage
   if (fresh) {
     // we just got the lists from localStorage no need to write them back
     fresh = false;
@@ -247,12 +241,12 @@ function updateLabelsX(){
 function logLabelLists() {
   console.log('\n logLabelLists()')
   
-  if (Object.keys(labelListsX).length > 0){
-    for (var key in labelListsX) {
-      if (labelListsX.hasOwnProperty(key)) {
+  if (Object.keys(labelLists).length > 0){
+    for (var key in labelLists) {
+      if (labelLists.hasOwnProperty(key)) {
 
-        console.log('\t'+key+': '+JSON.stringify(labelListsX[key]));
-        try { $(labelListsX[key].list).each(function(){
+        console.log('\t'+key+': '+JSON.stringify(labelLists[key]));
+        try { $(labelLists[key].list).each(function(){
                 console.log('\t\t'+this);
               });
         }
@@ -265,50 +259,50 @@ function logLabelLists() {
 /////////////////////////////////////////////////
 
 function updateLabelsInLocalStorage() {
-  console.log('\n updateLabelsInLocalStorage()');
+  // console.log('\n updateLabelsInLocalStorage()');
 
-  console.log('labelListsX: ', JSON.stringify(labelListsX) );
-  localStorage.setItem('labelListsX', JSON.stringify(labelListsX) );
+  // console.log('labelLists: ', JSON.stringify(labelLists) );
+  localStorage.setItem('labelLists', JSON.stringify(labelLists) );
 }
 
 /////////////////////////////////////////////////
 
 function labelListLinks() {
   // returns a string containing a link for each label
-  console.log('\n labelListLinks()');
+  //console.log('\n labelListLinks()');
 
   var labelLinksHTML = [];
 
   // if there's any label lists
-  if (Object.keys(labelListsX).length > 0) {
+  if (Object.keys(labelLists).length > 0) {
     // check each label list
-    for (var key in labelListsX) {
-      if (labelListsX.hasOwnProperty(key)) {
+    for (var key in labelLists) {
+      if (labelLists.hasOwnProperty(key)) {
 
         // set bgColor if necessary
         // from -> http://codeitdown.com/jquery-color-contrast/
-        // reduntant code from updateLabelsX()...
-        var rgb = labelListsX[key].labelColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
+        // reduntant code from updateLabels()...
+        var rgb = labelLists[key].labelColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
         var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
-        console.log('yiq# : '+yiq);
+        // console.log('yiq# : '+yiq);
         var contrastingBackgroundCSS = "";
         if(yiq >= 85) { 
-          console.log('\t\t\t this looks good on the dark background'); 
+          // console.log('\t\t\t this looks good on the dark background'); 
         }
         else { 
           //bgColor = "rgba(255, 255, 255, 1)"; 
-          console.log('\t\t\t this color needs a light background'); 
+          // console.log('\t\t\t this color needs a light background'); 
           contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px; border-radius: 4px;';
         }
 
         // make a link for each created list
-        labelLinksHTML.push('<a href="javascript:void(0)" class="'+key+'" style="color: '+labelListsX[key].labelColor+'; ' + contrastingBackgroundCSS + '">'+key+'</a>');
+        labelLinksHTML.push('<a href="javascript:void(0)" class="'+key+'" style="color: '+labelLists[key].labelColor+'; ' + contrastingBackgroundCSS + '">'+key+'</a>');
       }
     }  
     return labelLinksHTML.join(' | ');
   }
   else {
-    console.log('no label lists');
+    // console.log('no label lists');
     return "";
   }
 }
@@ -397,21 +391,21 @@ $('body').on('click', '.labelOptions a', function(){
   var labelColor = $(this).css('color');
   var theLabel = $(this).text();
 
-  console.log('----------------------\n----------------------\nyou clicked: '+theLabel);
+  // console.log('----------------------\n----------------------\nyou clicked: '+theLabel);
 
   // if the user is already on the selected list
   if (userColor == labelColor) {
 
     // remove user from selected list 
-    console.log('removing: '+theUser+' from list: '+theLabel);    
-    labelListsX[theLabel].list.splice(labelListsX[theLabel].list.indexOf(theUser), 1);
+    // console.log('removing: '+theUser+' from list: '+theLabel);    
+    labelLists[theLabel].list.splice(labelLists[theLabel].list.indexOf(theUser), 1);
 
     // if the selected list is empty
-    if (labelListsX[theLabel].list.length < 1) {
+    if (labelLists[theLabel].list.length < 1) {
 
-      // remove it from the labelListsX
-      console.log('deleting empty list: '+theLabel);
-      delete labelListsX[theLabel];
+      // remove it from the labelLists
+      // console.log('deleting empty list: '+theLabel);
+      delete labelLists[theLabel];
 
       // remove the corresponding style tag
       $('style#'+theLabel).remove();
@@ -422,15 +416,15 @@ $('body').on('click', '.labelOptions a', function(){
   }
   else {
     // remove user from the other lists if present
-    for (var key in labelListsX) {
+    for (var key in labelLists) {
       
       // make sure it's not the list you just clicked
       if (key != theLabel) {
 
         // if the user is on the list
-        if ( labelListsX[key].list.indexOf(theUser) != -1) {
-          console.log('removing: '+theUser+' from list: '+theLabel);
-          labelListsX[key].list.splice(labelListsX[key].list.indexOf(theUser), 1);
+        if ( labelLists[key].list.indexOf(theUser) != -1) {
+          // console.log('removing: '+theUser+' from list: '+theLabel);
+          labelLists[key].list.splice(labelLists[key].list.indexOf(theUser), 1);
         }
 
       }
@@ -439,11 +433,11 @@ $('body').on('click', '.labelOptions a', function(){
 
     // add it to the new list
     // theList.list.push(theUser);
-    console.log('adding: '+theUser+' to list: '+theLabel)
-    labelListsX[theLabel].list.push(theUser);
+    // console.log('adding: '+theUser+' to list: '+theLabel)
+    labelLists[theLabel].list.push(theUser);
   }
   
-  updateLabelsX();
+  updateLabels();
 
 });
 
@@ -469,9 +463,9 @@ $('body').on('click', '.addLabel', function(){
   }
   else {
     // check for duplicate list
-    if (Object.keys(labelListsX).length > 0){
-      for (var key in labelListsX) {
-        if (labelListsX.hasOwnProperty(key)) {
+    if (Object.keys(labelLists).length > 0){
+      for (var key in labelLists) {
+        if (labelLists.hasOwnProperty(key)) {
           if (newList == key) {
             alert('you already have a label called \''+newList+'\'');
             nameUnique = false;
@@ -483,28 +477,28 @@ $('body').on('click', '.addLabel', function(){
 
     if (nameUnique) {
       // look at each label list
-      for (var label in labelListsX) {
-        if (labelListsX.hasOwnProperty(label)) {
+      for (var label in labelLists) {
+        if (labelLists.hasOwnProperty(label)) {
           
           // look at each user on the list
-          for (var user in labelListsX[label].list) {
-            console.log('user: '+labelListsX[label].list[user]+', theUser: '+theUser);
+          for (var user in labelLists[label].list) {
+            // console.log('user: '+labelLists[label].list[user]+', theUser: '+theUser);
             // if the user exists on the list
-            if (labelListsX[label].list[user] == theUser) {
+            if (labelLists[label].list[user] == theUser) {
 
               // remove the user from the list
-              console.log('removing: '+theUser+' from list: '+label);
-              labelListsX[label].list.splice(labelListsX[label].list.indexOf(theUser), 1);
+              // console.log('removing: '+theUser+' from list: '+label);
+              labelLists[label].list.splice(labelLists[label].list.indexOf(theUser), 1);
 
               // somewhat redundant code from 'click actual labels'
               // maybe pull this into a function...
 
               // if the selected list is empty
-              if (labelListsX[key].list.length < 1) {
+              if (labelLists[key].list.length < 1) {
 
-                // remove it from the labelListsX
-                console.log('deleting empty list: '+key);
-                delete labelListsX[key];
+                // remove it from the labelLists
+                // console.log('deleting empty list: '+key);
+                delete labelLists[key];
 
                 // remove the corresponding style tag
                 $('style#'+key).remove();
@@ -519,14 +513,14 @@ $('body').on('click', '.addLabel', function(){
       }
 
       // create new label list containing user
-      console.log('new list: '+ newList +', color: '+ newColor);
+      //console.log('new list: '+ newList +', color: '+ newColor);
       var labelListObject = {};
       labelListObject.labelName = newList;
       labelListObject.labelColor = newColor;
       labelListObject.list = [theUser];
-      labelListsX[newList] = labelListObject;
+      labelLists[newList] = labelListObject;
 
-      updateLabelsX();
+      updateLabels();
 
       // store it in here so it doesn't call the function for every comment on the page
       var theListOfLabelLinks = labelListLinks();
@@ -612,17 +606,17 @@ $(function(){
   }
 
   // get labels from localStorage
-  if (localStorage.getItem('labelListsX') != null) {
+  if (localStorage.getItem('labelLists') != null) {
     // get label lists from localStorage
-    labelListsX = JSON.parse(localStorage.getItem('labelListsX'));
-    console.log('labelListsX JSON: '+JSON.stringify(labelListsX));
+    labelLists = JSON.parse(localStorage.getItem('labelLists'));
+    //console.log('labelLists JSON: '+JSON.stringify(labelLists));
 
-    updateLabelsX();
+    updateLabels();
 
-    logLabelLists();
+    // logLabelLists();
   }
   else {
-    console.log('NO user lists in localStorage');
+    // console.log('NO user lists in localStorage');
   }
 
   //////////////////////////////////////////////////////// 
@@ -632,13 +626,22 @@ $(function(){
     // add buttons to newly added comment
     if ($('.chat-message').length > numComments) {
       numComments = $('.chat-message').length;
+
+      // add block and label buttons
       $('.chat-message:last').find('.chat-message-head p').append(blockButton).append(labelButton);
-      
+
+      // activate color picker
+      var quickColor = randomRGBColor();
+      $('.chat-message:last').find('.color').colorPicker({
+        opacity: false,
+        color: quickColor
+      });
 
       // store it in here so it doesn't call the function for every comment on the page
       var theListOfLabelLinks = labelListLinks();
+      
       // update list links in .labels
-      $('.labels').html( theListOfLabelLinks );
+      $('.chat-message:last').find('.labels').html( theListOfLabelLinks );
 
       updateBlockList();
     } 
