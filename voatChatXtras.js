@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.06 ');
+console.log('custom lists 0.15.07 ');
 
 // to do:
 // don't allow users on more than one list
@@ -437,31 +437,41 @@ $('body').on('click', '.addLabel', function(){
       }  
     }
 
+
     if (nameUnique) {
-      // remove user from any existing label lists
-      for (var key in labelListsX) {
-        if (labelListsX.hasOwnProperty(key)) {
-          if (theUser == key) {
-            labelListsX[key].list.splice(labelListsX[key].list.indexOf(theUser), 1);
+      // look at each label list
+      for (var label in labelListsX) {
+        if (labelListsX.hasOwnProperty(label)) {
+          
+          // look at each user on the list
+          for (var user in labelListsX[label].list) {
+            
+            // if the user exists on the list
+            if (user == theUser) {
 
-            // somewhat redundant code from 'click actual labels'
-            // maybe pull this into a function...
+              // remove the user from the list
+              console.log('removing: '+theUser+' from list: '+label);
+              labelListsX[label].list.splice(labelListsX[label].list.indexOf(theUser), 1);
 
-            // if the selected list is empty
-            if (labelListsX[key].list.length < 1) {
+              // somewhat redundant code from 'click actual labels'
+              // maybe pull this into a function...
 
-              // remove it from the labelListsX
-              console.log('deleting empty list: '+key);
-              delete labelListsX[key];
+              // if the selected list is empty
+              if (labelListsX[key].list.length < 1) {
 
-              // remove the corresponding style tag
-              $('style#'+key).remove();
+                // remove it from the labelListsX
+                console.log('deleting empty list: '+key);
+                delete labelListsX[key];
 
-              // remove the list from localStorage
-              updateLabelsInLocalStorage();
+                // remove the corresponding style tag
+                $('style#'+key).remove();
+
+                // remove the list from localStorage
+                updateLabelsInLocalStorage();
+              }
+
             }
-
-          }    
+          }              
         }
       }
 
