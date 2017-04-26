@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.23 ');
+console.log('custom lists 0.15.24 ');
 
 // to do:
 // √ don't allow users on more than one list
@@ -298,7 +298,7 @@ function labelListLinks() {
         else { 
           //bgColor = "rgba(255, 255, 255, 1)"; 
           console.log('\t\t\t this color needs a light background'); 
-          contrastingBackgroundCSS = 'background-color: white; display: inline-block; padding: 0 2px;';
+          contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px;';
         }
 
         // make a link for each created list
