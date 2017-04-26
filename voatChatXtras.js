@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.02 ');
+// console.log('voat chat extras 0.16.03 ');
 
 // to do:
 // add show all labels button
@@ -398,6 +398,8 @@ $('body').on('click', '.labelOptions a', function(){
 
   // if the user is already on the selected list
   if (userColor == labelColor) {
+    // this should be done another way in case two labels use the same color
+    // or prevent users from creating two lists with the same color...
 
     // remove user from selected list 
     // console.log('removing: '+theUser+' from list: '+theLabel);    
