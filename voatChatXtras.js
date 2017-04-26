@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-console.log('custom lists 0.15.17 ');
+console.log('custom lists 0.15.18 ');
 
 // to do:
 // √ don't allow users on more than one list
@@ -188,7 +188,8 @@ function updateLabelsX(){
           // set bgColor if necessary
           var rgb = labelListsX[key].labelColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
           var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
-          if(yiq >= 128) { console.log('\t\t\t this looks good on the dark background'); }
+          // if(yiq >= 128) { console.log('\t\t\t this looks good on the dark background'); }
+          if(yiq >= 220) { console.log('\t\t\t this looks good on the dark background'); }
           else { bgColor = "rgba(255, 255, 255, 0.3)"; console.log('\t\t\t this color needs a light background'); }
 
           // add the styles to the page
