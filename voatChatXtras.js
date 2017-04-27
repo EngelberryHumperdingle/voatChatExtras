@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.08 ');
+// console.log('voat chat extras 0.16.09 ');
 
 // to do:
 // preview name in color while choosing
@@ -43,6 +43,7 @@ var labelLists = {
   //'troll' : { labelName: 'troll', labelColor: 'rgb(120, 33, 169)', list: [] },
   //'bro' : { labelName: 'bro', labelColor: 'rgb(6, 115, 57)', list: [] }
 };
+var currentColorChoice;
 
 
 
@@ -609,7 +610,14 @@ $(function(){
     .done(function( script, textStatus ) {
       $('.color').colorPicker({
         opacity: false,
-        color: initialColor
+        color: initialColor,
+        positionCallback: function($elm) {
+          // $elm is the current trigger that opened the UI
+          var UI = this.$UI; // this is the instance; this.$UI is the colorPicker DOMElement
+          console.log('\n\n\ncolorPicker - positionCallback');
+          var thisUser = $elm.parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
+          console.log('\tthisUser: '+thisUser);
+        }
       });
     })
     .fail(function( jqxhr, settings, exception ) {
@@ -651,7 +659,14 @@ $(function(){
       var quickColor = randomRGBColor();
       $('.chat-message:last').find('.color').colorPicker({
         opacity: false,
-        color: quickColor
+        color: quickColor,
+        positionCallback: function($elm) {
+          // $elm is the current trigger that opened the UI
+          var UI = this.$UI; // this is the instance; this.$UI is the colorPicker DOMElement
+          console.log('\n\n\ncolorPicker - positionCallback');
+          var thisUser = $elm.parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
+          console.log('\tthisUser: '+thisUser);
+        }
       });
 
       // store it in here so it doesn't call the function for every comment on the page
