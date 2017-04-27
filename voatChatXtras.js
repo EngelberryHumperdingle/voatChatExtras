@@ -1,9 +1,10 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.05 ');
+// console.log('voat chat extras 0.16.06 ');
 
 // to do:
+// preview name in color while choosing
 // add show all labels button
 // optimize code, clean up redundant bits
 
@@ -548,7 +549,11 @@ $('body').on('keydown','.labelOptions .userLabel, .labelOptions .color, .cp-colo
 });
 
 
-
+$('body').on('mouseup', '.labelOptions .color, .cp-color-picker', function(event) {
+  var currColor = $(this).val();
+  console.log('currColor: '+currColor);
+  //$(this).parents('.chat-message-head p').find('b a').css('color')
+});
 
 
 
