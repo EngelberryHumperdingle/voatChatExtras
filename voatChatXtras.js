@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.09 ');
+// console.log('voat chat extras 0.16.10 ');
 
 // to do:
 // preview name in color while choosing
@@ -613,10 +613,11 @@ $(function(){
         color: initialColor,
         positionCallback: function($elm) {
           // $elm is the current trigger that opened the UI
-          var UI = this.$UI; // this is the instance; this.$UI is the colorPicker DOMElement
+          var $UI = this.$UI; // this is the instance; this.$UI is the colorPicker DOMElement
           console.log('\n\n\ncolorPicker - positionCallback');
           var thisUser = $elm.parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
           console.log('\tthisUser: '+thisUser);
+          $UI.attr('data-user', thisUser);
         }
       });
     })
@@ -662,10 +663,11 @@ $(function(){
         color: quickColor,
         positionCallback: function($elm) {
           // $elm is the current trigger that opened the UI
-          var UI = this.$UI; // this is the instance; this.$UI is the colorPicker DOMElement
+          var $UI = this.$UI; // this is the instance; this.$UI is the colorPicker DOMElement
           console.log('\n\n\ncolorPicker - positionCallback');
           var thisUser = $elm.parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
           console.log('\tthisUser: '+thisUser);
+          $UI.attr('data-user', thisUser);
         }
       });
 
