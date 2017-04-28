@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.10 ');
+// console.log('voat chat extras 0.16.11 ');
 
 // to do:
 // preview name in color while choosing
@@ -336,16 +336,16 @@ function randomRGBColor(){
 
 
 
-//      *****     **        ***     *****     *     *    *****
-//    **     **   *          *    **     **   *    *   **     **
-//    *       *   *          *    *           *   *    *       *
-//    *           *          *    *           *  *     **
-//    *           *          *    *           * *        *****
-//    *           *          *    *           ***             **
-//    *           *          *    *           *  *             *
-//    *       *   *          *    *       *   *   *    *       *
-//    **     **   *      *   *    **     **   *    *   **     **
-//      *****     ********  ***     *****     *     *    *****
+//    *********  *       *   *********   *      *   *********    *****
+//    *          *       *   *           **     *       *      **     **
+//    *          *       *   *           * *    *       *      *
+//    *           *     *    *           *  *   *       *      **
+//    *******     *     *    *******     *  *   *       *        *****
+//    *           *     *    *           *   *  *       *             **
+//    *            *   *     *           *   *  *       *              *
+//    *            *   *     *           *    * *       *      *       *
+//    *             * *      *           *     **       *      **     **
+//    *********      *       *********   *      *       *        *****
 
 
 ////////////////////////////////
@@ -380,8 +380,9 @@ $('body').on('click', '.unblockUser', function(e){
 // click label button
 $('body').on('click', 'button.labelUser', function(){
 
-  // show/hide the label options
-  $(this).siblings('.labelOptions').toggle(200);
+  // get rid of any username preview colors
+  try { $('style#previewColor').remove(); }
+  catch(e) {}
 });
 
 
@@ -390,6 +391,10 @@ $('body').on('click', 'button.labelUser', function(){
 $('body').on('click', '.labelOptions a', function(){
   // hide the label options
   $(this).parents('.labelOptions').hide(200);
+
+  // get rid of any username preview colors
+  try { $('style#previewColor').remove(); }
+  catch(e) {}
 
   var theUser = $(this).parents('p').find('a').attr('href').split('/').pop();
   var userColor = $(this).parents('p').find('a').css('color');
@@ -453,6 +458,10 @@ $('body').on('click', '.labelOptions a', function(){
 // click the add label button
 $('body').on('click', '.addLabel', function(){
   $(this).parents('.labelOptions').hide(200);
+
+  // get rid of any username preview colors
+  try { $('style#previewColor').remove(); }
+  catch(e) {}
 
   // get label from input
   // remove anything but numbers, letters, and spaces.  make all letters lowercase.  replace all spaces with dashes.
@@ -551,15 +560,27 @@ $('body').on('keydown','.labelOptions .userLabel, .labelOptions .color, .cp-colo
 
 
 $('body').on('mouseup', '.labelOptions .color', function(event) {
-  var currColor = $(this).val();
-  console.log('.color currColor: '+currColor);
+  var usr = $(this).parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
+  var clr = $(this).val();
+  
   //$(this).parents('.chat-message-head p').find('b a').css('color')
+  if ( $('style#previewColor').length < 1 ) {
+    // make a new style element with an id of this label
+    $('head').append( '<style id="previewColor" type="text/css"></style>' );
+  }
+  $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
 });
 
 $('body').on('mouseup', '.cp-color-picker', function(event) {
-  var currColor = $(this).parents('.chat-message-head p').find('.labelOptions .color').val();
-  console.log('.cp-color-picker currColor: '+currColor);
-  //$(this).parents('.chat-message-head p').find('b a').css('color')
+  var usr = $(this).attr('data-user');
+  var clr = $('div.chat-message-head a[href="/user/'+usr+'"]').parents('.chat-message-head p').find('.labelOptions .color').val();
+  //var steezo = 
+  // if there's no style element for this label
+  if ( $('style#previewColor').length < 1 ) {
+    // make a new style element with an id of this label
+    $('head').append( '<style id="previewColor" type="text/css"></style>' );
+  }
+  $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
 });
 
 
@@ -606,6 +627,7 @@ $(function(){
   $('.chat-message-head p').append(blockButton).append(labelButton);
   
   // activate color picker
+  // http://www.dematte.at/tinyColorPicker/
   $.getScript( "https://rawgit.com/PitPik/tinyColorPicker/master/jqColorPicker.min.js" )
     .done(function( script, textStatus ) {
       $('.color').colorPicker({
@@ -614,9 +636,9 @@ $(function(){
         positionCallback: function($elm) {
           // $elm is the current trigger that opened the UI
           var $UI = this.$UI; // this is the instance; this.$UI is the colorPicker DOMElement
-          console.log('\n\n\ncolorPicker - positionCallback');
+          // get corresponding user
           var thisUser = $elm.parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
-          console.log('\tthisUser: '+thisUser);
+          // store the user in .cp-color-picker's data-user attribute
           $UI.attr('data-user', thisUser);
         }
       });
@@ -664,9 +686,9 @@ $(function(){
         positionCallback: function($elm) {
           // $elm is the current trigger that opened the UI
           var $UI = this.$UI; // this is the instance; this.$UI is the colorPicker DOMElement
-          console.log('\n\n\ncolorPicker - positionCallback');
+          // get corresponding user
           var thisUser = $elm.parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
-          console.log('\tthisUser: '+thisUser);
+          // store the user in .cp-color-picker's data-user attribute
           $UI.attr('data-user', thisUser);
         }
       });
