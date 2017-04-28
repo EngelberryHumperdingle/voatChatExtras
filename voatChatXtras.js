@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.13 ');
+// console.log('voat chat extras 0.16.14 ');
 
 // to do:
 // preview name in color while choosing
@@ -577,7 +577,8 @@ $('body').on('mouseup', '.labelOptions .color', function(event) {
 
 $('body').on('mouseup', '.cp-color-picker', function(event) {
   var usr = $(this).attr('data-user');
-  var clr = $('div.chat-message-head a[href="/user/'+usr+'"]').parents('.chat-message-head p').find('.labelOptions .color').val();
+  var obj = $('div.chat-message-head a[href="/user/'+usr+'"]')
+  var clr = obj.parents('.chat-message-head p').find('.labelOptions .color').val();
   //var steezo = 
 
   console.log('usr: '+usr+', clr:'+clr);
