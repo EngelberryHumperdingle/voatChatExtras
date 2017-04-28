@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.19 ');
+// console.log('voat chat extras 0.16.20 ');
 
 // to do:
 // preview name in color while choosing
@@ -380,9 +380,9 @@ $('body').on('click', '.unblockUser', function(e){
 // click label button
 $('body').on('click', 'button.labelUser', function(){
 
-  // get rid of any username preview colors
-  try { $('style#previewColor').remove(); }
-  catch(e) {}
+  // // get rid of any username preview colors
+  // try { $('style#previewColor').remove(); }
+  // catch(e) {}
 
   // show/hide the label options
   $(this).siblings('.labelOptions').toggle(200);
@@ -396,9 +396,9 @@ $('body').on('click', '.labelOptions a', function(){
   // hide the label options
   $(this).parents('.labelOptions').hide(200);
 
-  // get rid of any username preview colors
-  try { $('style#previewColor').remove(); }
-  catch(e) {}
+  // // get rid of any username preview colors
+  // try { $('style#previewColor').remove(); }
+  // catch(e) {}
 
   var theUser = $(this).parents('p').find('a').attr('href').split('/').pop();
   var userColor = $(this).parents('p').find('a').css('color');
@@ -463,9 +463,9 @@ $('body').on('click', '.labelOptions a', function(){
 $('body').on('click', '.addLabel', function(){
   $(this).parents('.labelOptions').hide(200);
 
-  // get rid of any username preview colors
-  try { $('style#previewColor').remove(); }
-  catch(e) {}
+  // // get rid of any username preview colors
+  // try { $('style#previewColor').remove(); }
+  // catch(e) {}
 
   // get label from input
   // remove anything but numbers, letters, and spaces.  make all letters lowercase.  replace all spaces with dashes.
@@ -660,6 +660,16 @@ $(function(){
           var thisUser = $elm.parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
           // store the user in .cp-color-picker's data-user attribute
           $UI.attr('data-user', thisUser);
+        },
+        renderCallback: function($elm, toggled) {
+            // 'this': current colorPicker instance; // instance has all kinds of information about colorPicker such as $UI including dimensions etc...
+            // $elm: the input field or other element that just toggled the colorPicker;
+            // toggle -> 'true': just appeared; 'false': just closed; 'undefined': is rendering
+            if ( !toggled ) {
+              // get rid of any username preview colors
+              try { $('style#previewColor').remove(); }
+              catch(e) {}
+            }
         }
       });
     })
