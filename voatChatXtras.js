@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.15 ');
+// console.log('voat chat extras 0.16.16 ');
 
 // to do:
 // preview name in color while choosing
@@ -563,35 +563,7 @@ $('body').on('keydown','.labelOptions .userLabel, .labelOptions .color, .cp-colo
 });
 
 
-// $('body').on('mouseup', '.labelOptions .color', function(event) {
-//   var usr = $(this).parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
-//   var clr = $(this).val();
-  
-//   //$(this).parents('.chat-message-head p').find('b a').css('color')
-//   if ( $('style#previewColor').length < 1 ) {
-//     // make a new style element with an id of this label
-//     $('head').append( '<style id="previewColor" type="text/css"></style>' );
-//   }
-//   $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
-// });
-
-// $('body').on('mouseup', '.cp-color-picker', function(event) {
-//   var usr = $(this).attr('data-user');
-//   var obj = $('div.chat-message-head a[href="/user/'+usr+'"]')
-//   var clr = obj.parents('.chat-message-head p').find('.labelOptions .color').val();
-//   //var steezo = 
-
-//   console.log('usr: '+usr+', clr:'+clr);
-
-//   // if there's no style element for this label
-//   if ( $('style#previewColor').length < 1 ) {
-//     // make a new style element with an id of this label
-//     $('head').append( '<style id="previewColor" type="text/css"></style>' );
-//   }
-//   $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
-// });
-
-$('.chat-message-head p .labelOptions .color').on( "change", function(){
+$('body').on('mouseup', '.labelOptions .color', function(event) {
   var usr = $(this).parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
   var clr = $(this).val();
   
@@ -602,6 +574,35 @@ $('.chat-message-head p .labelOptions .color').on( "change", function(){
   }
   $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
 });
+
+$('body').on('mouseup', '.cp-color-picker', function(event) {
+  var usr = $(this).attr('data-user');
+  var obj = $('div.chat-message-head a[href="/user/'+usr+'"]')
+  var clr = obj.parents('.chat-message-head p').find('.labelOptions .color').attr('background-color');
+  //var steezo = 
+
+  console.log('usr: '+usr+', clr:'+clr);
+
+  // if there's no style element for this label
+  if ( $('style#previewColor').length < 1 ) {
+    // make a new style element with an id of this label
+    $('head').append( '<style id="previewColor" type="text/css"></style>' );
+  }
+  $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
+});
+
+// $('.chat-message-head .labelOptions .color').on( "change", function(){
+
+//   var usr = $(this).parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
+//   var clr = $(this).val();
+  
+//   //$(this).parents('.chat-message-head p').find('b a').css('color')
+//   if ( $('style#previewColor').length < 1 ) {
+//     // make a new style element with an id of this label
+//     $('head').append( '<style id="previewColor" type="text/css"></style>' );
+//   }
+//   $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
+// });
 
 
 
