@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.20 ');
+// console.log('voat chat extras 0.16.21 ');
 
 // to do:
 // preview name in color while choosing
@@ -575,21 +575,21 @@ $('body').on('mouseup', '.labelOptions .color', function(event) {
   $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
 });
 
-$('body').on('mouseup', '.cp-color-picker, .cp-z-slider, .cp-xy-slider, .cp-white', function(event) {
+// $('body').on('mouseup', '.cp-color-picker, .cp-z-slider, .cp-xy-slider, .cp-white', function(event) {
 
-  var usr = $(this).attr('data-user');
-  var obj = $('div.chat-message-head a[href="/user/'+usr+'"]')
-  var clr = obj.parents('.chat-message-head p').find('.labelOptions .color').mouseup();
+//   var usr = $(this).attr('data-user');
+//   var obj = $('div.chat-message-head a[href="/user/'+usr+'"]')
+//   var clr = obj.parents('.chat-message-head p').find('.labelOptions .color').mouseup();
 
-  // console.log('usr: '+usr+', clr:'+clr);
+//   // console.log('usr: '+usr+', clr:'+clr);
 
-  // // if there's no style element for this label
-  // if ( $('style#previewColor').length < 1 ) {
-  //   // make a new style element with an id of this label
-  //   $('head').append( '<style id="previewColor" type="text/css"></style>' );
-  // }
-  // $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
-});
+//   // // if there's no style element for this label
+//   // if ( $('style#previewColor').length < 1 ) {
+//   //   // make a new style element with an id of this label
+//   //   $('head').append( '<style id="previewColor" type="text/css"></style>' );
+//   // }
+//   // $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
+// });
 
 // $('.chat-message-head .labelOptions .color').on( "change", function(){
 
@@ -603,6 +603,8 @@ $('body').on('mouseup', '.cp-color-picker, .cp-z-slider, .cp-xy-slider, .cp-whit
 //   }
 //   $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
 // });
+
+
 
 
 
