@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.11 ');
+// console.log('voat chat extras 0.16.12 ');
 
 // to do:
 // preview name in color while choosing
@@ -383,6 +383,10 @@ $('body').on('click', 'button.labelUser', function(){
   // get rid of any username preview colors
   try { $('style#previewColor').remove(); }
   catch(e) {}
+
+  // show/hide the label options
+  $(this).siblings('.labelOptions').toggle(200);
+
 });
 
 
