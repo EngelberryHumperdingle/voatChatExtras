@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.21 ');
+// console.log('voat chat extras 0.16.22 ');
 
 // to do:
 // preview name in color while choosing
@@ -184,23 +184,8 @@ function updateLabels(){
             $('head').append( '<style id="'+key+'" type="text/css"></style>' );
           }
 
-          // set bgColor if necessary
-          // from -> http://codeitdown.com/jquery-color-contrast/
-          var rgb = labelLists[key].labelColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
-          var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
-          //console.log('yiq# : '+yiq);
-          var contrastingBackgroundCSS = "";
-          if(yiq >= 85) { 
-            //console.log('\t\t\t this looks good on the dark background'); 
-          }
-          else { 
-            //console.log('\t\t\t this color needs a light background'); 
-            // hard coded color value should be a variable
-            contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px; border-radius: 4px;';
-          }
-
           // add the styles to the page
-          $('style#'+key).html(theListCSS.join(',') + '{color: ' + labelLists[key].labelColor + '; ' + contrastingBackgroundCSS + (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
+          $('style#'+key).html(theListCSS.join(',') + '{color: ' + labelLists[key].labelColor + '; ' + getContrastingBackgroundCSSForThisColor(labelLists[key].labelColor) + (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
 
           if (specialIcon != "") {
             $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; position: absolute; margin-left: 5px; top: 0px; }');
@@ -284,24 +269,8 @@ function labelListLinks() {
     for (var key in labelLists) {
       if (labelLists.hasOwnProperty(key)) {
 
-        // set bgColor if necessary
-        // from -> http://codeitdown.com/jquery-color-contrast/
-        // reduntant code from updateLabels()...
-        var rgb = labelLists[key].labelColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
-        var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
-        // console.log('yiq# : '+yiq);
-        var contrastingBackgroundCSS = "";
-        if(yiq >= 85) { 
-          // console.log('\t\t\t this looks good on the dark background'); 
-        }
-        else { 
-          //bgColor = "rgba(255, 255, 255, 1)"; 
-          // console.log('\t\t\t this color needs a light background'); 
-          contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px; border-radius: 4px;';
-        }
-
         // make a link for each created list
-        labelLinksHTML.push('<a href="javascript:void(0)" class="'+key+'" style="color: '+labelLists[key].labelColor+'; ' + contrastingBackgroundCSS + '">'+key+'</a>');
+        labelLinksHTML.push('<a href="javascript:void(0)" class="'+key+'" style="color: '+labelLists[key].labelColor+'; ' + getContrastingBackgroundCSSForThisColor(labelLists[key].labelColor) + '">'+key+'</a>');
       }
     }  
     return labelLinksHTML.join(' | ');
@@ -318,7 +287,23 @@ function randomRGBColor(){
   return col;
 }
 
-
+function getContrastingBackgroundCSSForThisColor(textColor){
+  // add a light background color if text is too dark
+  // from -> http://codeitdown.com/jquery-color-contrast/
+  var rgb = textColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
+  var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
+  //console.log('yiq# : '+yiq);
+  var contrastingBackgroundCSS = "";
+  if(yiq >= 85) { 
+    //console.log('\t\t\t this looks good on the dark background'); 
+  }
+  else { 
+    //console.log('\t\t\t this color needs a light background'); 
+    // hard coded color value should be a variable
+    contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px; border-radius: 4px;';
+  }  
+  return contrastingBackgroundCSS;
+}
 
 
 
@@ -567,29 +552,28 @@ $('body').on('mouseup', '.labelOptions .color', function(event) {
   var usr = $(this).parents('.chat-message-head p').find('b a').attr('href').split('/').pop();
   var clr = $(this).val();
   
-  //$(this).parents('.chat-message-head p').find('b a').css('color')
   if ( $('style#previewColor').length < 1 ) {
     // make a new style element with an id of this label
     $('head').append( '<style id="previewColor" type="text/css"></style>' );
   }
-  $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
+  $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + '; ' + getContrastingBackgroundCSSForThisColor(clr) + ' }' );
 });
 
-// $('body').on('mouseup', '.cp-color-picker, .cp-z-slider, .cp-xy-slider, .cp-white', function(event) {
+$('body').on('mouseup', '.cp-color-picker, .cp-z-slider, .cp-xy-slider, .cp-white', function(event) {
 
-//   var usr = $(this).attr('data-user');
-//   var obj = $('div.chat-message-head a[href="/user/'+usr+'"]')
-//   var clr = obj.parents('.chat-message-head p').find('.labelOptions .color').mouseup();
+  var usr = $(this).attr('data-user') || $(this).parents('.cp-color-picker').attr('data-user');
+  var obj = $('div.chat-message-head a[href="/user/'+usr+'"]')
+  var clr = obj.parents('.chat-message-head p').find('.labelOptions .color').mouseup();
 
-//   // console.log('usr: '+usr+', clr:'+clr);
+  // console.log('usr: '+usr+', clr:'+clr);
 
-//   // // if there's no style element for this label
-//   // if ( $('style#previewColor').length < 1 ) {
-//   //   // make a new style element with an id of this label
-//   //   $('head').append( '<style id="previewColor" type="text/css"></style>' );
-//   // }
-//   // $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
-// });
+  // // if there's no style element for this label
+  // if ( $('style#previewColor').length < 1 ) {
+  //   // make a new style element with an id of this label
+  //   $('head').append( '<style id="previewColor" type="text/css"></style>' );
+  // }
+  // $('style#previewColor').html( 'div.chat-message-head a[href="/user/'+usr+'"] { color: ' + clr + ' }' );
+});
 
 // $('.chat-message-head .labelOptions .color').on( "change", function(){
 
