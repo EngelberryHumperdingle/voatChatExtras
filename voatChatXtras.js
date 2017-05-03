@@ -1,11 +1,12 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.37 ');
+// console.log('voat chat extras 0.16.38 ');
 
 // to do:
 // √ preview name in color while choosing
 // √ add new message count to page title when away
+// change symbols to image icons
 // add show all labels button
 // optimize code, clean up redundant bits
 
@@ -142,7 +143,7 @@ function updateLabels(){
             // specialIcon = "🐐";
             // specialIcon = "\u265e";
             // specialIcon = "♞";
-            specialIcon = "url('https://i.imgjar.co/jar/kEJSbBMaTkas_hRUhK3LrQ.png')";
+            specialIcon = "url('https://i.imgjar.co/jar/Riae-IrOqU--7iCgLqC1lQ.png')";
             // ♞
             // BLACK CHESS KNIGHT
             // Unicode: U+265E, UTF-8: E2 99 9E
@@ -209,7 +210,10 @@ function updateLabels(){
           $('style#'+key).html(theListCSS.join(',') + '{color: ' + labelLists[key].labelColor + '; ' + getContrastingBackgroundCSSForThisColor(labelLists[key].labelColor) + (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
 
           if (specialIcon != "") {
-            $('style#'+key).append(specialCSS.join(',') + '{content: ' + specialIcon + '; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; position: absolute; margin-left: 5px; top: 0px; }');
+            // $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; position: absolute; margin-left: 5px; top: 0px; }');
+
+            // use images instead of text symbols
+            $('style#'+key).append(specialCSS.join(',') + '{content: ' + specialIcon + ';  position: absolute; top: -2px; right: -20px; }');
           }
 
         }

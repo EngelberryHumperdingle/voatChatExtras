@@ -29,4 +29,9 @@ button.addLabel:hover { background-color: #6E63C0; }
 	display: none; 
 	float: right; 
 	width: 90%; 
-	padding-top: 6px; }
+	padding-top: 6px; 
+}
+
+.chat-message-head p b a:hover {
+	font-family': 'serif';
+}
