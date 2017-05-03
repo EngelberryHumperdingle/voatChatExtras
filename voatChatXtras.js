@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.30 ');
+// console.log('voat chat extras 0.16.31 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -615,7 +615,8 @@ $(window).focus(function() {
     // remove message count from title
     awayFromPage = false;
     newComments = 0;
-    $('head title').html(pageTitle);
+    // $('head title').html(pageTitle);
+    document.title = '(' + newComments + ')' + pageTitle
 });
 
 $(window).blur(function() {
@@ -780,7 +781,8 @@ $(function(){
       // count comments
       newComments++
       // display count in title
-      $('head title').html(pageTitle + '(' + newComments + ')');
+      // $('head title').html('(' + newComments + ')' + pageTitle);
+      document.title = '(' + newComments + ')' + pageTitle;
     }
   });
   
