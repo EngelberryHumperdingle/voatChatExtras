@@ -1,11 +1,11 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.32 ');
+// console.log('voat chat extras 0.16.34 ');
 
 // to do:
 // √ preview name in color while choosing
-// add new message count to page title when away
+// √ add new message count to page title when away
 // add show all labels button
 // optimize code, clean up redundant bits
 
@@ -617,7 +617,7 @@ $(window).focus(function() {
     awayFromPage = false;
     newComments = 0;
     // $('head title').html(pageTitle);
-    document.title = '(' + newComments + ')' + pageTitle
+    document.title = pageTitle;
 });
 
 $(window).blur(function() {
@@ -664,7 +664,7 @@ $(window).blur(function() {
 $(function(){
 
   // get page title
-  pageTitle = $('head title').text;
+  pageTitle = $('head title').text();
 
   // get random color for color picker
   var initialColor = randomRGBColor();
@@ -783,7 +783,7 @@ $(function(){
       newComments++
       // display count in title
       // $('head title').html('(' + newComments + ')' + pageTitle);
-      document.title = '(' + newComments + ')' + pageTitle;
+      document.title = ('(' + newComments + ') ' + pageTitle);
     }
   });
   
