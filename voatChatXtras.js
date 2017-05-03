@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.35 ');
+// console.log('voat chat extras 0.16.36 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -141,7 +141,8 @@ function updateLabels(){
           case "goat" :
             // specialIcon = "🐐";
             // specialIcon = "\u265e";
-            specialIcon = "♞";
+            // specialIcon = "♞";
+            specialIcon = "url('https://i.imgjar.co/jar/kEJSbBMaTkas_hRUhK3LrQ.png')";
             // ♞
             // BLACK CHESS KNIGHT
             // Unicode: U+265E, UTF-8: E2 99 9E
