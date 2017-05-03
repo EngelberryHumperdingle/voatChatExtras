@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.25 ');
+// console.log('voat chat extras 0.16.26 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -115,7 +115,7 @@ function updateBlockList(){
 
 
 function updateLabels(){
-  //console.log('\n updateLabels()');
+  console.log('\n updateLabels()');
 
   // if there are lists
   if (Object.keys(labelLists).length > 0){
@@ -123,7 +123,7 @@ function updateLabels(){
     for (var key in labelLists) {
       if (labelLists.hasOwnProperty(key)) {
 
-        //console.log('looking at label: '+key);
+        console.log('looking at label: '+key);
 
         // hold all the css rules in here
         var theListCSS = [];
@@ -136,8 +136,9 @@ function updateLabels(){
         switch (key) {
           case "bro" :
           case "goat" :
-            // specialIcon = "🐐 &nbsp;";
-            specialIcon = "\u265e";
+            // specialIcon = "🐐";
+            // specialIcon = "\u265e";
+            specialIcon = "♞";
             // ♞
             // BLACK CHESS KNIGHT
             // Unicode: U+265E, UTF-8: E2 99 9E
@@ -148,7 +149,8 @@ function updateLabels(){
           case "jew" :
           case "kike" : 
           case "zionist" :
-            specialIcon = "\u2721";
+            // specialIcon = "\u2721";
+            specialIcon = "✡";
             // ✡
             // STAR OF DAVID
             // Unicode: U+2721, UTF-8: E2 9C A1
@@ -156,7 +158,8 @@ function updateLabels(){
           case "commie" :
           case "communist" :
           case "socialist" :
-            specialIcon = "\u262d";
+            // specialIcon = "\u262d";
+            specialIcon = "☭";
             // ☭
             // HAMMER AND SICKLE
             // Unicode: U+262D, UTF-8: E2 98 AD
@@ -172,7 +175,7 @@ function updateLabels(){
         // if a label object has no users in it's list
         if (labelLists[key].list.length < 1) {
           
-          //console.log('deleting empty list: '+key);
+          console.log('deleting empty list: '+key);
 
           // remove the label
           delete labelLists[key];
@@ -184,7 +187,7 @@ function updateLabels(){
           // make a css rule for each user on the list
           $(labelLists[key].list).each(function(){
 
-            //console.log('adding css rule for: '+this);
+            console.log('adding css rule for: '+this);
             
             theListCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]' );
             if (specialIcon != "") {
@@ -208,13 +211,13 @@ function updateLabels(){
         }
       }
       else {
-        //console.log('key: '+key+' not found in labelLists');
+        console.log('key: '+key+' not found in labelLists');
       }
 
     }  
   }
   else {
-    // console.log('no label lists')
+    console.log('no label lists')
   }
   
   // clear labelLists from localStorage
