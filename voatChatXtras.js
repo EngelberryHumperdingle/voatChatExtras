@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.24 ');
+// console.log('voat chat extras 0.16.25 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -147,7 +147,7 @@ function updateLabels(){
             break;
           case "jew" :
           case "kike" : 
-          case "zionist"
+          case "zionist" :
             specialIcon = "\u2721";
             // ✡
             // STAR OF DAVID
