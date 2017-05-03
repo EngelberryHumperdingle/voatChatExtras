@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.28 ');
+// console.log('voat chat extras 0.16.29 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -115,7 +115,7 @@ function updateBlockList(){
 
 
 function updateLabels(){
-  console.log('\n updateLabels()');
+  // console.log('\n updateLabels()');
 
   // if there are lists
   if (Object.keys(labelLists).length > 0){
@@ -123,7 +123,7 @@ function updateLabels(){
     for (var key in labelLists) {
       if (labelLists.hasOwnProperty(key)) {
 
-        console.log('looking at label: '+key);
+        // console.log('looking at label: '+key);
 
         // hold all the css rules in here
         var theListCSS = [];
@@ -175,7 +175,7 @@ function updateLabels(){
         // if a label object has no users in it's list
         if (labelLists[key].list.length < 1) {
           
-          console.log('deleting empty list: '+key);
+          // console.log('deleting empty list: '+key);
 
           // remove the label
           delete labelLists[key];
@@ -187,7 +187,7 @@ function updateLabels(){
           // make a css rule for each user on the list
           $(labelLists[key].list).each(function(){
 
-            console.log('adding css rule for: '+this);
+            // console.log('adding css rule for: '+this);
             
             theListCSS.push( 'div.chat-message-head a[href="/user/'+this+'"]' );
             if (specialIcon != "") {
@@ -211,13 +211,13 @@ function updateLabels(){
         }
       }
       else {
-        console.log('key: '+key+' not found in labelLists');
+        // console.log('key: '+key+' not found in labelLists');
       }
 
     }  
   }
   else {
-    console.log('no label lists')
+    // console.log('no label lists')
   }
   
   // clear labelLists from localStorage
@@ -246,15 +246,15 @@ function updateLabels(){
 /////////////////////////////////////////////////
 
 function logLabelLists() {
-  console.log('\n logLabelLists()')
+  // console.log('\n logLabelLists()')
   
   if (Object.keys(labelLists).length > 0){
     for (var key in labelLists) {
       if (labelLists.hasOwnProperty(key)) {
 
-        console.log('\t'+key+': '+JSON.stringify(labelLists[key]));
+        // console.log('\t'+key+': '+JSON.stringify(labelLists[key]));
         try { $(labelLists[key].list).each(function(){
-                console.log('\t\t'+this);
+                // console.log('\t\t'+this);
               });
         }
         catch(e){}
@@ -266,9 +266,9 @@ function logLabelLists() {
 /////////////////////////////////////////////////
 
 function updateLabelsInLocalStorage() {
-  console.log('\n updateLabelsInLocalStorage()');
+  // console.log('\n updateLabelsInLocalStorage()');
 
-  console.log('labelLists: ', JSON.stringify(labelLists) );
+  // console.log('labelLists: ', JSON.stringify(labelLists) );
   localStorage.setItem('labelLists', JSON.stringify(labelLists) );
 }
 
@@ -276,7 +276,7 @@ function updateLabelsInLocalStorage() {
 
 function labelListLinks() {
   // returns a string containing a link for each label
-  //console.log('\n labelListLinks()');
+  // console.log('\n labelListLinks()');
 
   var labelLinksHTML = [];
 
@@ -309,13 +309,13 @@ function getContrastingBackgroundCSSForThisColor(textColor){
   // from -> http://codeitdown.com/jquery-color-contrast/
   var rgb = textColor.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
   var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
-  //console.log('yiq# : '+yiq);
+  // console.log('yiq# : '+yiq);
   var contrastingBackgroundCSS = "";
   if(yiq >= 85) { 
-    //console.log('\t\t\t this looks good on the dark background'); 
+    // console.log('\t\t\t this looks good on the dark background'); 
   }
   else { 
-    //console.log('\t\t\t this color needs a light background'); 
+    // console.log('\t\t\t this color needs a light background'); 
     // hard coded color value should be a variable
     contrastingBackgroundCSS = 'background-color: rgba(255,255,255,0.5); display: inline-block; padding: 0 2px; border-radius: 4px;';
   }  
@@ -535,7 +535,7 @@ $('body').on('click', '.addLabel', function(){
       }
 
       // create new label list containing user
-      //console.log('new list: '+ newList +', color: '+ newColor);
+      // console.log('new list: '+ newList +', color: '+ newColor);
       var labelListObject = {};
       labelListObject.labelName = newList;
       labelListObject.labelColor = newColor;
@@ -713,7 +713,7 @@ $(function(){
   if (localStorage.getItem('labelLists') != null) {
     // get label lists from localStorage
     labelLists = JSON.parse(localStorage.getItem('labelLists'));
-    console.log('labelLists JSON: '+JSON.stringify(labelLists));
+    // console.log('labelLists JSON: '+JSON.stringify(labelLists));
 
     updateLabels();
 
@@ -721,7 +721,7 @@ $(function(){
     logLabelLists();
   }
   else {
-    console.log('NO user lists in localStorage');
+    // console.log('NO user lists in localStorage');
   }
 
   //////////////////////////////////////////////////////// 
@@ -760,7 +760,7 @@ $(function(){
     } 
   
     // change the word 'fist' to 'chef'
-    console.log('changing \'fist\' to \'chef\'');
+    // console.log('changing \'fist\' to \'chef\'');
     $('.chat-message-body p').each(function(){
       if ($(this).text().match(/FIST/g)) $(this).html($(this).html().replace(/FIST/g, 'CHEF'));
       if ($(this).text().match(/fist/g)) $(this).html($(this).html().replace(/fist/g, 'chef'));
