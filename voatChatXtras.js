@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.29 ');
+// console.log('voat chat extras 0.16.30 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -46,6 +46,8 @@ var labelLists = {
 };
 var currentColorChoice;
 
+var pageTitle = "";
+var newComments = 0;
 
 
 
@@ -611,11 +613,14 @@ var interval_id;
 $(window).focus(function() {
     // stop counting messages
     // remove message count from title
+    awayFromPage = false;
+    newComments = 0;
+    $('head title').html(pageTitle);
 });
 
 $(window).blur(function() {
     // start counting messages
-    // display count in title
+    awayFromPage = true;
 });
 
 
@@ -655,6 +660,9 @@ $(window).blur(function() {
 
 
 $(function(){
+
+  // get page title
+  pageTitle = $('head title').text;
 
   // get random color for color picker
   var initialColor = randomRGBColor();
@@ -767,6 +775,13 @@ $(function(){
       if ($(this).text().match(/Fist/g)) $(this).html($(this).html().replace(/Fist/g, 'Chef'));
     });
 
+    // update new comment count in page title when away from page
+    if (awayFromPage) {
+      // count comments
+      newComments++
+      // display count in title
+      $('head title').html(pageTitle + '(' + newComments + ')');
+    }
   });
   
 });
