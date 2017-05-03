@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.39 ');
+// console.log('voat chat extras 0.16.40 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -17,7 +17,7 @@
 
 // link style from github
 // $('head').append('<link rel="stylesheet" type="text/css" href="https://rawgit.com/EngelberryHumperdingle/voatChatExtras/master/voatChatXtras.css">');
-$('head').append('<link rel="stylesheet" type="text/css" href="https://rawgit.com/EngelberryHumperdingle/voatChatExtras/6b1292e0c0c16e2210ecb169c3a1304ba009e7d7/voatChatXtras.css">');
+$('head').append('<link rel="stylesheet" type="text/css" href="https://rawgit.com/EngelberryHumperdingle/voatChatExtras/43c74e063084c71d506814aa6de5b88c7c3168b0/voatChatXtras.css">');
 
 
 
