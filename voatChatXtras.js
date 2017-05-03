@@ -1,10 +1,11 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.22 ');
+// console.log('voat chat extras 0.16.23 ');
 
 // to do:
-// preview name in color while choosing
+// √ preview name in color while choosing
+// add new message count to page title when away
 // add show all labels button
 // optimize code, clean up redundant bits
 
@@ -140,6 +141,7 @@ function updateLabels(){
             break;
           case "jew" :
           case "kike" : 
+          case "zionist"
             specialIcon = "✡";
             break;
           case "commie" :
@@ -589,6 +591,29 @@ $('body').on('mouseup', '.cp-color-picker, .cp-z-slider, .cp-xy-slider, .cp-whit
 // });
 
 
+// 
+var interval_id;
+$(window).focus(function() {
+    // stop counting messages
+    // remove message count from title
+});
+
+$(window).blur(function() {
+    // start counting messages
+    // display count in title
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -673,14 +698,15 @@ $(function(){
   if (localStorage.getItem('labelLists') != null) {
     // get label lists from localStorage
     labelLists = JSON.parse(localStorage.getItem('labelLists'));
-    //console.log('labelLists JSON: '+JSON.stringify(labelLists));
+    console.log('labelLists JSON: '+JSON.stringify(labelLists));
 
     updateLabels();
 
-    // logLabelLists();
+    // console
+    logLabelLists();
   }
   else {
-    // console.log('NO user lists in localStorage');
+    console.log('NO user lists in localStorage');
   }
 
   //////////////////////////////////////////////////////// 
