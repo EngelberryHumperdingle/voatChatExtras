@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.26 ');
+// console.log('voat chat extras 0.16.27 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -266,9 +266,9 @@ function logLabelLists() {
 /////////////////////////////////////////////////
 
 function updateLabelsInLocalStorage() {
-  // console.log('\n updateLabelsInLocalStorage()');
+  console.log('\n updateLabelsInLocalStorage()');
 
-  // console.log('labelLists: ', JSON.stringify(labelLists) );
+  console.log('labelLists: ', JSON.stringify(labelLists) );
   localStorage.setItem('labelLists', JSON.stringify(labelLists) );
 }
 
