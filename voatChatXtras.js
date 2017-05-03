@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.36 ');
+// console.log('voat chat extras 0.16.37 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -209,7 +209,7 @@ function updateLabels(){
           $('style#'+key).html(theListCSS.join(',') + '{color: ' + labelLists[key].labelColor + '; ' + getContrastingBackgroundCSSForThisColor(labelLists[key].labelColor) + (specialIcon == "" ? '}' : 'margin-right: 18px; position: relative; }') );
 
           if (specialIcon != "") {
-            $('style#'+key).append(specialCSS.join(',') + '{content: "' + specialIcon + '"; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; position: absolute; margin-left: 5px; top: 0px; }');
+            $('style#'+key).append(specialCSS.join(',') + '{content: ' + specialIcon + '; color: '+specialIconColor+'; font-size: 1.5em; line-height: 0.8em; position: absolute; margin-left: 5px; top: 0px; }');
           }
 
         }
