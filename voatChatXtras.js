@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.27 ');
+// console.log('voat chat extras 0.16.28 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -760,6 +760,7 @@ $(function(){
     } 
   
     // change the word 'fist' to 'chef'
+    console.log('changing \'fist\' to \'chef\'');
     $('.chat-message-body p').each(function(){
       if ($(this).text().match(/FIST/g)) $(this).html($(this).html().replace(/FIST/g, 'CHEF'));
       if ($(this).text().match(/fist/g)) $(this).html($(this).html().replace(/fist/g, 'chef'));
