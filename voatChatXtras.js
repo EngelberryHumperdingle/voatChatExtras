@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.34 ');
+// console.log('voat chat extras 0.16.35 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -767,24 +767,30 @@ $(function(){
       $('.chat-message:last').find('.labels').html( theListOfLabelLinks );
 
       updateBlockList();
+
+      // change the word 'fist' to 'chef'
+      // console.log('changing \'fist\' to \'chef\'');
+      $('.chat-message-body p').each(function(){
+        if ($(this).text().match(/FIST/g)) $(this).html($(this).html().replace(/FIST/g, 'CHEF'));
+        if ($(this).text().match(/fist/g)) $(this).html($(this).html().replace(/fist/g, 'chef'));
+        if ($(this).text().match(/Fist/g)) $(this).html($(this).html().replace(/Fist/g, 'Chef'));
+      });
+
+
+      // update new comment count in page title when away from page
+      if (awayFromPage) {
+        // count new comments
+        newComments++;
+        // display count in title
+        // $('head title').html('(' + newComments + ')' + pageTitle);
+        document.title = ('(' + newComments + ') ' + pageTitle);
+      }
+
+
     } 
   
-    // change the word 'fist' to 'chef'
-    // console.log('changing \'fist\' to \'chef\'');
-    $('.chat-message-body p').each(function(){
-      if ($(this).text().match(/FIST/g)) $(this).html($(this).html().replace(/FIST/g, 'CHEF'));
-      if ($(this).text().match(/fist/g)) $(this).html($(this).html().replace(/fist/g, 'chef'));
-      if ($(this).text().match(/Fist/g)) $(this).html($(this).html().replace(/Fist/g, 'Chef'));
-    });
+    
 
-    // update new comment count in page title when away from page
-    if (awayFromPage) {
-      // count comments
-      newComments++
-      // display count in title
-      // $('head title').html('(' + newComments + ')' + pageTitle);
-      document.title = ('(' + newComments + ') ' + pageTitle);
-    }
   });
   
 });
