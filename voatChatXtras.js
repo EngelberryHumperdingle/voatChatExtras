@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.23 ');
+// console.log('voat chat extras 0.16.24 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -137,17 +137,29 @@ function updateLabels(){
           case "bro" :
           case "goat" :
             // specialIcon = "🐐 &nbsp;";
-            specialIcon = "♞";
+            specialIcon = "\u265e";
+            // ♞
+            // BLACK CHESS KNIGHT
+            // Unicode: U+265E, UTF-8: E2 99 9E
+            // ♘
+            // WHITE CHESS KNIGHT
+            // Unicode: U+2658, UTF-8: E2 99 98
             break;
           case "jew" :
           case "kike" : 
           case "zionist"
-            specialIcon = "✡";
+            specialIcon = "\u2721";
+            // ✡
+            // STAR OF DAVID
+            // Unicode: U+2721, UTF-8: E2 9C A1
             break;
           case "commie" :
           case "communist" :
           case "socialist" :
-            specialIcon = "☭";
+            specialIcon = "\u262d";
+            // ☭
+            // HAMMER AND SICKLE
+            // Unicode: U+262D, UTF-8: E2 98 AD
             specialIconColor = "rgb(200, 0, 0)";
             break;
           case "shill" :
