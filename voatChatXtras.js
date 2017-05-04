@@ -1,12 +1,13 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.40 ');
+// console.log('voat chat extras 0.16.41 ');
 
 // to do:
 // √ preview name in color while choosing
 // √ add new message count to page title when away
-// change symbols to image icons
+// √ change symbols to image icons
+// √ change updateBlockList() to only write to localStorage when a user is blocked/unblocked
 // add show all labels button
 // optimize code, clean up redundant bits
 
@@ -82,19 +83,6 @@ var awayFromPage = false;
 
 
 function updateBlockList(){
-  // show hidden block list if it's not empty
-  if (blockedUserList.length > 0) {
-    $('.blockListDisplay').css('display', 'inline');
-
-    // keep block list in localStorage for later
-    // this should not be done on a fresh page load...
-    localStorage.setItem('blocked', blockedUserList.join(','));
-  }
-  else {
-    // clear block list from localStorage
-    localStorage.removeItem('blocked');
-  }
-
   // clear the array
   blockedUserLinks = [];
   
@@ -143,37 +131,37 @@ function updateLabels(){
           case "bro" :
           case "goat" :
             // specialIcon = "🐐";
-            // specialIcon = "\u265e";
-            // specialIcon = "♞";
             specialIcon = "url('https://i.imgjar.co/jar/Riae-IrOqU--7iCgLqC1lQ.png')";
-            // ♞
-            // BLACK CHESS KNIGHT
-            // Unicode: U+265E, UTF-8: E2 99 9E
-            // ♘
-            // WHITE CHESS KNIGHT
-            // Unicode: U+2658, UTF-8: E2 99 98
             break;
           case "jew" :
           case "kike" : 
-          case "zionist" :
-            // specialIcon = "\u2721";
-            specialIcon = "✡";
-            // ✡
-            // STAR OF DAVID
-            // Unicode: U+2721, UTF-8: E2 9C A1
+          case "zionist" :     
+            // specialIcon = "✡";
+            specialIcon = "url('https://i.imgjar.co/jar/eBw2WivpI0K7VMJkv9G5fw.png')";
+            break;
+          case "muslim" :
+          case "mudslime" :
+            // specialIcon = "☪";
+            specialIcon = "url('https://i.imgjar.co/jar/TBl4jwUn5E-0_vPBFbqTmQ.png')";
+            break;
+          case "christian" :
+          // specialIcon = "✝";
+            specialIcon = "url('https://i.imgjar.co/jar/1gAS_CNkAEGlHDxMxVmhKA.png')";
+            break;
+          case "nazi" :
+          case "socialist" :
+          // specialIcon = "卐";
+            specialIcon = "url('https://i.imgjar.co/jar/IVD3cfJwzkuyVGKzru0u5A.png')";
             break;
           case "commie" :
           case "communist" :
-          case "socialist" :
-            // specialIcon = "\u262d";
-            specialIcon = "☭";
-            // ☭
-            // HAMMER AND SICKLE
-            // Unicode: U+262D, UTF-8: E2 98 AD
-            specialIconColor = "rgb(200, 0, 0)";
+            // specialIcon = "☭";
+            // specialIconColor = "rgb(200, 0, 0)";
+            specialIcon = "url('https://i.imgjar.co/jar/qn3pvlHPzUOeZ_ATXBy_zQ.png')";
             break;
           case "shill" :
-            specialIcon = "$";
+            // specialIcon = "$";
+            specialIcon = "url('https://i.imgjar.co/jar/lb1x83KO-U-E9T6yzI3LfQ.png')";
             break;
           default :
             // no special icon
@@ -366,6 +354,13 @@ $('body').on('click', 'button.blockUser', function(){
   var theUser = $(this).parent('p').find('a').attr('href').split('/').pop();
   blockedUserList.push( theUser );
   
+  
+  $('.blockListDisplay').css('display', 'inline');
+
+  // keep block list in localStorage for later
+  localStorage.setItem('blocked', blockedUserList.join(','));
+  
+
   updateBlockList();
     
 });
@@ -381,6 +376,12 @@ $('body').on('click', '.unblockUser', function(e){
   // remove from links array
   blockedUserLinks.splice(blockedUserLinks.indexOf(this), 1);
   
+  // show hidden block list if it's not empty
+  if (blockedUserList.length <= 0) {
+    // clear block list from localStorage
+    localStorage.removeItem('blocked');
+  }
+
   updateBlockList();
 
   // if there are no users on the block list, hide it
