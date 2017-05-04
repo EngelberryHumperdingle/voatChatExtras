@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.41 ');
+// console.log('voat chat extras 0.16.43 ');
 
 // to do:
 // √ preview name in color while choosing
