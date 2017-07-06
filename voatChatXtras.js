@@ -322,6 +322,7 @@ function getContrastingBackgroundCSSForThisColor(textColor){
 
 
 function insertHR(){
+  alert('insertHR()');
   $('#subverseChatRoom').append('<hr>');
 }
 
