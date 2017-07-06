@@ -1,13 +1,15 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.43 ');
+// console.log('voat chat extras 0.16.45 ');
 
 // to do:
 // √ preview name in color while choosing
 // √ add new message count to page title when away
 // √ change symbols to image icons
 // √ change updateBlockList() to only write to localStorage when a user is blocked/unblocked
+// √ add <hr> after last comment on Blur
+// add alert button for each user to play a sound if user comments while screen is blurred
 // add show all labels button
 // optimize code, clean up redundant bits
 
@@ -321,10 +323,6 @@ function getContrastingBackgroundCSSForThisColor(textColor){
 }
 
 
-function insertHR(){
-  alert('insertHR()');
-  $('#subverseChatRoom').append('<hr>');
-}
 
 
 
@@ -634,7 +632,7 @@ $(window).focus(function() {
 $(window).blur(function() {
     // start counting messages
     awayFromPage = true;
-    insertHR();
+    $('#subverseChatRoom').append('<hr>');
 });
 
 
