@@ -321,7 +321,9 @@ function getContrastingBackgroundCSSForThisColor(textColor){
 }
 
 
-
+function insertHR(){
+  $('#subverseChatRoom').append('<hr>');
+}
 
 
 
@@ -631,6 +633,7 @@ $(window).focus(function() {
 $(window).blur(function() {
     // start counting messages
     awayFromPage = true;
+    insertHR();
 });
 
 
