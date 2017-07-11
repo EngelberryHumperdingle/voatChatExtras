@@ -1,7 +1,7 @@
 // voatChatXtras.js
 // https://voat.co/user/EngelbertHumperdinck
 
-// console.log('voat chat extras 0.16.45 ');
+// console.log('voat chat extras 0.16.46 ');
 
 // to do:
 // √ preview name in color while choosing
@@ -632,6 +632,7 @@ $(window).focus(function() {
 $(window).blur(function() {
     // start counting messages
     awayFromPage = true;
+    $('#subverseChatRoom hr').remove();
     $('#subverseChatRoom').append('<hr>');
 });
 
